@@ -1,11 +1,13 @@
 import React from "react";
-import Calculator from "./components/Calculator/Calculator";
-import "./styles/calculator.css"
+import Homepage from "./components/Homepage";
+import Weather from "./components/Weather-App";
+import "./styles/calculator.css";
 
 export default function App(){
     return (
         <>
-         <Calculator />
+         <Homepage />
+         <Weather />
         </>
     )
 }

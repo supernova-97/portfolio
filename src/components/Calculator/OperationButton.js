@@ -1,4 +1,4 @@
-import { ACTIONS } from "./Calculator" 
+import { ACTIONS } from "." 
 
 export default function OperationButton({ dispatch, operation }){
     return(
