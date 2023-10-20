@@ -8,9 +8,9 @@ export default function Homepage(){
          <h1>Welcome!</h1>
          <h2>To the place where I collect all my projects.</h2>
          <nav>
-            <a href="#">Home</a>
-            <a href="#">Calculator</a>
-            <a href="#">Weather Forecast</a>
+            <p>Home</p>
+            <p>Calculator</p>
+            <p>Weather Forecast</p>
          </nav>
         </>
     )
