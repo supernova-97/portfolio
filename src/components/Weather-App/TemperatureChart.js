@@ -9,7 +9,7 @@ export default function TemperatureChart({ weatherData }) {
 
   const minTemp = Math.floor(Math.min(...weatherData.hourly.temperature_2m));
   const maxTemp = Math.ceil(Math.max(...weatherData.hourly.temperature_2m));
-console.log(weatherData)
+  console.log(weatherData);
   useEffect(() => {
     const ctx = document.getElementById("myChart");
 
@@ -21,7 +21,7 @@ console.log(weatherData)
       type: "line",
       data: {
         labels: [
-          "24:00",
+          "00:00",
           "01:00",
           "02:00",
           "03:00",
@@ -97,8 +97,9 @@ const TempChart = styled.div`
   height: 250px;
   display: relative;
   padding: 10px;
-  border: 2px solid black;
+  border: 1px solid black;
   border-radius: 10px;
+  box-shadow: -3px 3px 7px 0px #aaa;
 `;
 
 const ChartWrapper = styled.div`

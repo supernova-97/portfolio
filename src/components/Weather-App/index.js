@@ -3,12 +3,12 @@ import Clock from "./Clock";
 import TemperatureChart from "./TemperatureChart";
 import { weatherDesc, weatherIcons } from "./Data";
 import styled from "styled-components";
-import sun from "../../icons/01d.png";
-import cloud from "../../icons/02.png";
-import cloud2 from "../../icons/03.png";
-import rain from "../../icons/04.png";
-import rain2 from "../../icons/05.png";
-import thunder from "../../icons/06.png";
+import sun from "../../icons/sun.png";
+import cloud from "../../icons/cloud.png";
+import cloud2 from "../../icons/cloud2.png";
+import rain from "../../icons/rain.png";
+import rain2 from "../../icons/rain2.png";
+import thunder from "../../icons/thunder.png";
 
 export default function Weather({ data, error, isLoading }) {
   if (isLoading) {
@@ -21,19 +21,39 @@ export default function Weather({ data, error, isLoading }) {
     return <h2>Could not fetch any data</h2>;
   }
 
-  const weather = weatherDesc(data.current.weathercode)
-  const icon = weatherIcons(data.current.weathercode)
-  const icons = {"01d": sun, "02": cloud, "03": cloud2, "04": rain, "05": rain2, "06": thunder };
+  const weather = weatherDesc(data.current.weathercode);
+  console.log("weather", weather);
+
+  const icons = {
+    sunny: sun,
+    cloudy: cloud,
+    "partially cloudy": cloud2,
+    rainy: rain,
+    "heavy rain": rain2,
+    thunder: thunder,
+  };
+  console.log("test", icons[weather]);
 
   return (
     <>
+      <StyledHeading>Get the weather here!</StyledHeading>
       <Wrapper>
-        <StyledHeading>Get the weather here!</StyledHeading>
         <Clock />
         <CardWrapper>
-          <City>{data.timezone}</City>
-          <Desc>{weather}</Desc>
-          <img src={icons[icon]} alt="weather code" height="50px" width="50px" />
+          <Top>
+            <TopHeader>
+              <City>{data.timezone}</City>
+              <Desc>{weather}</Desc>
+            </TopHeader>
+            <ImgWrapper>
+              <img
+                src={icons[weather]}
+                alt="weather code"
+                height="70px"
+                width="70px"
+              />
+            </ImgWrapper>
+          </Top>
           <Bottom>
             <Temp>
               {data.current.temperature_2m}
@@ -65,8 +85,9 @@ export default function Weather({ data, error, isLoading }) {
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
 `;
 
 const CardWrapper = styled.div`
@@ -74,9 +95,23 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid #000;
-  box-shadow: -3px 3px 7px 0px #AAA;
+  box-shadow: -3px 3px 7px 0px #aaa;
   border-radius: 5px;
   padding: 10px;
+`;
+
+const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const TopHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ImgWrapper = styled.div`
+  display: flex;
 `;
 
 const StyledHeading = styled.h1`
@@ -118,7 +153,7 @@ const Desc = styled.p`
 const Bottom = styled.div`
   display: flex;
   align-items: flex-end;
-  margin-top: 30px;
+  margin-top: 15px;
 `;
 
 const DetailsWrapper = styled.div`
