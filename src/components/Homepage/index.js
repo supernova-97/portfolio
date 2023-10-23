@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../../styles/homepage.css";
 import styled from "styled-components";
 
@@ -6,11 +7,6 @@ import styled from "styled-components";
 export default function Homepage() {
   return (
     <>
-      <Nav>
-        <Link>Home</Link>
-        <Link>Calculator</Link>
-        <Link>Weather Forecast</Link>
-      </Nav>
       <Wrapper>
         <h1>Welcome!</h1>
         <h2>To the place where I collect all my projects.</h2>
@@ -32,7 +28,7 @@ const Nav = styled.nav`
   border-bottom: 1px solid black;
 `;
 
-const Link = styled.a`
-  margin: 5px;
-  text-decoration: underline;
-`;
+// const StyledLink = styled.Link`
+//   margin: 5px;
+//   text-decoration: underline;
+// `;

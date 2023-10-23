@@ -1,7 +1,7 @@
 import React from "react";
 import Clock from "./Clock";
 import TemperatureChart from "./TemperatureChart";
-import { weatherDesc, weatherIcons } from "./Data";
+import { weatherDesc } from "./Data";
 import styled from "styled-components";
 import sun from "../../icons/sun.png";
 import cloud from "../../icons/cloud.png";
