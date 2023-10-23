@@ -1,4 +1,5 @@
 import React from "react";
+import useSWR from "swr";
 import Clock from "./Clock";
 import TemperatureChart from "./TemperatureChart";
 import { weatherDesc } from "./Data";
@@ -10,7 +11,15 @@ import rain from "../../icons/rain.png";
 import rain2 from "../../icons/rain2.png";
 import thunder from "../../icons/thunder.png";
 
-export default function Weather({ data, error, isLoading }) {
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+export default function Weather() {
+
+  const { data, error, isLoading } = useSWR(
+    "https://api.open-meteo.com/v1/forecast?latitude=52.5244&longitude=13.4105&current=temperature_2m,apparent_temperature,is_day,rain,weathercode,cloudcover,windspeed_10m,winddirection_10m&hourly=temperature_2m,apparent_temperature,weathercode,cloudcover&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&timezone=Europe%2FBerlin&forecast_days=1",
+    fetcher
+  );
+
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
