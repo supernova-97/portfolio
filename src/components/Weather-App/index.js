@@ -1,8 +1,14 @@
 import React from "react";
 import Clock from "./Clock";
 import TemperatureChart from "./TemperatureChart";
+import { weatherDesc, weatherIcons } from "./Data";
 import styled from "styled-components";
-import ErrorBoundary from "../ErrorBoundary";
+import sun from "../../icons/01d.png";
+import cloud from "../../icons/02.png";
+import cloud2 from "../../icons/03.png";
+import rain from "../../icons/04.png";
+import rain2 from "../../icons/05.png";
+import thunder from "../../icons/06.png";
 
 export default function Weather({ data, error, isLoading }) {
   if (isLoading) {
@@ -15,41 +21,45 @@ export default function Weather({ data, error, isLoading }) {
     return <h2>Could not fetch any data</h2>;
   }
 
+  const weather = weatherDesc(data.current.weathercode)
+  const icon = weatherIcons(data.current.weathercode)
+  const icons = {"01d": sun, "02": cloud, "03": cloud2, "04": rain, "05": rain2, "06": thunder };
+
   return (
-    <Wrapper>
-      <StyledHeading>Get the weather here!</StyledHeading>
-      <Clock />
-      <CardWrapper>
-        <City>{data.timezone}</City>
-        <Desc>Sunny</Desc>
-        <Bottom>
-          <Temp>
-            {data.current.temperature_2m}
-            {data.current_units.temperature_2m}
-          </Temp>
-          <Details>
-            <DetailsWrapper>
-              <DetailsLabel>Feels like:</DetailsLabel>
-              <DetailsValue>
-                {data.current.apparent_temperature}
-                {data.current_units.apparent_temperature}
-              </DetailsValue>
-            </DetailsWrapper>
-            <DetailsWrapper>
-              <DetailsLabel>Rain:</DetailsLabel>
-              <DetailsValue>
-                {data.current.rain}
-                {data.current_units.rain}
-              </DetailsValue>
-            </DetailsWrapper>
-          </Details>
-        </Bottom>
-      </CardWrapper>
-      <ErrorBoundary>
-        <TemperatureChart weatherData={data}/>
-      </ErrorBoundary>
-      
-    </Wrapper>
+    <>
+      <Wrapper>
+        <StyledHeading>Get the weather here!</StyledHeading>
+        <Clock />
+        <CardWrapper>
+          <City>{data.timezone}</City>
+          <Desc>{weather}</Desc>
+          <img src={icons[icon]} alt="weather code" height="50px" width="50px" />
+          <Bottom>
+            <Temp>
+              {data.current.temperature_2m}
+              {data.current_units.temperature_2m}
+            </Temp>
+            <Details>
+              <DetailsWrapper>
+                <DetailsLabel>Feels like:</DetailsLabel>
+                <DetailsValue>
+                  {data.current.apparent_temperature}
+                  {data.current_units.apparent_temperature}
+                </DetailsValue>
+              </DetailsWrapper>
+              <DetailsWrapper>
+                <DetailsLabel>Rain:</DetailsLabel>
+                <DetailsValue>
+                  {data.current.rain}
+                  {data.current_units.rain}
+                </DetailsValue>
+              </DetailsWrapper>
+            </Details>
+          </Bottom>
+        </CardWrapper>
+      </Wrapper>
+      <TemperatureChart weatherData={data} />
+    </>
   );
 }
 
@@ -63,7 +73,8 @@ const CardWrapper = styled.div`
   width: 40%;
   display: flex;
   flex-direction: column;
-  border: 2px solid #000;
+  border: 1px solid #000;
+  box-shadow: -3px 3px 7px 0px #AAA;
   border-radius: 5px;
   padding: 10px;
 `;
