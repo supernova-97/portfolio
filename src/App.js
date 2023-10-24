@@ -3,6 +3,7 @@ import { Route, Routes, Link } from "react-router-dom";
 import Homepage from "./components/Homepage";
 import Calculator from "./components/Calculator";
 import Weather from "./components/Weather-App";
+import ToDo from "./components/To-Do";
 import styled from "styled-components";
 
 export default function App() {
@@ -13,11 +14,13 @@ export default function App() {
         <Link to="/">Home</Link>
         <Link to="/calculator">Calculator</Link>
         <Link to="/weather">Weather Forecast</Link>
+        <Link to="/todo">ToDo List</Link>
       </Nav>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/calculator" element={<Calculator />} />
         <Route path="/weather" element={<Weather />} />
+        <Route path="/todo" element={<ToDo />} />
       </Routes>
     </>
   );
