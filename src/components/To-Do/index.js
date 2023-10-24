@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import { useState } from "react";
 import Todo from "./Todo";
+import styled from "styled-components";
 
 export const TODO_ACTIONS = {
   ADD_TODO: "add-todo",
@@ -41,16 +42,29 @@ export default function ToDo() {
   return (
     <>
       <h1>To-do list:</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={todo}
-          onChange={(e) => setTodo(e.target.value)}
-        />
-      </form>
-      {tasks.map((task) => {
-        return <Todo key={task.id} todo={task} dispatch={dispatch} />;
-      })}
+      <Wrapper>
+        <form onSubmit={handleSubmit}>
+          <Input
+            type="text"
+            value={todo}
+            onChange={(e) => setTodo(e.target.value)}
+          />
+        </form>
+        {tasks.map((task) => {
+          return <Todo key={task.id} todo={task} dispatch={dispatch} />;
+        })}
+      </Wrapper>
     </>
   );
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Input = styled.input`
+ height: 20px;
+ margin-bottom: 20px;
+`

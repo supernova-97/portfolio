@@ -5,6 +5,7 @@ import Calculator from "./components/Calculator";
 import Weather from "./components/Weather-App";
 import ToDo from "./components/To-Do";
 import styled from "styled-components";
+import Test from "./components/Test/Test";
 
 export default function App() {
   
@@ -15,12 +16,14 @@ export default function App() {
         <Link to="/calculator">Calculator</Link>
         <Link to="/weather">Weather Forecast</Link>
         <Link to="/todo">ToDo List</Link>
+        <Link to="/test">Test</Link>
       </Nav>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/calculator" element={<Calculator />} />
         <Route path="/weather" element={<Weather />} />
         <Route path="/todo" element={<ToDo />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </>
   );
