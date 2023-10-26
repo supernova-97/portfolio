@@ -8,7 +8,7 @@ import styled from "styled-components";
 import Test from "./components/Test/Test";
 
 export default function App() {
-  
+
   return (
     <>
       <Nav>
@@ -30,7 +30,9 @@ export default function App() {
 }
 
 const Nav = styled.nav`
+  width: 100%;
   display: flex;
-  margin: 15px;
   border-bottom: 1px solid black;
+  background-color: #dbe2ef;
+  border-radius: 0 0 10px 10px;
 `;

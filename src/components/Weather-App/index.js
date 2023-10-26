@@ -14,7 +14,6 @@ import thunder from "../../icons/thunder.png";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Weather() {
-
   const { data, error, isLoading } = useSWR(
     "https://api.open-meteo.com/v1/forecast?latitude=52.5244&longitude=13.4105&current=temperature_2m,apparent_temperature,is_day,rain,weathercode,cloudcover,windspeed_10m,winddirection_10m&hourly=temperature_2m,apparent_temperature,weathercode,cloudcover&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&timezone=Europe%2FBerlin&forecast_days=1",
     fetcher
@@ -31,7 +30,7 @@ export default function Weather() {
   }
 
   const weather = weatherDesc(data.current.weathercode);
-  console.log("weather", weather);
+
 
   const icons = {
     sunny: sun,
@@ -41,13 +40,13 @@ export default function Weather() {
     "heavy rain": rain2,
     thunder: thunder,
   };
-  console.log("test", icons[weather]);
+
 
   return (
-    <>
+    <Body>
       <StyledHeading>Get the weather here!</StyledHeading>
+      <Clock />
       <Wrapper>
-        <Clock />
         <CardWrapper>
           <Top>
             <TopHeader>
@@ -88,9 +87,15 @@ export default function Weather() {
         </CardWrapper>
       </Wrapper>
       <TemperatureChart weatherData={data} />
-    </>
+    </Body>
   );
 }
+
+const Body = styled.body`
+  background-color: #fff;
+  color: #000;
+  height: 100vh;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -100,11 +105,12 @@ const Wrapper = styled.div`
 `;
 
 const CardWrapper = styled.div`
+  background-color: #ffffff20;
   width: 40%;
   display: flex;
   flex-direction: column;
   border: 1px solid #000;
-  box-shadow: -3px 3px 7px 0px #aaa;
+  box-shadow: -3px 3px 7px 0px #000;
   border-radius: 5px;
   padding: 10px;
 `;
@@ -168,3 +174,5 @@ const Bottom = styled.div`
 const DetailsWrapper = styled.div`
   display: flex;
 `;
+
+
