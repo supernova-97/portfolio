@@ -44,7 +44,8 @@ export default function Weather() {
   console.log("test", icons[weather]);
 
   return (
-    <>
+    <body>
+      <main>
       <StyledHeading>Get the weather here!</StyledHeading>
       <Wrapper>
         <Clock />
@@ -58,8 +59,8 @@ export default function Weather() {
               <img
                 src={icons[weather]}
                 alt="weather code"
-                height="70px"
-                width="70px"
+                height="100px"
+                width="100px"
               />
             </ImgWrapper>
           </Top>
@@ -88,7 +89,8 @@ export default function Weather() {
         </CardWrapper>
       </Wrapper>
       <TemperatureChart weatherData={data} />
-    </>
+      </main>
+    </body>
   );
 }
 

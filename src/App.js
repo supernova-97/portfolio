@@ -7,15 +7,27 @@ import ToDo from "./components/To-Do";
 import styled from "styled-components";
 
 export default function App() {
-  
   return (
     <>
-      <Nav>
-        <Link to="/">Home</Link>
-        <Link to="/calculator">Calculator</Link>
-        <Link to="/weather">Weather Forecast</Link>
-        <Link to="/todo">ToDo List</Link>
-      </Nav>
+      <nav>
+        <NavList>
+          <li>
+            <NavbarLink to="/">Home</NavbarLink>
+          </li>
+          <li>
+            <NavbarLink to="/calculator">Calculator</NavbarLink>
+          </li>
+          <li>
+            <NavbarLink to="/weather">Weather Forecast</NavbarLink>
+          </li>
+          <li>
+            <NavbarLink to="/todo">ToDo List</NavbarLink>
+          </li>
+          <li>
+            <NavbarLink to="/test">Test</NavbarLink>
+          </li>
+        </NavList>
+      </nav>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/calculator" element={<Calculator />} />
@@ -26,8 +38,16 @@ export default function App() {
   );
 }
 
-const Nav = styled.nav`
+const NavList = styled.ul`
+  position: fixed;
+  width: 5rem;
+  height: 100vh;
   display: flex;
-  margin: 15px;
-  border-bottom: 1px solid black;
+  flex-direction: column;
+  background-color: #000;
+  padding: 0px;
+`;
+
+const NavbarLink = styled(Link)`
+  color: white;
 `;

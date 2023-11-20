@@ -39,7 +39,7 @@ export default function ToDo() {
   }
   console.log(tasks);
   return (
-    <>
+    <main>
       <h1>To-do list:</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -51,6 +51,6 @@ export default function ToDo() {
       {tasks.map((task) => {
         return <Todo key={task.id} todo={task} dispatch={dispatch} />;
       })}
-    </>
+    </main>
   );
 }
