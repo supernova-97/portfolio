@@ -52,6 +52,7 @@ export default function TemperatureChart({ weatherData }) {
             data: temps,
             borderColor: "#4B527E",
             backgroundColor: "#7C81AD",
+            color: "#000",
           },
         ],
       },
@@ -60,6 +61,9 @@ export default function TemperatureChart({ weatherData }) {
         maintainAspectRatio: false,
         scales: {
           y: {
+            ticks: {
+              color: "#000"
+            },
             min: minTemp - 5,
             max: maxTemp + 5,
             grid: {
@@ -67,6 +71,11 @@ export default function TemperatureChart({ weatherData }) {
               drawBorder: false,
             },
           },
+          x: {
+            ticks: {
+              color: "#000"
+            },
+          }
         },
         layout: {
           autoPadding: true,
@@ -86,7 +95,7 @@ export default function TemperatureChart({ weatherData }) {
   return (
     <ChartWrapper>
       <TempChart>
-        <canvas id="myChart"></canvas>
+        <Canvas id="myChart"></Canvas>
       </TempChart>
     </ChartWrapper>
   );
@@ -96,10 +105,10 @@ const TempChart = styled.div`
   width: 60%;
   height: 250px;
   display: relative;
-  padding: 10px;
+  padding: 0;
   border: 1px solid black;
-  border-radius: 10px;
-  box-shadow: -3px 3px 7px 0px #aaa;
+  border-radius: 5px;
+  box-shadow: -3px 3px 7px 0px #000;
 `;
 
 const ChartWrapper = styled.div`
@@ -107,3 +116,8 @@ const ChartWrapper = styled.div`
   justify-content: center;
   margin: 25px;
 `;
+
+const Canvas = styled.canvas`
+ color: white;
+ background-color: #ffffff20;
+`

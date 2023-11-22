@@ -24,12 +24,13 @@ function Clock() {
 export default Clock;
 
 const StyledClock = styled.h2`
+background-color: #ffffff20;
   border: 2px solid black;
   border-radius: 5px;
   padding: 10px;
   margin: 30px;
   width: fit-content;
-  box-shadow: -4px 5px 11px 0px #d7d7d7;
+  box-shadow: -4px 5px 11px 0px #000;
 `;
 
 const Wrapper = styled.div`

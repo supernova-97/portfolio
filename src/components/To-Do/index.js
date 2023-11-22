@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import { useState } from "react";
 import Todo from "./Todo";
+import styled from "styled-components";
 
 export const TODO_ACTIONS = {
   ADD_TODO: "add-todo",
@@ -54,3 +55,20 @@ export default function ToDo() {
     </main>
   );
 }
+
+const Header = styled.h1`
+  margin: 30px;
+`
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Input = styled.input`
+ height: 20px;
+ margin-bottom: 20px;
+ padding: 5px;
+ border: 2px solid black;
+ border-radius: 10px;
+`

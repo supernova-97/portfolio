@@ -51,11 +51,13 @@ export default function App() {
           </ListItem>
         </NavList>
       </nav>
+
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/calculator" element={<Calculator />} />
         <Route path="/weather" element={<Weather />} />
         <Route path="/todo" element={<ToDo />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </>
   );
@@ -134,4 +136,11 @@ const Div = styled.div`
   display: flex;
   margin-bottom: 10px;
   align-items: center;
+  
+const Nav = styled.nav`
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid black;
+  background-color: #dbe2ef;
+  border-radius: 0 0 10px 10px;
 `;
