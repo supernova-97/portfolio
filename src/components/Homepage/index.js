@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "../../styles/homepage.css";
 import styled from "styled-components";
 
@@ -22,13 +21,3 @@ const Wrapper = styled.div`
   margin-bottom: 30px;
 `;
 
-const Nav = styled.nav`
-  display: flex;
-  margin: 15px;
-  border-bottom: 1px solid black;
-`;
-
-// const StyledLink = styled.Link`
-//   margin: 5px;
-//   text-decoration: underline;
-// `;

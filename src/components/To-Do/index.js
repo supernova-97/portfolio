@@ -38,23 +38,21 @@ export default function ToDo() {
     dispatch({ type: TODO_ACTIONS.ADD_TODO, payload: { todo: todo } });
     setTodo("");
   }
-  console.log(tasks);
+
   return (
-    <>
-      <Wrapper>
-      <Header>To-do list:</Header>
-        <form onSubmit={handleSubmit}>
-          <Input
-            type="text"
-            value={todo}
-            onChange={(e) => setTodo(e.target.value)}
-          />
-        </form>
-        {tasks.map((task) => {
-          return <Todo key={task.id} todo={task} dispatch={dispatch} />;
-        })}
-      </Wrapper>
-    </>
+    <main>
+      <h1>To-do list:</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={todo}
+          onChange={(e) => setTodo(e.target.value)}
+        />
+      </form>
+      {tasks.map((task) => {
+        return <Todo key={task.id} todo={task} dispatch={dispatch} />;
+      })}
+    </main>
   );
 }
 

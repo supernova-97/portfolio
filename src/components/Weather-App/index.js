@@ -31,7 +31,6 @@ export default function Weather() {
 
   const weather = weatherDesc(data.current.weathercode);
 
-
   const icons = {
     "sunny": sun,
     "cloudy": cloud,
@@ -41,9 +40,9 @@ export default function Weather() {
     "thunder": thunder,
   };
 
-
   return (
-    <Body>
+    <body>
+      <main>
       <StyledHeading>Get the weather here!</StyledHeading>
       <Clock />
       <Wrapper>
@@ -57,8 +56,8 @@ export default function Weather() {
               <img
                 src={icons[weather]}
                 alt="weather code"
-                height="70px"
-                width="70px"
+                height="100px"
+                width="100px"
               />
             </ImgWrapper>
           </Top>
@@ -87,7 +86,8 @@ export default function Weather() {
         </CardWrapper>
       </Wrapper>
       <TemperatureChart weatherData={data} />
-    </Body>
+      </main>
+    </body>
   );
 }
 
