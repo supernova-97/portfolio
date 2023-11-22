@@ -8,8 +8,8 @@ export default function Homepage() {
   return (
     <>
       <Wrapper>
-        <h1>Welcome!</h1>
-        <h2>To the place where I collect all my projects.</h2>
+        <h1>Felix Buyni</h1>
+        <h2>Front End Developer</h2>
       </Wrapper>
     </>
   );
