@@ -31,7 +31,6 @@ export default function Weather() {
   }
 
   const weather = weatherDesc(data.current.weathercode);
-  console.log("weather", weather);
 
   const icons = {
     sunny: sun,
@@ -41,7 +40,6 @@ export default function Weather() {
     "heavy rain": rain2,
     thunder: thunder,
   };
-  console.log("test", icons[weather]);
 
   return (
     <body>

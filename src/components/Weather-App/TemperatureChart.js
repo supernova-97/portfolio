@@ -9,7 +9,7 @@ export default function TemperatureChart({ weatherData }) {
 
   const minTemp = Math.floor(Math.min(...weatherData.hourly.temperature_2m));
   const maxTemp = Math.ceil(Math.max(...weatherData.hourly.temperature_2m));
-  console.log(weatherData);
+
   useEffect(() => {
     const ctx = document.getElementById("myChart");
 

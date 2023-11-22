@@ -37,7 +37,7 @@ export default function ToDo() {
     dispatch({ type: TODO_ACTIONS.ADD_TODO, payload: { todo: todo } });
     setTodo("");
   }
-  console.log(tasks);
+
   return (
     <main>
       <h1>To-do list:</h1>
