@@ -33,12 +33,12 @@ export default function Weather() {
 
 
   const icons = {
-    sunny: sun,
-    cloudy: cloud,
+    "sunny": sun,
+    "cloudy": cloud,
     "partially cloudy": cloud2,
-    rainy: rain,
+    "rainy": rain,
     "heavy rain": rain2,
-    thunder: thunder,
+    "thunder": thunder,
   };
 
 

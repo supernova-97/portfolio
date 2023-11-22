@@ -41,8 +41,8 @@ export default function ToDo() {
   console.log(tasks);
   return (
     <>
-      <h1>To-do list:</h1>
       <Wrapper>
+      <Header>To-do list:</Header>
         <form onSubmit={handleSubmit}>
           <Input
             type="text"
@@ -58,6 +58,9 @@ export default function ToDo() {
   );
 }
 
+const Header = styled.h1`
+  margin: 30px;
+`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -67,4 +70,7 @@ const Wrapper = styled.div`
 const Input = styled.input`
  height: 20px;
  margin-bottom: 20px;
+ padding: 5px;
+ border: 2px solid black;
+ border-radius: 10px;
 `
