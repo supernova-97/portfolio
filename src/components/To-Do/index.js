@@ -40,19 +40,19 @@ export default function ToDo() {
   }
 
   return (
-    <main>
-      <h1>To-do list:</h1>
+    <Wrapper>
+      <Header>To-do list:</Header>
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
           type="text"
           value={todo}
           onChange={(e) => setTodo(e.target.value)}
         />
-      </form>
+        </form>
       {tasks.map((task) => {
         return <Todo key={task.id} todo={task} dispatch={dispatch} />;
       })}
-    </main>
+    </Wrapper>
   );
 }
 

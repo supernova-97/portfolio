@@ -60,7 +60,7 @@
 /* calculator */
 
 .calculator-body {
-  background: linear-gradient(to right, #e393db, #dbcd93);
+  /* background: linear-gradient(to right, #e393db, #dbcd93); */
   width: 100%;
   height: 100%;
   display: flex;
@@ -80,8 +80,9 @@
 
 .output {
   grid-column: 1 / -1;
+  margin-bottom: 10px;
   display: flex;
-  background-color: #ffffff80;
+  background-color: #97daff8a;
   border-radius: 5px;
   word-wrap: break-word;
   word-break: break-all;
@@ -104,7 +105,7 @@
   margin: 1px;
   border: 2px solid #00000073;
   border-radius: 5px;
-  background-color: #ffffff50;
+  background-color: #00f8ff4a;
   cursor: pointer;
   font-size: 1.3rem;
   outline: none;
