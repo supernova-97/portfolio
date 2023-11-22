@@ -12,7 +12,7 @@ import arrow from "./icons/arrow.png";
 export default function App() {
   return (
     <>
-      <nav>
+      <Nav>
         <NavList>
           <Arrow src={arrow} height="40px" width="40px" />
           <ListItem>
@@ -50,14 +50,13 @@ export default function App() {
             </NavbarLink>
           </ListItem>
         </NavList>
-      </nav>
+      </Nav>
 
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/calculator" element={<Calculator />} />
         <Route path="/weather" element={<Weather />} />
         <Route path="/todo" element={<ToDo />} />
-        <Route path="/test" element={<Test />} />
       </Routes>
     </>
   );
@@ -136,6 +135,7 @@ const Div = styled.div`
   display: flex;
   margin-bottom: 10px;
   align-items: center;
+`
   
 const Nav = styled.nav`
   width: 100%;
