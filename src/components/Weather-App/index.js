@@ -27,7 +27,7 @@ export default function Weather() {
   if (!data) {
     return <h2>Could not fetch any data</h2>;
   }
-  console.log(data);
+
   const weather = weatherDesc(data.current.weathercode);
 
   const icons = {
