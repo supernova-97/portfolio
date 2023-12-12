@@ -25,30 +25,32 @@ export default function NavBar() {
           <ListItem>
             <Div>
               <Icon src={projects} />
-              <Span>Projects</Span>
+              <Span>Projects:</Span>
             </Div>
           </ListItem>
           <SubMenu>
-            <SubMenu_ListItem>
-              <NavbarLink to="/calculator">
-                <Span>Calculator</Span>
-              </NavbarLink>
-            </SubMenu_ListItem>
-            <SubMenu_ListItem>
-              <NavbarLink to="/weather">
-                <Span>Weather Forecast</Span>
-              </NavbarLink>
-            </SubMenu_ListItem>
-            <SubMenu_ListItem>
-              <NavbarLink to="/todo">
-                <Span>ToDo List</Span>
-              </NavbarLink>
-            </SubMenu_ListItem>
-            <SubMenu_ListItem>
-              <NavbarLink to="/test">
-                <Span>Test</Span>
-              </NavbarLink>
-            </SubMenu_ListItem>
+            <SubMenuItems>
+              <li>
+                <NavbarLink to="/calculator">
+                  <AppLink>Calculator</AppLink>
+                </NavbarLink>
+              </li>
+              <li>
+                <NavbarLink to="/weather">
+                  <AppLink>Weather Forecast</AppLink>
+                </NavbarLink>
+              </li>
+              <li>
+                <NavbarLink to="/todo">
+                  <AppLink>ToDo List</AppLink>
+                </NavbarLink>
+              </li>
+              <li>
+                <NavbarLink to="/test">
+                  <AppLink>Test</AppLink>
+                </NavbarLink>
+              </li>
+            </SubMenuItems>
           </SubMenu>
         </NavList>
       </Nav>
@@ -71,8 +73,12 @@ const Nav = styled.nav`
   border-radius: 0 0 10px 10px;
 `;
 
+const SubMenu = styled.div`
+  display: none;
+`;
+
 const NavList = styled.ul`
-position: relative;
+  position: fixed;
   width: 6rem;
   height: 100vh;
   display: flex;
@@ -84,10 +90,12 @@ position: relative;
 
   &:hover {
     width: 8rem;
-    /* opacity: 0.8; */
 
-    span,
-    h2 {
+    span {
+      display: inline;
+    }
+
+    ${SubMenu} {
       display: inline;
     }
   }
@@ -96,32 +104,7 @@ position: relative;
 const NavbarLink = styled(Link)`
   color: #fff;
   text-decoration: none;
-`;
-
-const SubMenu = styled.ul`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  left: 100%;
-  bottom: 42px;
-  background-color: #000;
-  width: 10rem;
-  padding: 0;
-`;
-
-const SubMenu_ListItem = styled.li`
-margin: 5px;
-`;
-
-const Span = styled.span`
-  font-size: 1rem;
-  color: white;
-  margin-left: 10px;
-  display: none;
-
-  &:hover {
-    color: pink;
-  }
+  margin: 0;
 `;
 
 const Icon = styled.img`
@@ -142,11 +125,44 @@ const Arrow = styled.img`
 `;
 
 const ListItem = styled.li`
-  margin: 5px 0 0 15px;
+  margin: 35px 0 0 15px;
 `;
 
 const Div = styled.div`
   display: flex;
   margin-bottom: 10px;
   align-items: center;
+`;
+
+const Span = styled.span`
+  font-size: 1rem;
+  color: white;
+  margin-left: 10px;
+  display: none;
+
+  &:hover {
+    color: pink;
+  }
+`;
+
+const SubMenuItems = styled.ul`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 100%;
+  bottom: 45px;
+  background-color: #000;
+  width: 6.5rem;
+  padding: 0;
+  border-radius: 0 10px 10px 0;
+`;
+
+const AppLink = styled.p`
+  font-size: 16px;
+  color: white;
+  margin: 10px;
+
+  &:hover {
+    color: pink;
+  }
 `;
