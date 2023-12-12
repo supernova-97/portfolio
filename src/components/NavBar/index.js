@@ -25,29 +25,31 @@ export default function NavBar() {
           <ListItem>
             <Div>
               <Icon src={projects} />
-              <SubHeader>Projects:</SubHeader>
+              <Span>Projects</Span>
             </Div>
           </ListItem>
-          <ListItem>
-            <NavbarLink to="/calculator">
-              <Span>Calculator</Span>
-            </NavbarLink>
-          </ListItem>
-          <ListItem>
-            <NavbarLink to="/weather">
-              <Span>Weather Forecast</Span>
-            </NavbarLink>
-          </ListItem>
-          <ListItem>
-            <NavbarLink to="/todo">
-              <Span>ToDo List</Span>
-            </NavbarLink>
-          </ListItem>
-          <ListItem>
-            <NavbarLink to="/test">
-              <Span>Test</Span>
-            </NavbarLink>
-          </ListItem>
+          <SubMenu>
+            <SubMenu_ListItem>
+              <NavbarLink to="/calculator">
+                <Span>Calculator</Span>
+              </NavbarLink>
+            </SubMenu_ListItem>
+            <SubMenu_ListItem>
+              <NavbarLink to="/weather">
+                <Span>Weather Forecast</Span>
+              </NavbarLink>
+            </SubMenu_ListItem>
+            <SubMenu_ListItem>
+              <NavbarLink to="/todo">
+                <Span>ToDo List</Span>
+              </NavbarLink>
+            </SubMenu_ListItem>
+            <SubMenu_ListItem>
+              <NavbarLink to="/test">
+                <Span>Test</Span>
+              </NavbarLink>
+            </SubMenu_ListItem>
+          </SubMenu>
         </NavList>
       </Nav>
 
@@ -61,9 +63,17 @@ export default function NavBar() {
   );
 }
 
+const Nav = styled.nav`
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid black;
+  background-color: #dbe2ef;
+  border-radius: 0 0 10px 10px;
+`;
+
 const NavList = styled.ul`
-  position: fixed;
-  width: 5rem;
+position: relative;
+  width: 6rem;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -73,23 +83,34 @@ const NavList = styled.ul`
   transition: 150ms ease-out;
 
   &:hover {
-    width: 12rem;
-    opacity: 0.8;
+    width: 8rem;
+    /* opacity: 0.8; */
 
     span,
     h2 {
       display: inline;
     }
-
-    /* img {
-    transform: rotate(-180deg);
-  } */
   }
 `;
 
 const NavbarLink = styled(Link)`
   color: #fff;
   text-decoration: none;
+`;
+
+const SubMenu = styled.ul`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 100%;
+  bottom: 42px;
+  background-color: #000;
+  width: 10rem;
+  padding: 0;
+`;
+
+const SubMenu_ListItem = styled.li`
+margin: 5px;
 `;
 
 const Span = styled.span`
@@ -101,13 +122,6 @@ const Span = styled.span`
   &:hover {
     color: pink;
   }
-`;
-
-const SubHeader = styled.h2`
-  font-size: 1.1rem;
-  color: #fff;
-  margin-left: 10px;
-  display: none;
 `;
 
 const Icon = styled.img`
@@ -135,12 +149,4 @@ const Div = styled.div`
   display: flex;
   margin-bottom: 10px;
   align-items: center;
-`;
-
-const Nav = styled.nav`
-  width: 100%;
-  display: flex;
-  border-bottom: 1px solid black;
-  background-color: #dbe2ef;
-  border-radius: 0 0 10px 10px;
 `;
