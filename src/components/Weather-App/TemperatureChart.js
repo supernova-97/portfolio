@@ -108,7 +108,6 @@ const TempChart = styled.div`
   padding: 0;
   border: 1px solid black;
   border-radius: 5px;
-  box-shadow: -3px 3px 7px 0px #000;
 `;
 
 const ChartWrapper = styled.div`

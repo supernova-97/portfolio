@@ -18,6 +18,10 @@ export function weatherDesc(weatherCode) {
     case 81:
     case 82:
       return "heavy rain";
+    case 71:
+    case 73:
+    case 75:
+      return "snow";
     case 95:
     case 96:
     case 99:

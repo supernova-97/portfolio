@@ -6,10 +6,9 @@ import { weatherDesc } from "./Data";
 import styled from "styled-components";
 import sun from "../../icons/sun.png";
 import cloud from "../../icons/cloud.png";
-import cloud2 from "../../icons/cloud2.png";
 import rain from "../../icons/rain.png";
-import rain2 from "../../icons/rain2.png";
 import thunder from "../../icons/thunder.png";
+import snow from "../../icons/snow.png";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -28,23 +27,22 @@ export default function Weather() {
   if (!data) {
     return <h2>Could not fetch any data</h2>;
   }
-
+  console.log(data);
   const weather = weatherDesc(data.current.weathercode);
 
   const icons = {
-    "sunny": sun,
-    "cloudy": cloud,
-    "partially cloudy": cloud2,
-    "rainy": rain,
-    "heavy rain": rain2,
-    "thunder": thunder,
+    sunny: sun,
+    cloudy: cloud,
+    "partially cloudy": cloud,
+    rainy: rain,
+    "heavy rain": rain,
+    thunder: thunder,
+    snow: snow,
   };
 
   return (
-    <body>
-      <main>
+    <main>
       <StyledHeading>Get the weather here!</StyledHeading>
-      <Clock />
       <Wrapper>
         <CardWrapper>
           <Top>
@@ -86,16 +84,44 @@ export default function Weather() {
         </CardWrapper>
       </Wrapper>
       <TemperatureChart weatherData={data} />
-      </main>
-    </body>
+
+      <NewWrapper>
+        <h2>{data.timezone}</h2>
+        <h3>{weather}</h3>
+        <Img
+          src={icons[weather]}
+          alt="weather code"
+        />
+        <NewTemp>
+              {data.current.temperature_2m}
+              {data.current_units.temperature_2m}
+            </NewTemp>
+      </NewWrapper>
+    </main>
   );
 }
 
-const Body = styled.body`
-  background-color: #fff;
-  color: #000;
-  height: 100vh;
+const NewWrapper = styled.div`
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
 `;
+
+const NewTemp = styled.span`
+ font-size: 70px;
+ font-weight: 700;
+ position: absolute;
+`
+
+const Img = styled.img`
+  height: 300px;
+  width: 300px;
+  position: relative;
+`
 
 const Wrapper = styled.div`
   display: flex;
@@ -110,7 +136,6 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid #000;
-  box-shadow: -3px 3px 7px 0px #000;
   border-radius: 5px;
   padding: 10px;
 `;
@@ -174,5 +199,3 @@ const Bottom = styled.div`
 const DetailsWrapper = styled.div`
   display: flex;
 `;
-
-
