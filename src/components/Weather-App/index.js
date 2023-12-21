@@ -1,6 +1,5 @@
 import React from "react";
 import useSWR from "swr";
-import Clock from "./Clock";
 import TemperatureChart from "./TemperatureChart";
 import { weatherDesc } from "./Data";
 import styled from "styled-components";
@@ -42,86 +41,59 @@ export default function Weather() {
 
   return (
     <main>
-      <StyledHeading>Get the weather here!</StyledHeading>
+        <StyledHeading>The weather for Berlin</StyledHeading>
       <Wrapper>
-        <CardWrapper>
-          <Top>
-            <TopHeader>
-              <City>{data.timezone}</City>
-              <Desc>{weather}</Desc>
-            </TopHeader>
-            <ImgWrapper>
-              <img
-                src={icons[weather]}
-                alt="weather code"
-                height="100px"
-                width="100px"
-              />
-            </ImgWrapper>
-          </Top>
-          <Bottom>
-            <Temp>
-              {data.current.temperature_2m}
-              {data.current_units.temperature_2m}
-            </Temp>
-            <Details>
-              <DetailsWrapper>
-                <DetailsLabel>Feels like:</DetailsLabel>
-                <DetailsValue>
-                  {data.current.apparent_temperature}
-                  {data.current_units.apparent_temperature}
-                </DetailsValue>
-              </DetailsWrapper>
-              <DetailsWrapper>
-                <DetailsLabel>Rain:</DetailsLabel>
-                <DetailsValue>
-                  {data.current.rain}
-                  {data.current_units.rain}
-                </DetailsValue>
-              </DetailsWrapper>
-            </Details>
-          </Bottom>
-        </CardWrapper>
+        <SubWrapper>
+          <Styledh2>Berlin</Styledh2>
+          <h3>{weather}</h3>
+          <Img src={icons[weather]} alt="weather code" />
+          <Temp>
+            {data.current.temperature_2m}
+            {data.current_units.temperature_2m}
+          </Temp>
+          <DetailsWrapper>
+            <DetailsLabel>Feels like:</DetailsLabel>
+            <DetailsValue>
+              {data.current.apparent_temperature}
+              {data.current_units.apparent_temperature}
+            </DetailsValue>
+          </DetailsWrapper>
+          <DetailsWrapper>
+            <DetailsLabel>Rain:</DetailsLabel>
+            <DetailsValue>
+              {data.current.rain}
+              {data.current_units.rain}
+            </DetailsValue>
+          </DetailsWrapper>
+        </SubWrapper>
       </Wrapper>
       <TemperatureChart weatherData={data} />
-
-      <NewWrapper>
-        <h2>{data.timezone}</h2>
-        <h3>{weather}</h3>
-        <Img
-          src={icons[weather]}
-          alt="weather code"
-        />
-        <NewTemp>
-              {data.current.temperature_2m}
-              {data.current_units.temperature_2m}
-            </NewTemp>
-      </NewWrapper>
     </main>
   );
 }
 
-const NewWrapper = styled.div`
+const SubWrapper = styled.div`
+  margin: 10px;
   border: 2px solid black;
   border-radius: 10px;
   padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 40%;
+  width: fit-content;
 `;
 
-const NewTemp = styled.span`
- font-size: 70px;
- font-weight: 700;
- position: absolute;
-`
+const Temp = styled.span`
+  font-size: 3.5rem;
+  font-weight: 700;
+  position: relative;
+`;
 
 const Img = styled.img`
   height: 300px;
   width: 300px;
   position: relative;
-`
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -130,53 +102,15 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-const CardWrapper = styled.div`
-  background-color: #ffffff20;
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 10px;
-`;
-
-const Top = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const TopHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const ImgWrapper = styled.div`
-  display: flex;
-`;
-
 const StyledHeading = styled.h1`
   text-decoration: underline;
-`;
-
-const City = styled.p`
-  font-size: 1.2rem;
-  font-weight: 700;
   margin: 0;
+  font-size: 1.5rem;
 `;
 
-const Temp = styled.p`
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin: 0;
-`;
-
-const Details = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: flex-end;
-  margin: 0px;
-`;
+const Styledh2 = styled.h2`
+ font-size: 3rem;
+`
 
 const DetailsLabel = styled.label`
   margin-right: 10px;
@@ -184,16 +118,6 @@ const DetailsLabel = styled.label`
 
 const DetailsValue = styled.p`
   font-weight: 500;
-`;
-
-const Desc = styled.p`
-  font-size: 12px;
-`;
-
-const Bottom = styled.div`
-  display: flex;
-  align-items: flex-end;
-  margin-top: 15px;
 `;
 
 const DetailsWrapper = styled.div`
