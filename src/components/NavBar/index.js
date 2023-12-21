@@ -32,13 +32,13 @@ export default function NavBar() {
           <SubMenu>
             <SubMenuItems>
               <li>
-                <NavbarLink to="/calculator">
-                  <AppLink>Calculator</AppLink>
+                <NavbarLink to="/weather">
+                  <AppLink>Weather Forecast</AppLink>
                 </NavbarLink>
               </li>
               <li>
-                <NavbarLink to="/weather">
-                  <AppLink>Weather Forecast</AppLink>
+                <NavbarLink to="/dolly-parton-wiki">
+                  <AppLink>Dolly Parton Wiki</AppLink>
                 </NavbarLink>
               </li>
               <li>
@@ -47,8 +47,8 @@ export default function NavBar() {
                 </NavbarLink>
               </li>
               <li>
-                <NavbarLink to="/dolly-parton-wiki">
-                  <AppLink>Dolly Parton Wiki</AppLink>
+                <NavbarLink to="/calculator">
+                  <AppLink>Calculator</AppLink>
                 </NavbarLink>
               </li>
             </SubMenuItems>

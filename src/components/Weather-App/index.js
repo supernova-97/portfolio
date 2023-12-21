@@ -41,7 +41,7 @@ export default function Weather() {
 
   return (
     <main>
-        <StyledHeading>The weather for Berlin</StyledHeading>
+      <StyledHeading>The weather for Berlin</StyledHeading>
       <Wrapper>
         <SubWrapper>
           <Styledh2>Berlin</Styledh2>
@@ -74,19 +74,20 @@ export default function Weather() {
 
 const SubWrapper = styled.div`
   margin: 10px;
-  border: 2px solid black;
   border-radius: 10px;
   padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: fit-content;
+  box-shadow: 0px 10px 20px 0px #c6c6c6;
 `;
 
 const Temp = styled.span`
   font-size: 3.5rem;
   font-weight: 700;
   position: relative;
+  margin: 10px;
 `;
 
 const Img = styled.img`
@@ -109,8 +110,8 @@ const StyledHeading = styled.h1`
 `;
 
 const Styledh2 = styled.h2`
- font-size: 3rem;
-`
+  font-size: 3rem;
+`;
 
 const DetailsLabel = styled.label`
   margin-right: 10px;

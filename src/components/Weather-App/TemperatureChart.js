@@ -106,7 +106,7 @@ const TempChart = styled.div`
   height: 250px;
   display: relative;
   padding: 0;
-  border: 1px solid black;
+  box-shadow: 0px 10px 20px 0px #c6c6c6;
   border-radius: 5px;
 `;
 
