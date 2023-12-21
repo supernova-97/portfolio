@@ -3,7 +3,6 @@ import DigitButton from "./DigitButton";
 import OperationButton from "./OperationButton";
 import "../../styles/calculator.css";
 
-//Reducer
 export const ACTIONS = {
   ADD_DIGIT: "add-digit",
   CHOOSE_OPERATION: "choose-operation",

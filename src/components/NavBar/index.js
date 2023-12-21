@@ -3,6 +3,7 @@ import Homepage from "../Homepage";
 import Calculator from "../Calculator";
 import Weather from "../Weather-App";
 import ToDo from "../To-Do";
+import DollyParton from "../DollyParton";
 import styled from "styled-components";
 import home from "../../icons/home.png";
 import projects from "../../icons/project.png";
@@ -46,8 +47,8 @@ export default function NavBar() {
                 </NavbarLink>
               </li>
               <li>
-                <NavbarLink to="/test">
-                  <AppLink>Test</AppLink>
+                <NavbarLink to="/dolly-parton-wiki">
+                  <AppLink>Dolly Parton Wiki</AppLink>
                 </NavbarLink>
               </li>
             </SubMenuItems>
@@ -60,6 +61,7 @@ export default function NavBar() {
         <Route path="/calculator" element={<Calculator />} />
         <Route path="/weather" element={<Weather />} />
         <Route path="/todo" element={<ToDo />} />
+        <Route path="/dolly-parton-wiki" element={<DollyParton />} />
       </Routes>
     </>
   );
@@ -79,7 +81,7 @@ const SubMenu = styled.div`
 
 const NavList = styled.ul`
   position: fixed;
-  width: 6rem;
+  width: 5rem;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -89,7 +91,7 @@ const NavList = styled.ul`
   transition: 150ms ease-out;
 
   &:hover {
-    width: 8rem;
+    width: 8.5rem;
 
     span {
       display: inline;
