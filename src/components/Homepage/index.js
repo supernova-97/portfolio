@@ -43,6 +43,7 @@ const Title = styled.h2`
   font-family: "Lato", sans-serif;
   font-weight: 500;
   letter-spacing: 5px;
+  margin-bottom: 40px;
 `;
 
 const Image = styled.img`
@@ -50,13 +51,19 @@ const Image = styled.img`
   width: 250px;
   border-radius: 5px;
   margin-top: 40px;
+  margin-right: 30px;
+  box-shadow: 0px 10px 20px 0px #c6c6c6;
+`;
+
+const Text = styled.p`
+  width: 30%;
+  margin: 30px;
+  border-left: 1px solid black;
+  padding: 50px;
 `;
 
 const Div = styled.div`
   display: flex;
-`;
-
-const Text = styled.p`
-  border: 2px solid red;
-  width: 30%;
+  justify-content: center;
+  align-items: center;
 `;
