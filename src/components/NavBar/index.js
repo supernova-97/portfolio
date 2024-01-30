@@ -4,7 +4,8 @@ import Calculator from "../Calculator";
 import Weather from "../Weather-App";
 import ToDo from "../To-Do";
 import DollyParton from "../DollyParton";
-import Shop from "../E-Shop";
+import ShopHome from "../E-Shop";
+import Seeds from "../E-Shop/seeds";
 import styled from "styled-components";
 import home from "../../icons/home.png";
 import projects from "../../icons/project.png";
@@ -43,7 +44,7 @@ export default function NavBar() {
                 </NavbarLink>
               </li>
               <li>
-                <NavbarLink to="/shop">
+                <NavbarLink to="/shop/*">
                   <AppLink>Shop</AppLink>
                 </NavbarLink>
               </li>
@@ -68,7 +69,8 @@ export default function NavBar() {
         <Route path="/weather" element={<Weather />} />
         <Route path="/todo" element={<ToDo />} />
         <Route path="/dolly-parton-wiki" element={<DollyParton />} />
-        <Route path="/shop" element={<Shop />} />
+        <Route path="/shop/*" element={<ShopHome />}>
+        </Route>
       </Routes>
     </>
   );
