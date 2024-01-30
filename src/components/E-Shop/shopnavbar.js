@@ -30,6 +30,7 @@ export default function ShopNavBar() {
       </NavBar>
 
       <Routes>
+        <Route index element={<ShopHome />} />
         <Route path="/shophome" element={<ShopHome />} />
         <Route path="/seeds" element={<Seeds />} />
         <Route path="/artisanal" element={<Artisanal />} />
