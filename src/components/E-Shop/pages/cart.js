@@ -1,10 +1,18 @@
 import styled from "styled-components";
 
-export default function Cart() {
+export default function Cart({order}) {
+    console.log(order.strawberry)
   return (
     <>
       <Main>
-        <h1>Cart!</h1>
+      <h1>Order Summary</h1>
+        <ul>
+          {Object.keys(order).map((itemName) => (
+            <li key={itemName}>
+              {itemName}: {order[itemName]}
+            </li>
+          ))}
+        </ul>
       </Main>
     </>
   );

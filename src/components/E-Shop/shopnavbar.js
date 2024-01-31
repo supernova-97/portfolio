@@ -6,7 +6,7 @@ import Artisanal from "./pages/artisanal";
 import Animals from "./pages/animals";
 import Cart from "./pages/cart";
 
-export default function ShopNavBar() {
+export default function ShopNavBar({handleSubmit, order}) {
   return (
     <>
       <NavBar>
@@ -35,10 +35,10 @@ export default function ShopNavBar() {
       <Routes>
         <Route index element={<ShopHome />} />
         <Route path="/shophome" element={<ShopHome />} />
-        <Route path="/seeds" element={<Seeds />} />
+        <Route path="/seeds" element={<Seeds order={order} handleSubmit={handleSubmit}/>} />
         <Route path="/artisanal" element={<Artisanal />} />
         <Route path="/animals" element={<Animals />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart order={order}/>} />
       </Routes>
     </>
   );

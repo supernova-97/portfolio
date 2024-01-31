@@ -1,28 +1,9 @@
 import styled from "styled-components";
-import { useState } from "react";
+
 import { seeds } from "../data";
 
-export default function Seeds() {
-  const [order, setOrder] = useState([]);
+export default function Seeds({order, handleSubmit}) {
 
-  function handleSubmit(e, seed) {
-    e.preventDefault();
-    
-    const inputQuantity = parseInt(e.target.elements.quantity.value);
-    if (!isNaN(inputQuantity)) {
-      setOrder((prevOrder) => {
-        const currentQuantity = prevOrder[seed.name] || 0;
-        const newQuantity = currentQuantity + inputQuantity;
-
-        e.target.reset();
-
-        return {
-          ...prevOrder,
-          [seed.name]: newQuantity,
-        };
-      });
-    } 
-  }
 
   return (
     <Main>
