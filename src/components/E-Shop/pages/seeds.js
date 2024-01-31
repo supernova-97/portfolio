@@ -8,16 +8,22 @@ export default function Seeds() {
   function handleSubmit(e, seed) {
     e.preventDefault();
 
-    setOrder((prevOrder) => {
-      const currentQuantity = prevOrder[seed.name] || 0;
-      const newQuantity =
-        currentQuantity + parseInt(e.target.elements.quantity.value);
+    const inputQuantity = parseInt(e.target.elements.quantity.value, 10);
+    if (!isNaN(inputQuantity)) {
+      setOrder((prevOrder) => {
+        const currentQuantity = prevOrder[seed.name] || 0;
+        const newQuantity = currentQuantity + inputQuantity;
 
-      return {
-        ...prevOrder,
-        [seed.name]: newQuantity,
-      };
-    });
+        e.target.reset(); 
+
+        return {
+          ...prevOrder,
+          [seed.name]: newQuantity,
+        };
+      });
+    } else {
+    
+    }
   }
 
   return (
@@ -34,6 +40,7 @@ export default function Seeds() {
                 name="quantity"
                 placeholder="e.g. 25"
                 style={{ width: 80 }}
+                min="0"
               />
               <CartButton type="submit">Add to cart</CartButton>
             </form>
