@@ -7,23 +7,21 @@ export default function Seeds() {
 
   function handleSubmit(e, seed) {
     e.preventDefault();
-
-    const inputQuantity = parseInt(e.target.elements.quantity.value, 10);
+    
+    const inputQuantity = parseInt(e.target.elements.quantity.value);
     if (!isNaN(inputQuantity)) {
       setOrder((prevOrder) => {
         const currentQuantity = prevOrder[seed.name] || 0;
         const newQuantity = currentQuantity + inputQuantity;
 
-        e.target.reset(); 
+        e.target.reset();
 
         return {
           ...prevOrder,
           [seed.name]: newQuantity,
         };
       });
-    } else {
-    
-    }
+    } 
   }
 
   return (
@@ -34,7 +32,7 @@ export default function Seeds() {
             <Name>{seed.name}</Name>
             <img src={seed.src} height="60px" width="60px" alt={seed.name} />
             <Price>Price: {seed.price}G</Price>
-            <form onSubmit={(e) => handleSubmit(e, seed)}>
+            <Form onSubmit={(e) => handleSubmit(e, seed)}>
               <Input
                 type="number"
                 name="quantity"
@@ -43,7 +41,7 @@ export default function Seeds() {
                 min="0"
               />
               <CartButton type="submit">Add to cart</CartButton>
-            </form>
+            </Form>
           </Card>
         ))}
       </CardContainer>
@@ -62,7 +60,8 @@ const Main = styled.main`
 const CardContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 70%;
+  width: 80%;
+  /* flex-wrap: wrap; */
 `;
 
 const Card = styled.div`
@@ -70,6 +69,7 @@ const Card = styled.div`
   border: 1px solid #00000070;
   box-shadow: 0px 2px 9px 0px #00000030;
   width: 170px;
+  min-width: 150px;
   padding: 20px;
   margin: 20px;
   display: flex;
@@ -84,6 +84,12 @@ const Name = styled.h2`
 const Price = styled.p`
   margin: 10px 0 0 0;
   font-weight: 500;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Input = styled.input`
