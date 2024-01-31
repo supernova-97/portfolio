@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { Route, Routes, Link } from "react-router-dom";
-import Seeds from "./seeds";
-import ShopHome from "./home";
-import Artisanal from "./artisanal";
-import Animals from "./animals";
+import Seeds from "./pages/seeds";
+import ShopHome from "./pages/home";
+import Artisanal from "./pages/artisanal";
+import Animals from "./pages/animals";
+import Cart from "./pages/cart";
 
 export default function ShopNavBar() {
   return (
@@ -25,7 +26,9 @@ export default function ShopNavBar() {
         </NavLinksLeft>
         <NavLinksRight>
           <NavLink>Profile</NavLink>
-          <NavLink>Cart</NavLink>
+          <Link to="/shop/cart">
+            <NavLink>Cart</NavLink>
+          </Link>
         </NavLinksRight>
       </NavBar>
 
@@ -35,6 +38,7 @@ export default function ShopNavBar() {
         <Route path="/seeds" element={<Seeds />} />
         <Route path="/artisanal" element={<Artisanal />} />
         <Route path="/animals" element={<Animals />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </>
   );

@@ -1,7 +1,25 @@
 import styled from "styled-components";
-import { seeds } from "./data";
+import { useState } from "react";
+import { seeds } from "../data";
 
 export default function Seeds() {
+  const [order, setOrder] = useState([]);
+
+  function handleSubmit(e, seed) {
+    e.preventDefault();
+
+    setOrder((prevOrder) => {
+      const currentQuantity = prevOrder[seed.name] || 0;
+      const newQuantity =
+        currentQuantity + parseInt(e.target.elements.quantity.value);
+
+      return {
+        ...prevOrder,
+        [seed.name]: newQuantity,
+      };
+    });
+  }
+
   return (
     <Main>
       <CardContainer>
@@ -9,12 +27,23 @@ export default function Seeds() {
           <Card key={seed.name}>
             <Name>{seed.name}</Name>
             <img src={seed.src} height="60px" width="60px" alt={seed.name} />
-            <Price>Price: {seed.price}</Price>
-            <Input type="number" placeholder="e.g. 25" style={{ width: 80 }} />
-            <CartButton>Add to cart</CartButton>
+            <Price>Price: {seed.price}G</Price>
+            <form onSubmit={(e) => handleSubmit(e, seed)}>
+              <Input
+                type="number"
+                name="quantity"
+                placeholder="e.g. 25"
+                style={{ width: 80 }}
+              />
+              <CartButton type="submit">Add to cart</CartButton>
+            </form>
           </Card>
         ))}
       </CardContainer>
+      <div>
+        <h2>Order Summary</h2>
+        <pre>{JSON.stringify(order)}</pre>
+      </div>
     </Main>
   );
 }
