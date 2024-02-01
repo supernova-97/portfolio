@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function Cart({ order }) {
+export default function Cart({ order, popUp, handleOrderSubmit, closePopUp }) {
   return (
     <>
       <Main>
@@ -14,11 +14,49 @@ export default function Cart({ order }) {
             </ListItem>
           ))}
         </List>
-        <OrderButton>Order</OrderButton>
+        <OrderButton type="submit" onClick={handleOrderSubmit}>
+          Order
+        </OrderButton>
+        {popUp ? (
+          <PopUp>
+            <p>Order has been placed successfully!</p>
+            <OrderSubmitButton onClick={closePopUp}>close</OrderSubmitButton>
+          </PopUp>
+        ) : (
+          ""
+        )}
       </Main>
     </>
   );
 }
+
+const PopUp = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  padding: 65px;
+  border-radius: 15px;
+  width: 40%;
+  height: 100px;
+  box-shadow: 0px 2px 9px 0px #00000030;
+`;
+
+const OrderSubmitButton = styled.button`
+  padding: 5px 15px;
+  margin-top: 40px;
+  border-radius: 30px;
+  border: none;
+  background-color: #00802b;
+  color: #fff;
+  font-size: 1rem;
+
+  &:hover {
+    background-color: #009632;
+    cursor: pointer;
+  }
+`;
 
 const Main = styled.main`
   display: flex;

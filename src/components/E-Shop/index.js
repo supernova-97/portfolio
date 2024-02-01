@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function Index() {
   const [order, setOrder] = useState([]);
+  const [popUp, setPopUp] = useState(false); //for cart popup
 
   function handleSubmit(e, seed) {
     e.preventDefault();
@@ -24,9 +25,27 @@ export default function Index() {
     }
   }
 
+  //cart popup
+  function handleOrderSubmit(e) {
+    console.log("Click");
+    e.preventDefault();
+    setPopUp(true);
+    setOrder([])
+  }
+
+  function closePopUp() {
+    setPopUp(false);
+  }
+
   return (
     <Main>
-      <ShopNavBar handleSubmit={handleSubmit} order={order}/>
+      <ShopNavBar
+        handleSubmit={handleSubmit}
+        order={order}
+        handleOrderSubmit={handleOrderSubmit}
+        popUp={popUp}
+        closePopUp={closePopUp}
+      />
     </Main>
   );
 }

@@ -6,39 +6,58 @@ import Artisanal from "./pages/artisanal";
 import Animals from "./pages/animals";
 import Cart from "./pages/cart";
 
-export default function ShopNavBar({handleSubmit, order}) {
+export default function ShopNavBar({
+  handleSubmit,
+  order,
+  handleOrderSubmit,
+  popUp,
+  closePopUp,
+}) {
   return (
     <>
       <NavBar>
         <NavLinksLeft>
-          <Link to="/shop/shophome">
+          <StyledLink to="/shop/shophome">
             <NavLink>Home</NavLink>
-          </Link>
-          <Link to="/shop/seeds">
+          </StyledLink>
+          <StyledLink to="/shop/seeds">
             <NavLink>Seeds</NavLink>
-          </Link>
-          <Link to="/shop/artisanal">
+          </StyledLink>
+          <StyledLink to="/shop/artisanal">
             <NavLink>Artisan-Goods</NavLink>
-          </Link>
-          <Link to="/shop/animals">
+          </StyledLink>
+          <StyledLink to="/shop/animals">
             <NavLink>Animals</NavLink>
-          </Link>
+          </StyledLink>
         </NavLinksLeft>
         <NavLinksRight>
           <NavLink>Profile</NavLink>
-          <Link to="/shop/cart">
+          <StyledLink to="/shop/cart">
             <NavLink>Cart</NavLink>
-          </Link>
+          </StyledLink>
         </NavLinksRight>
       </NavBar>
 
       <Routes>
         <Route index element={<ShopHome />} />
         <Route path="/shophome" element={<ShopHome />} />
-        <Route path="/seeds" element={<Seeds order={order} handleSubmit={handleSubmit}/>} />
+        <Route
+          path="/seeds"
+          element={<Seeds order={order} handleSubmit={handleSubmit} />}
+        />
         <Route path="/artisanal" element={<Artisanal />} />
         <Route path="/animals" element={<Animals />} />
-        <Route path="/cart" element={<Cart order={order}/>} />
+        <Route
+          path="/cart"
+          element={
+            <Cart
+              order={order}
+              handleOrderSubmit={handleOrderSubmit}
+              popUp={popUp}
+              closePopUp={closePopUp}
+            />
+          }
+        />
       </Routes>
     </>
   );
@@ -65,15 +84,19 @@ const NavLinksRight = styled.div`
 `;
 
 const NavLink = styled.p`
-  margin: 10px;
-  font-size: 1.3rem;
-  text-decoration: underline;
+  margin: 5px;
+  font-size: 1.1rem;
   cursor: pointer;
-  background-color: lightgreen;
-  padding: 5px;
-  border-radius: 5px;
+  background-color: #ffffff6b;
+  padding: 5px 15px;
+  border-radius: 50px;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 
   &:hover {
-    color: limegreen;
+    text-decoration: underline;
+    color: #00802b;
   }
 `;
