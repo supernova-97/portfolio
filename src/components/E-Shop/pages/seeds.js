@@ -2,11 +2,10 @@ import styled from "styled-components";
 
 import { seeds } from "../data";
 
-export default function Seeds({order, handleSubmit}) {
-
-
+export default function Seeds({ order, handleSubmit }) {
   return (
     <Main>
+      <h1>Seeds</h1>
       <CardContainer>
         {seeds.map((seed) => (
           <Card key={seed.name}>
@@ -36,13 +35,16 @@ export default function Seeds({order, handleSubmit}) {
 
 const Main = styled.main`
   margin-left: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const CardContainer = styled.div`
   display: flex;
   justify-content: space-around;
   width: 80%;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
 `;
 
 const Card = styled.div`
