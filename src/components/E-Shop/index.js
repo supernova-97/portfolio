@@ -1,10 +1,20 @@
 import styled from "styled-components";
 import ShopNavBar from "./shopnavbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Index() {
   const [order, setOrder] = useState([]);
-  const [popUp, setPopUp] = useState(false); //for cart popup
+  const [popUp, setPopUp] = useState(false); // for cart popup
+
+  // Initialize totalAmount state
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    const amount = order.reduce((accumulator, currentItem) => {
+      return accumulator + currentItem.price;
+    }, 0);
+    setTotalAmount(amount);
+  }, [order]);
 
   function handleSubmit(e, seed) {
     e.preventDefault();
@@ -12,25 +22,44 @@ export default function Index() {
     const inputQuantity = parseInt(e.target.elements.quantity.value);
     if (!isNaN(inputQuantity)) {
       setOrder((prevOrder) => {
-        const currentQuantity = prevOrder[seed.name] || 0;
-        const newQuantity = currentQuantity + inputQuantity;
+        const existingProductIndex = prevOrder.findIndex(
+          (item) => item.name === seed.name
+        );
 
-        e.target.reset();
+        if (existingProductIndex !== -1) {
+          const updatedOrder = [...prevOrder];
+          updatedOrder[existingProductIndex].quantity += inputQuantity;
+          updatedOrder[existingProductIndex].price +=
+            inputQuantity * parseInt(seed.price);
 
-        return {
-          ...prevOrder,
-          [seed.name]: newQuantity,
-        };
+          return updatedOrder;
+        } else {
+          return [
+            ...prevOrder,
+            {
+              name: seed.name,
+              quantity: inputQuantity,
+              price: inputQuantity * parseInt(seed.price),
+            },
+          ];
+        }
       });
+      e.target.reset();
     }
   }
 
-  //cart popup
+  console.log(order);
+
+  // cart popup
   function handleOrderSubmit(e) {
-    console.log("Click");
-    e.preventDefault();
-    setPopUp(true);
-    setOrder([])
+    if (Object.keys(order).length > 0) {
+      e.preventDefault();
+      setPopUp(true);
+      setOrder([]);
+
+    } else {
+      alert("Can not place an empty order.");
+    }
   }
 
   function closePopUp() {
@@ -45,6 +74,7 @@ export default function Index() {
         handleOrderSubmit={handleOrderSubmit}
         popUp={popUp}
         closePopUp={closePopUp}
+        totalAmount={totalAmount}
       />
     </Main>
   );

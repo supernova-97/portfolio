@@ -1,19 +1,28 @@
 import styled from "styled-components";
 
-export default function Cart({ order, popUp, handleOrderSubmit, closePopUp }) {
+export default function Cart({
+  order,
+  popUp,
+  handleOrderSubmit,
+  closePopUp,
+  totalAmount,
+}) {
   return (
     <>
       <Main>
         <h1>Your order:</h1>
         <List>
-          {Object.keys(order).map((itemName) => (
-            <ListItem key={itemName}>
+          {order.map((item, index) => (
+            <ListItem key={index}>
               <ItemWrapper>
-                <P>{itemName}:</P> <P>{order[itemName]}</P>
+                <P>{item.name}:</P>
+                <P>{item.quantity}</P>
+                <P>{item.price}G</P>
               </ItemWrapper>
             </ListItem>
           ))}
         </List>
+        <p>{totalAmount}</p>
         <OrderButton type="submit" onClick={handleOrderSubmit}>
           Order
         </OrderButton>
@@ -77,10 +86,12 @@ const ItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
-  width: 200px;
+  width: 300px;
 `;
 
-const P = styled.p``;
+const P = styled.p`
+  margin: 0px 10px;
+`;
 
 const ListItem = styled.li`
   margin-top: 10px;

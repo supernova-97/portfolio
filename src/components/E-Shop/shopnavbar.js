@@ -12,6 +12,7 @@ export default function ShopNavBar({
   handleOrderSubmit,
   popUp,
   closePopUp,
+  totalAmount
 }) {
   return (
     <>
@@ -55,6 +56,7 @@ export default function ShopNavBar({
               handleOrderSubmit={handleOrderSubmit}
               popUp={popUp}
               closePopUp={closePopUp}
+              totalAmount={totalAmount}
             />
           }
         />
