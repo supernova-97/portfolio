@@ -1,11 +1,24 @@
-import styled from "styled-components";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+import Tracklist from "./Tracklist";
+import Playlist from "./Playlist";
+import SearchBar from "./SearchBar";
 
 export default function MusicApp() {
   const [token, setToken] = useState("");
+  const [playlist, setPlaylist] = useState([]);
+  const [playlistName, setPlaylistName] = useState("");
+
+  function addToPlaylist(track) {
+    setPlaylist((prev) => [...prev, track]);
+
+    if (!playlistName) {
+      const newName = prompt("Enter a name for your playlist:");
+      setPlaylistName(newName || "Playlist"); 
+    }
+  }
 
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
-  const CLIENT_SECRET = "a655e9144e01477f876f005421285e20";
   const REDIRECT_URI = "http://localhost:3000/music";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
@@ -34,17 +47,44 @@ export default function MusicApp() {
   };
 
   return (
-    <main>
+    <>
+      <SearchBar />
+      <main>
         <h1>VibeVault</h1>
-      {!token ? (
-        <a
-          href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
-        >
-          Login to Spotify
-        </a>
-      ) : (
-        <button onClick={logout}>Logout</button>
-      )}
-    </main>
+        {!token ? (
+          <a
+            href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+          >
+            Login to VibeVault (Spotify)
+          </a>
+        ) : (
+          <>
+            <Tracklist playlist={playlist} addToPlaylist={addToPlaylist} />
+            {playlist.length > 0 ? (
+              <Playlist playlist={playlist} playlistName={playlistName} />
+            ) : (
+              ""
+            )}
+            <LogOutButton onClick={logout}>Logout</LogOutButton>
+          </>
+        )}
+      </main>
+    </>
   );
 }
+
+const LogOutButton = styled.button`
+  padding: 10px;
+  background-color: purple;
+  font-size: 1.2rem;
+  color: #fff;
+  border-radius: 40px;
+  border: none;
+  margin: 10px;
+  padding: 5px 15px;
+
+  &:hover {
+    background-color: pink;
+    cursor: pointer;
+  }
+`;
