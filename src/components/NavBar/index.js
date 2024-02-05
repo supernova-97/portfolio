@@ -4,6 +4,7 @@ import Calculator from "../Calculator";
 import Weather from "../Weather-App";
 import ToDo from "../To-Do";
 import DollyParton from "../DollyParton";
+import MusicApp from "../MusicApp";
 import styled from "styled-components";
 import home from "../../icons/home.png";
 import projects from "../../icons/project.png";
@@ -42,6 +43,11 @@ export default function NavBar() {
                 </NavbarLink>
               </li>
               <li>
+                <NavbarLink to="/music">
+                  <AppLink>VibeVault</AppLink>
+                </NavbarLink>
+              </li>
+              <li>
                 <NavbarLink to="/todo">
                   <AppLink>ToDo List</AppLink>
                 </NavbarLink>
@@ -62,6 +68,7 @@ export default function NavBar() {
         <Route path="/weather" element={<Weather />} />
         <Route path="/todo" element={<ToDo />} />
         <Route path="/dolly-parton-wiki" element={<DollyParton />} />
+        <Route path="/music" element={<MusicApp />} />
       </Routes>
     </>
   );
