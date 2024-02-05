@@ -3,20 +3,21 @@ import styled from "styled-components";
 import Tracklist from "./Tracklist";
 import Playlist from "./Playlist";
 import SearchBar from "./SearchBar";
+import PopUp from "./PopUp";
 
 export default function MusicApp() {
   const [token, setToken] = useState("");
   const [playlist, setPlaylist] = useState([]);
   const [playlistName, setPlaylistName] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
-  function addToPlaylist(track) {
+  const addToPlaylist = (track) => {
     setPlaylist((prev) => [...prev, track]);
 
     if (!playlistName) {
-      const newName = prompt("Enter a name for your playlist:");
-      setPlaylistName(newName || "Playlist"); 
+      setShowPopup(true);
     }
-  }
+  };
 
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
   const REDIRECT_URI = "http://localhost:3000/music";
@@ -60,11 +61,17 @@ export default function MusicApp() {
         ) : (
           <>
             <Tracklist playlist={playlist} addToPlaylist={addToPlaylist} />
-            {playlist.length > 0 ? (
+
+            {playlistName && playlist.length > 0 && (
               <Playlist playlist={playlist} playlistName={playlistName} />
-            ) : (
-              ""
             )}
+
+            <PopUp
+              setShowPopup={setShowPopup}
+              setPlaylistName={setPlaylistName}
+              showPopup={showPopup}
+            />
+
             <LogOutButton onClick={logout}>Logout</LogOutButton>
           </>
         )}
