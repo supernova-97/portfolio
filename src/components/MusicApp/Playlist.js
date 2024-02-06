@@ -4,16 +4,36 @@ export default function Playlist({
   playlist,
   playlistName,
   removeFromPlaylist,
+  toggleEditing,
+  isEditing,
+  handleNameChange,
+  handleNameSubmit,
 }) {
   return (
     <PlaylistContainer>
-      <h2>{playlistName}</h2>
-      {playlist.map((track) => (
-        <>
-          <p key={track.id}>{track.name}</p>
-          <button onClick={() => removeFromPlaylist(track.id)}>remove</button>
-        </>
-      ))}
+      <h2 onClick={toggleEditing}>
+        {isEditing ? (
+          <form onSubmit={handleNameSubmit}>
+            <input
+              type="text"
+              value={playlistName}
+              onChange={handleNameChange}
+              autoFocus // Focus the input field when editing starts
+            />
+            <button type="submit">Save</button>
+          </form>
+        ) : (
+          playlistName
+        )}
+      </h2>
+      <ul>
+        {playlist.map((track) => (
+          <li key={track.id}>
+            {track.name}
+            <button onClick={() => removeFromPlaylist(track.id)}>Remove</button>
+          </li>
+        ))}
+      </ul>
     </PlaylistContainer>
   );
 }
