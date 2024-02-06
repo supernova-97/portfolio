@@ -9,7 +9,6 @@ export default function MusicApp() {
   const [token, setToken] = useState("");
   const [playlist, setPlaylist] = useState([]);
   const [playlistName, setPlaylistName] = useState("My Playlist");
-  const [isEditing, setIsEditing] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
   const addToPlaylist = (track) => {
@@ -32,23 +31,6 @@ export default function MusicApp() {
     setPlaylist((prevPlaylist) =>
       prevPlaylist.filter((song) => song.id !== id)
     );
-  };
-
-  const toggleEditing = () => {
-    setIsEditing(!isEditing);
-  };
-
-  const handleNameChange = (event) => {
-    setPlaylistName(event.target.value);
-  };
-
-  const handleNameSubmit = (event) => {
-    event.preventDefault();
-    if (!playlistName.trim() && !isEditing) {
-      setIsEditing(true); // Enter editing mode if playlist name is empty and not in editing mode
-    } else {
-      setIsEditing(false); // Exit editing mode if not in editing mode
-    }
   };
 
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
@@ -98,11 +80,8 @@ export default function MusicApp() {
               <Playlist
                 playlist={playlist}
                 playlistName={playlistName}
+                setPlaylistName={setPlaylistName}
                 removeFromPlaylist={removeFromPlaylist}
-                toggleEditing={toggleEditing}
-                isEditing={isEditing}
-                handleNameChange={handleNameChange}
-                handleNameSubmit={handleNameSubmit}
               />
             )}
 
