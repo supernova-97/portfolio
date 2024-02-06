@@ -1,11 +1,18 @@
 import styled from "styled-components";
 
-export default function Playlist({ playlist, playlistName }) {
+export default function Playlist({
+  playlist,
+  playlistName,
+  removeFromPlaylist,
+}) {
   return (
     <PlaylistContainer>
       <h2>{playlistName}</h2>
       {playlist.map((track) => (
-        <p key={track.id}>{track.name}</p>
+        <>
+          <p key={track.id}>{track.name}</p>
+          <button onClick={() => removeFromPlaylist(track.id)}>remove</button>
+        </>
       ))}
     </PlaylistContainer>
   );

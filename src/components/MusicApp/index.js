@@ -12,11 +12,25 @@ export default function MusicApp() {
   const [showPopup, setShowPopup] = useState(false);
 
   const addToPlaylist = (track) => {
-    setPlaylist((prev) => [...prev, track]);
+    const isTrackInPlaylist = playlist.some(
+      (playlistTrack) => playlistTrack.id === track.id
+    );
 
-    if (!playlistName) {
-      setShowPopup(true);
+    if (!isTrackInPlaylist) {
+      setPlaylist((prev) => [...prev, track]);
+      
+      if (!playlistName) {
+        setShowPopup(true);
+      }
+    } else {
+      alert("Track is already in the playlist");
     }
+  };
+
+  const removeFromPlaylist = (id) => {
+    setPlaylist((prevPlaylist) =>
+      prevPlaylist.filter((song) => song.id !== id)
+    );
   };
 
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
@@ -63,7 +77,11 @@ export default function MusicApp() {
             <Tracklist playlist={playlist} addToPlaylist={addToPlaylist} />
 
             {playlistName && playlist.length > 0 && (
-              <Playlist playlist={playlist} playlistName={playlistName} />
+              <Playlist
+                playlist={playlist}
+                playlistName={playlistName}
+                removeFromPlaylist={removeFromPlaylist}
+              />
             )}
 
             <PopUp
