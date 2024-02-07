@@ -7,30 +7,56 @@ import PopUp from "./PopUp";
 
 export default function MusicApp() {
   const [token, setToken] = useState("");
-  const [playlist, setPlaylist] = useState([]);
-  const [playlistName, setPlaylistName] = useState("My Playlist");
+  const [playlists, setPlaylists] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
 
+  let playlistName = "";
+
   const addToPlaylist = (track) => {
-    const isTrackInPlaylist = playlist.some(
-      (playlistTrack) => playlistTrack.id === track.id
-    );
-
-    if (!isTrackInPlaylist) {
-      setPlaylist((prev) => [...prev, track]);
-
-      if (!playlistName) {
-        setShowPopup(true);
-      }
+    if (playlists.length <= 0) {
+      setShowPopup(true);
     } else {
-      alert("Track is already in the playlist");
+      setPlaylists((prevPlaylists) => {
+        console.log("Previous playlists:", prevPlaylists);
+        const updatedPlaylists = prevPlaylists.map((playlist) => {
+          return {
+            ...playlist,
+            songs: [...(playlist.songs || []), track],
+          };
+        });
+        console.log("Updated playlists:", updatedPlaylists);
+        return updatedPlaylists;
+      });
     }
   };
-
+  console.log(playlists);
   const removeFromPlaylist = (id) => {
-    setPlaylist((prevPlaylist) =>
+    setPlaylists((prevPlaylist) =>
       prevPlaylist.filter((song) => song.id !== id)
     );
+  };
+
+  const handleInputChange = (e) => {
+    playlistName = e.target.value;
+  };
+
+  const generateId = () => {
+    let id = Math.floor(Math.random() * 99999);
+    return id;
+  };
+
+  const handleSubmit = (e, prev) => {
+    e.preventDefault();
+    const trimmedName = playlistName.trim();
+    if (trimmedName !== "") {
+      setPlaylists((prev) => [
+        { name: trimmedName, id: generateId() },
+        ...prev,
+      ]);
+      setShowPopup(false);
+    } else {
+      alert("Playlist name can not be empty.");
+    }
   };
 
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
@@ -74,21 +100,22 @@ export default function MusicApp() {
           </a>
         ) : (
           <>
-            <Tracklist playlist={playlist} addToPlaylist={addToPlaylist} />
-
-            {playlistName && playlist.length > 0 && (
+            <Tracklist addToPlaylist={addToPlaylist} />
+            {playlists.length > 0 && (
               <Playlist
-                playlist={playlist}
-                playlistName={playlistName}
-                setPlaylistName={setPlaylistName}
+                playlists={playlists}
                 removeFromPlaylist={removeFromPlaylist}
+                playlistName={playlistName}
               />
             )}
 
             <PopUp
               setShowPopup={setShowPopup}
-              setPlaylistName={setPlaylistName}
+              handleSubmit={handleSubmit}
               showPopup={showPopup}
+              playlistName={playlistName}
+              playlists={playlists}
+              handleInputChange={handleInputChange}
             />
 
             <LogOutButton onClick={logout}>Logout</LogOutButton>

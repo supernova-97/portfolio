@@ -1,48 +1,15 @@
 import styled from "styled-components";
-import { useState } from "react";
 
-export default function Playlist({
-  playlist,
-  playlistName,
-  removeFromPlaylist,
-  setPlaylistName,
-}) {
-  const [isEditing, setIsEditing] = useState(false);
-
-  const handleNameSubmit = (e) => {
-    e.preventDefault();
-    const newName = e.target.elements.playlistName.value;
-    setPlaylistName(newName);
-    setIsEditing(false);
-  };
-
-  const handleNameClick = () => {
-    setIsEditing(true);
-  };
-
+export default function Playlist({ playlists }) {
   return (
     <PlaylistContainer>
-      {isEditing ? (
-        <form onSubmit={handleNameSubmit}>
-          <input
-            type="text"
-            name="playlistName"
-            defaultValue={playlistName}
-            autoFocus
-          />
-          <button type="submit">Save</button>
-        </form>
-      ) : (
-        <h2 onDoubleClick={handleNameClick}>{playlistName}</h2>
-      )}
-      <ul>
-        {playlist.map((track) => (
-          <li key={track.id}>
-            {track.name}
-            <button onClick={() => removeFromPlaylist(track.id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
+      {playlists.map((playlist) => (
+        <div key={playlist.name}>
+          <h2>{playlist.name}</h2>
+          {playlist.songs &&
+            playlist.songs.map((song) => <p key={song.name}>{song.name}</p>)}
+        </div>
+      ))}
     </PlaylistContainer>
   );
 }

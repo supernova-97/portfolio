@@ -1,35 +1,48 @@
-import { useRef } from "react";
+import styled from "styled-components";
 
-export default function PopUp({ setShowPopup, showPopup, setPlaylistName }) {
-  const tempPlaylistNameRef = useRef("");
+export default function PopUp({
+  setShowPopup,
+  showPopup,
+  handleSubmit,
+  playlists,
+  handleInputChange,
+}) {
   const handlePopupClose = () => {
     setShowPopup(false);
   };
 
-  const handleInputChange = (e) => {
-    tempPlaylistNameRef.current = e.target.value;
-  };
-
-  const handleAddPlaylist = () => {
-    if (tempPlaylistNameRef.current.trim() !== "") {
-      setPlaylistName(tempPlaylistNameRef.current.trim());
-      setShowPopup(false);
-    }
-  };
   return (
     <>
       {showPopup && (
-        <div className="popup">
-          <h2>Enter a name for your playlist:</h2>
-          <input
-            type="text"
-            onChange={handleInputChange}
-            placeholder="Playlist name"
-          />
-          <button onClick={handleAddPlaylist}>Create Playlist</button>
-          <button onClick={handlePopupClose}>Cancel</button>
-        </div>
+        <PopUpWrapper>
+          <h2>Create new playlist:</h2>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              onChange={handleInputChange}
+              placeholder="Playlist name"
+            />
+            <button type="submit">Create Playlist</button>
+            <button onClick={handlePopupClose}>Cancel</button>
+          </form>
+          {playlists.length === 0 ? (
+            <h2>No playlists</h2>
+          ) : (
+            playlists.map((playlist, index) => (
+              <p key={index}>{playlist.name}</p>
+            ))
+          )}
+        </PopUpWrapper>
       )}
     </>
   );
 }
+
+const PopUpWrapper = styled.div`
+  border: 2px solid red;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
