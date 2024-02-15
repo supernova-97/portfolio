@@ -13,28 +13,16 @@ export default function MusicApp() {
   let playlistName = "";
 
   const addToPlaylist = (track) => {
-    if (playlists.length <= 0) {
-      setShowPopup(true);
-    } else {
-      setPlaylists((prevPlaylists) => {
-        console.log("Previous playlists:", prevPlaylists);
-        const updatedPlaylists = prevPlaylists.map((playlist) => {
-          return {
-            ...playlist,
-            songs: [...(playlist.songs || []), track],
-          };
-        });
-        console.log("Updated playlists:", updatedPlaylists);
-        return updatedPlaylists;
-      });
-    }
+    setShowPopup(true);
   };
-  console.log(playlists);
-  const removeFromPlaylist = (id) => {
-    setPlaylists((prevPlaylist) =>
-      prevPlaylist.filter((song) => song.id !== id)
-    );
-  };
+
+  console.log("playlists", playlists);
+
+  // const removeFromPlaylist = (id) => {
+  //   setPlaylists((prevPlaylist) =>
+  //     prevPlaylist.filter((song) => song.id !== id)
+  //   );
+  // };
 
   const handleInputChange = (e) => {
     playlistName = e.target.value;
@@ -45,12 +33,11 @@ export default function MusicApp() {
     return id;
   };
 
-  const handleSubmit = (e, prev) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const trimmedName = playlistName.trim();
-    if (trimmedName !== "") {
+    if (playlistName !== "") {
       setPlaylists((prev) => [
-        { name: trimmedName, id: generateId() },
+        { name: playlistName, id: generateId() },
         ...prev,
       ]);
       setShowPopup(false);
@@ -104,7 +91,7 @@ export default function MusicApp() {
             {playlists.length > 0 && (
               <Playlist
                 playlists={playlists}
-                removeFromPlaylist={removeFromPlaylist}
+                // removeFromPlaylist={removeFromPlaylist}
                 playlistName={playlistName}
               />
             )}
