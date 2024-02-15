@@ -9,10 +9,12 @@ export default function MusicApp() {
   const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [clickedTrack, setClickedTrack] = useState(null);
 
   let playlistName = "";
 
   const addToPlaylist = (track) => {
+    setClickedTrack(track);
     setShowPopup(true);
   };
 
@@ -36,10 +38,12 @@ export default function MusicApp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (playlistName !== "") {
-      setPlaylists((prev) => [
-        { name: playlistName, id: generateId() },
-        ...prev,
-      ]);
+      const newPlaylist = {
+        name: playlistName,
+        id: generateId(),
+        songs: [clickedTrack],
+      }; 
+      setPlaylists((prev) => [newPlaylist, ...prev]);
       setShowPopup(false);
     } else {
       alert("Playlist name can not be empty.");
