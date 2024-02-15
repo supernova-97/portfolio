@@ -6,6 +6,7 @@ export default function PopUp({
   handleSubmit,
   playlists,
   handleInputChange,
+  handleSubmitExisting
 }) {
   const handlePopupClose = () => {
     setShowPopup(false);
@@ -29,7 +30,11 @@ export default function PopUp({
             <h2>No playlists</h2>
           ) : (
             playlists.map((playlist, index) => (
-              <p key={index}>{playlist.name}</p>
+              <li key={playlist.id}>
+                  <button onClick={() => handleSubmitExisting(playlist.id)}>
+                    {playlist.name}
+                  </button>
+                </li>
             ))
           )}
         </PopUpWrapper>

@@ -18,8 +18,6 @@ export default function MusicApp() {
     setShowPopup(true);
   };
 
-  console.log("playlists", playlists);
-
   // const removeFromPlaylist = (id) => {
   //   setPlaylists((prevPlaylist) =>
   //     prevPlaylist.filter((song) => song.id !== id)
@@ -42,11 +40,31 @@ export default function MusicApp() {
         name: playlistName,
         id: generateId(),
         songs: [clickedTrack],
-      }; 
+      };
       setPlaylists((prev) => [newPlaylist, ...prev]);
       setShowPopup(false);
     } else {
       alert("Playlist name can not be empty.");
+    }
+  };
+
+  const handleSubmitExisting = (playlistId) => {
+    if (playlistId && clickedTrack) {
+      const existingPlaylist = playlists.find(
+        (playlist) => playlist.id === playlistId
+      );
+      if (existingPlaylist) {
+        const updatedPlaylist = {
+          ...existingPlaylist,
+          songs: [...existingPlaylist.songs, clickedTrack],
+        };
+        setPlaylists((prevPlaylists) =>
+          prevPlaylists.map((playlist) =>
+            playlist.id === playlistId ? updatedPlaylist : playlist
+          )
+        );
+        setShowPopup(false);
+      }
     }
   };
 
@@ -104,9 +122,9 @@ export default function MusicApp() {
               setShowPopup={setShowPopup}
               handleSubmit={handleSubmit}
               showPopup={showPopup}
-              playlistName={playlistName}
               playlists={playlists}
               handleInputChange={handleInputChange}
+              handleSubmitExisting={handleSubmitExisting}
             />
 
             <LogOutButton onClick={logout}>Logout</LogOutButton>
