@@ -54,16 +54,23 @@ export default function MusicApp() {
         (playlist) => playlist.id === playlistId
       );
       if (existingPlaylist) {
-        const updatedPlaylist = {
-          ...existingPlaylist,
-          songs: [...existingPlaylist.songs, clickedTrack],
-        };
-        setPlaylists((prevPlaylists) =>
-          prevPlaylists.map((playlist) =>
-            playlist.id === playlistId ? updatedPlaylist : playlist
-          )
+        const isTrackInPlaylist = existingPlaylist.songs.some(
+          (song) => song.id === clickedTrack.id
         );
-        setShowPopup(false);
+        if (isTrackInPlaylist) {
+          alert("Song is already in the playlist.");
+        } else {
+          const updatedPlaylist = {
+            ...existingPlaylist,
+            songs: [...existingPlaylist.songs, clickedTrack],
+          };
+          setPlaylists((prevPlaylists) =>
+            prevPlaylists.map((playlist) =>
+              playlist.id === playlistId ? updatedPlaylist : playlist
+            )
+          );
+          setShowPopup(false);
+        }
       }
     }
   };
