@@ -83,7 +83,7 @@ export default function MusicApp() {
     }
   }
 
-  //L
+  //LogIn
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
   const REDIRECT_URI = "http://localhost:3000/music";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
@@ -126,6 +126,7 @@ export default function MusicApp() {
         ) : (
           <>
             <Tracklist addToPlaylist={addToPlaylist} />
+            
             {playlists.length > 0 && (
               <Playlist
                 playlists={playlists}
