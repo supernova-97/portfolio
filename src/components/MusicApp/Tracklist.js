@@ -32,7 +32,7 @@ const TrackWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   border-radius: 10px;
-  box-shadow: 0px 0px 12px 0px #00000040;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
   margin: 10px;
   padding: 20px 0;
   min-width: 250px;

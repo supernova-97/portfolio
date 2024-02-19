@@ -13,27 +13,35 @@ export default function MusicApp() {
 
   let playlistName = "";
 
-  const addToPlaylist = (track) => {
+  function addToPlaylist(track) {
     setClickedTrack(track);
     setShowPopup(true);
-  };
+  }
 
-  // const removeFromPlaylist = (id) => {
-  //   setPlaylists((prevPlaylist) =>
-  //     prevPlaylist.filter((song) => song.id !== id)
-  //   );
-  // };
+  function removeFromPlaylist(playlistId, trackId) {
+    setPlaylists((prevPlaylists) =>
+      prevPlaylists.map((playlist) => {
+        if (playlist.id === playlistId) {
+          const updatedSongs = playlist.songs.filter(
+            (song) => song.id !== trackId
+          );
+          return { ...playlist, songs: updatedSongs };
+        }
+        return playlist;
+      })
+    );
+  }
 
-  const handleInputChange = (e) => {
+  function handleInputChange(e) {
     playlistName = e.target.value;
-  };
+  }
 
-  const generateId = () => {
+  function generateId() {
     let id = Math.floor(Math.random() * 99999);
     return id;
-  };
+  }
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
     if (playlistName !== "") {
       const newPlaylist = {
@@ -46,9 +54,9 @@ export default function MusicApp() {
     } else {
       alert("Playlist name can not be empty.");
     }
-  };
+  }
 
-  const handleSubmitExisting = (playlistId) => {
+  function handleSubmitExisting(playlistId) {
     if (playlistId && clickedTrack) {
       const existingPlaylist = playlists.find(
         (playlist) => playlist.id === playlistId
@@ -73,8 +81,9 @@ export default function MusicApp() {
         }
       }
     }
-  };
+  }
 
+  //L
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
   const REDIRECT_URI = "http://localhost:3000/music";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
@@ -120,7 +129,7 @@ export default function MusicApp() {
             {playlists.length > 0 && (
               <Playlist
                 playlists={playlists}
-                // removeFromPlaylist={removeFromPlaylist}
+                removeFromPlaylist={removeFromPlaylist}
                 playlistName={playlistName}
               />
             )}

@@ -1,13 +1,22 @@
 import styled from "styled-components";
 
-export default function Playlist({ playlists }) {
+export default function Playlist({ playlists, removeFromPlaylist }) {
   return (
     <PlaylistContainer>
       {playlists.map((playlist) => (
         <div key={playlist.name}>
-          <h2>{playlist.name}</h2>
+          <Header>{playlist.name}</Header>
           {playlist.songs &&
-            playlist.songs.map((song) => <p key={song.name}>{song.name}</p>)}
+            playlist.songs.map((song) => (
+              <SongContainer>
+                <Song key={song.name}>{song.name}</Song>
+                <DeleteButton
+                  onClick={() => removeFromPlaylist(playlist.id, song.id)}
+                >
+                  x
+                </DeleteButton>
+              </SongContainer>
+            ))}
         </div>
       ))}
     </PlaylistContainer>
@@ -21,3 +30,27 @@ const PlaylistContainer = styled.div`
   width: 20%;
   padding: 20px;
 `;
+
+const Header = styled.h1`
+ text-align: center;
+`
+
+const SongContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Song = styled.p`
+ margin: 5px 0;
+`
+
+const DeleteButton = styled.button`
+ border: none;
+ height: 20px;
+ border-radius: 5px;
+ cursor: pointer;
+
+ &:hover {
+   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 3px;
+  }
+`
