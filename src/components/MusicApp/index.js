@@ -58,19 +58,19 @@ export default function MusicApp() {
 
   function handleSubmitExisting(playlistId) {
     if (playlistId && clickedTrack) {
-      const existingPlaylist = playlists.find(
+      const chosenPlaylist = playlists.find(
         (playlist) => playlist.id === playlistId
       );
-      if (existingPlaylist) {
-        const isTrackInPlaylist = existingPlaylist.songs.some(
+      if (chosenPlaylist) {
+        const isTrackInPlaylist = chosenPlaylist.songs.some(
           (song) => song.id === clickedTrack.id
         );
         if (isTrackInPlaylist) {
           alert("Song is already in the playlist.");
         } else {
           const updatedPlaylist = {
-            ...existingPlaylist,
-            songs: [...existingPlaylist.songs, clickedTrack],
+            ...chosenPlaylist,
+            songs: [...chosenPlaylist.songs, clickedTrack],
           };
           setPlaylists((prevPlaylists) =>
             prevPlaylists.map((playlist) =>
@@ -81,6 +81,13 @@ export default function MusicApp() {
         }
       }
     }
+  }
+
+  function saveToSpotify(playlistId) {
+    console.log("Playlist saved to Spotify");
+    setPlaylists((prevPlaylists) =>
+      prevPlaylists.filter((playlist) => playlist.id !== playlistId)
+    );
   }
 
   //LogIn
@@ -126,12 +133,13 @@ export default function MusicApp() {
         ) : (
           <>
             <Tracklist addToPlaylist={addToPlaylist} />
-            
+
             {playlists.length > 0 && (
               <Playlist
                 playlists={playlists}
                 removeFromPlaylist={removeFromPlaylist}
                 playlistName={playlistName}
+                saveToSpotify={saveToSpotify}
               />
             )}
 

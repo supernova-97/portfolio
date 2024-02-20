@@ -1,23 +1,32 @@
 import styled from "styled-components";
 
-export default function Playlist({ playlists, removeFromPlaylist }) {
+export default function Playlist({
+  playlists,
+  removeFromPlaylist,
+  saveToSpotify,
+}) {
   return (
     <PlaylistContainer>
       {playlists.map((playlist) => (
-        <div key={playlist.name}>
-          <Header>{playlist.name}</Header>
-          {playlist.songs &&
-            playlist.songs.map((song) => (
-              <SongContainer>
-                <Song key={song.name}>{song.name}</Song>
-                <DeleteButton
-                  onClick={() => removeFromPlaylist(playlist.id, song.id)}
-                >
-                  x
-                </DeleteButton>
-              </SongContainer>
-            ))}
-        </div>
+        <>
+          <div key={playlist.name}>
+            <Header>{playlist.name}</Header>
+            {playlist.songs &&
+              playlist.songs.map((song) => (
+                <SongContainer>
+                  <Song key={song.name}>{song.name}</Song>
+                  <DeleteButton
+                    onClick={() => removeFromPlaylist(playlist.id, song.id)}
+                  >
+                    x
+                  </DeleteButton>
+                </SongContainer>
+              ))}
+          </div>
+          <button onClick={() => saveToSpotify(playlist.id)}>
+            Save to Spotify
+          </button>
+        </>
       ))}
     </PlaylistContainer>
   );
@@ -32,8 +41,8 @@ const PlaylistContainer = styled.div`
 `;
 
 const Header = styled.h1`
- text-align: center;
-`
+  text-align: center;
+`;
 
 const SongContainer = styled.div`
   display: flex;
@@ -41,16 +50,16 @@ const SongContainer = styled.div`
 `;
 
 const Song = styled.p`
- margin: 5px 0;
-`
+  margin: 5px 0;
+`;
 
 const DeleteButton = styled.button`
- border: none;
- height: 20px;
- border-radius: 5px;
- cursor: pointer;
+  border: none;
+  height: 20px;
+  border-radius: 5px;
+  cursor: pointer;
 
- &:hover {
-   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 3px;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.2) 0 1px 3px;
   }
-`
+`;
