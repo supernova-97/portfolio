@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 import styled from "styled-components";
 import Tracklist from "./Tracklist";
 import Playlist from "./Playlist";
@@ -7,7 +8,9 @@ import PopUp from "./PopUp";
 
 export default function MusicApp() {
   const [token, setToken] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const [playlists, setPlaylists] = useState([]);
+  const [tracks, setTracks] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [clickedTrack, setClickedTrack] = useState(null);
 
@@ -90,28 +93,30 @@ export default function MusicApp() {
     );
   }
 
-  //LogIn
+  //Spotify
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
+  const CLIENT_SECRET = "a655e9144e01477f876f005421285e20";
   const REDIRECT_URI = "http://localhost:3000/music";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
 
+  //access token
   useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
+    const authParameters = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body:
+        "grant_type=client_credentials&client_id=" +
+        CLIENT_ID +
+        "&client_secret=" +
+        CLIENT_SECRET,
+    };
 
-    if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))
-        .split("=")[1];
-
-      window.location.hash = "";
-      window.localStorage.setItem("token", token);
-    }
-
-    setToken(token);
+    fetch("https://accounts.spotify.com/api/token", authParameters)
+      .then((result) => result.json())
+      .then((data) => setToken(data.access_token));
   }, []);
 
   const logout = () => {
@@ -119,9 +124,56 @@ export default function MusicApp() {
     window.localStorage.removeItem("token");
   };
 
+  async function search() {
+    console.log("search for", searchInput);
+
+    //get request using search to get the artist id
+    const searchParams = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    let artistId = await fetch(
+      "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
+      searchParams
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        return data.artists.items[0].id;
+      });
+    console.log("ID: ", artistId);
+
+    //get albums from artist with artist id
+    let albums = await fetch(
+      "https://api.spotify.com/v1/artists/" +
+        artistId +
+        "/albums" +
+        "?include_groups=album&limit=50",
+      searchParams
+    )
+      .then((response) => response.json())
+      .then((data) => console.log("album data", data));
+
+    let returnedTracks = await fetch(
+      "https://api.spotify.com/v1/artists/" +
+        artistId +
+        "/top-tracks" +
+        "?market=US",
+      searchParams
+    )
+      .then((response) => response.json())
+      setTracks(returnedTracks);
+  }
+console.log(tracks)
   return (
     <>
-      <SearchBar />
+      <SearchBar
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+        search={search}
+      />
       <main>
         <h1>VibeVault</h1>
         {!token ? (
@@ -132,7 +184,7 @@ export default function MusicApp() {
           </a>
         ) : (
           <>
-            <Tracklist addToPlaylist={addToPlaylist} />
+            <Tracklist addToPlaylist={addToPlaylist} tracks={tracks}/>
 
             {playlists.length > 0 && (
               <Playlist

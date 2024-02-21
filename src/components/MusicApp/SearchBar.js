@@ -1,11 +1,21 @@
 import styled from "styled-components";
 
-export default function SearchBar() {
+export default function SearchBar({ searchInput, setSearchInput, search }) {
   return (
     <>
       <Searchbar>
         <Header>VibeVault</Header>
-        <SearchInput type="text" />
+        <SearchInput
+          type="text"
+          placeholder="Search..."
+          onKeyPress={(e) => {
+            if (e.key == "Enter") {
+              search();
+            }
+          }}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+        <SearchButton onClick={search}>Search</SearchButton>
       </Searchbar>
     </>
   );
@@ -37,3 +47,15 @@ const SearchInput = styled.input`
     outline: 2px solid pink;
   }
 `;
+
+const SearchButton = styled.button`
+  margin: 25px;
+  padding: 5px 20px;
+  border: none;
+  border-radius: 30px;
+
+  &:hover{
+    box-shadow: inset 0px 0px 6px 1px rgba(0,0,0,0.3);
+    cursor: pointer;
+  }
+`

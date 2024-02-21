@@ -1,24 +1,26 @@
 import { tracklist } from "./mockdata";
 import styled from "styled-components";
 
-export default function Tracklist({ addToPlaylist }) {
+export default function Tracklist({ addToPlaylist, tracks }) {
+  console.log("type", typeof tracks);
+  const trackList = tracks.tracks;
   return (
-    <>
-      <h1>Tracklist</h1>
-      <TracksWrapper>
-        {tracklist.map((track) => (
-          <>
-            <TrackWrapper key={track.id}>
+    Array.isArray(trackList) && (
+      <>
+        <h1>Tracklist</h1>
+        <TracksWrapper>
+          {trackList.map((track) => (
+            <TrackWrapper key={track.uri}>
               <TrackInfo>
                 <TrackName>{track.name}</TrackName>
                 <AddButton onClick={() => addToPlaylist(track)}>+</AddButton>
               </TrackInfo>
-              <TrackArtist>{track.artist}</TrackArtist>
+              <TrackArtist>{track.artists[0].name}</TrackArtist>
             </TrackWrapper>
-          </>
-        ))}
-      </TracksWrapper>
-    </>
+          ))}
+        </TracksWrapper>
+      </>
+    )
   );
 }
 
@@ -38,8 +40,8 @@ const TrackWrapper = styled.div`
   padding: 20px 5px;
   min-width: 280px;
   width: 250px;
-  height: 110px;
-  max-height: 110px;
+  height: 140px;
+  max-height: 140px;
 `;
 
 const TrackInfo = styled.div`
