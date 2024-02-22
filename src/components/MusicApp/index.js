@@ -47,15 +47,34 @@ export default function MusicApp() {
   };
 
   useEffect(() => {
+    // Retrieve token from URL hash fragment
     const _spotifyToken = getTokenFromUrl().access_token;
     window.location.hash = "";
-
+  
     if (_spotifyToken) {
+      // Save token to localStorage
+      localStorage.setItem("spotifyToken", _spotifyToken);
+      // Set token in component state
       setSpotifyToken(_spotifyToken);
+      // Initialize Spotify Web API instance with the token
       spotify.setAccessToken(_spotifyToken);
-      spotify.getMe().then((user) => {});
+      // Optionally, fetch user data or perform other actions
+      spotify.getMe().then((user) => {
+        console.log("User data:", user);
+      }).catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+    } else {
+      // If token is not present in URL, check if it's stored in localStorage
+      const storedToken = localStorage.getItem("spotifyToken");
+      if (storedToken) {
+        // Set token from localStorage to component state
+        setSpotifyToken(storedToken);
+        // Initialize Spotify Web API instance with the token
+        spotify.setAccessToken(storedToken);
+      }
     }
-  });
+  }, [spotify]);
 
   const logout = () => {
     setSpotifyToken("");
@@ -165,7 +184,7 @@ export default function MusicApp() {
 
     // Add tracks to the playlist
     const uris = songs.map((song) => song.uri);
-    console.log("songs", songs);
+
     await fetch(
       `https://api.spotify.com/v1/playlists/${createdPlaylistId}/tracks`,
       {
@@ -180,19 +199,13 @@ export default function MusicApp() {
   }
 
   function handleSaveToSpotifyClick(playlistId, playlistName, songs) {
-    saveToSpotify(playlistId, playlistName, songs)
-      .then((createdPlaylistId) => {
-        // After saving to Spotify, filter out the playlist from playlists
-        const updatedPlaylists = playlists.filter(
-          (playlist) => playlist.id !== playlistId
-        );
-        // Update the playlists state with the filtered array
-        setPlaylists(updatedPlaylists);
-      })
-      .catch((error) => {
-        console.error("Error saving to Spotify:", error);
-        // Handle error if needed
-      });
+    saveToSpotify(playlistId, playlistName, songs).then((createdPlaylistId) => {
+      // After saving to Spotify, filter out the playlist from playlists
+      const updatedPlaylists = playlists.filter(
+        (playlist) => playlist.id !== playlistId
+      );
+      setPlaylists(updatedPlaylists);
+    });
   }
 
   async function search() {
@@ -225,29 +238,37 @@ export default function MusicApp() {
   }
 
   return (
-    <>
+    <Background>
       <SearchBar
         searchInput={searchInput}
         setSearchInput={setSearchInput}
         search={search}
       />
       <main>
-        <h1>VibeVault</h1>
         {!spotifyToken ? (
-          <a href={loginUrl}>Login to VibeVault (Spotify)</a>
+          <Main>
+            <h1>Welcome to VibeVault!</h1>
+            <h2>The place where awesome playlists are born</h2>
+            <p>
+              Use this app to look up songs and create playlists. With the click
+              of a button you can save your playlist to your Spotify Account.
+            </p>
+            <LogInButton href={loginUrl}>Login to Spotify</LogInButton>
+          </Main>
         ) : (
           <>
-            <Tracklist addToPlaylist={addToPlaylist} tracks={tracks} />
+            <Test>
+              <Tracklist addToPlaylist={addToPlaylist} tracks={tracks} />
 
-            {playlists.length > 0 && (
-              <Playlist
-                playlists={playlists}
-                removeFromPlaylist={removeFromPlaylist}
-                playlistName={playlistName}
-                handleSaveToSpotifyClick={handleSaveToSpotifyClick}
-              />
-            )}
-
+              {playlists.length > 0 && (
+                <Playlist
+                  playlists={playlists}
+                  removeFromPlaylist={removeFromPlaylist}
+                  playlistName={playlistName}
+                  handleSaveToSpotifyClick={handleSaveToSpotifyClick}
+                />
+              )}
+            </Test>
             <PopUp
               setShowPopup={setShowPopup}
               handleSubmit={handleSubmit}
@@ -261,9 +282,41 @@ export default function MusicApp() {
           </>
         )}
       </main>
-    </>
+    </Background>
   );
 }
+
+const Main = styled.main`
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const Background = styled.div`
+background-color: #000;
+color: #fff;
+`
+
+const Test = styled.div`
+display: flex;
+justify-content: space-between;
+`
+const LogInButton = styled.a`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 100px;
+  text-decoration: none;
+  background-color: limegreen;
+  border-radius: 40px;
+  padding: 10px 35px;
+
+  &:hover {
+    color: #fff;
+    box-shadow: 0 0 16px #00000060;
+  }
+`;
 
 const LogOutButton = styled.button`
   padding: 10px;

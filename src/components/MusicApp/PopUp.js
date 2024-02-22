@@ -58,9 +58,9 @@ const PopUpWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff;
-  /* backdrop-filter: blur(5px); */
-  box-shadow: 0px 5px 20px 4px #6b6a6a54;
+  background-color: #00000060;
+  backdrop-filter: blur(5px);
+  box-shadow: 0px 5px 20px 4px #ffffff2b;
 `;
 
 const Header = styled.h1`
@@ -88,32 +88,34 @@ const Button = styled.button`
   padding: 5px 20px;
   border-radius: 20px;
   border: none;
-  background-color: limegreen;
+  background-color: #FF00E5;
   cursor: pointer;
 
   &:hover {
-   box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+    box-shadow: 0 0 15px #FF00E5;
   }
 `;
 
 const CancelButton = styled.button`
  margin: 5px;
   font-size: .8rem;
+  font-weight: 600;
   padding: 5px 20px;
   border-radius: 20px;
-  border: none;
-  background-color: limegreen;
+  border: 1.5px solid #FF00E5;
+  background-color: transparent;
+  color: #FF00E5;
   cursor: pointer;
 
   &:hover {
-   box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+    box-shadow: 0 0 15px #FF00E5;
   }
 `
 
 const Divider = styled.div`
   width: 40%;
   height: 1px;
-  background-color: #00000040;
+  background-color: #ffffff40;
   border-radius: 30px;
   margin-top: 15px;
 `
@@ -126,12 +128,14 @@ const PlaylistButton = styled.button`
   font-size: 1.2rem;
   margin-top: 20px;
   padding: 5px 40px;
-  border: 1px solid #00000040;
+  border: 1px solid #ffffff40;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: transparent;
+  box-shadow: 0 0 10px #ffffff20;
+  color: #fff;
   cursor: pointer;
 
   &:hover {
-   box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+    box-shadow: 0 0 15px #ffffff40;
   }
 `;

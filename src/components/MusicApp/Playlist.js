@@ -7,9 +7,10 @@ export default function Playlist({
 }) {
   return (
     <PlaylistContainer>
+      <h1>Your Playlists</h1>
       {playlists.map((playlist) => (
         <>
-          <div key={playlist.name}>
+          <Playlists key={playlist.name}>
             <Header>{playlist.name}</Header>
             {playlist.songs &&
               playlist.songs.map((song) => (
@@ -22,10 +23,10 @@ export default function Playlist({
                   </DeleteButton>
                 </SongContainer>
               ))}
-          </div>
-          <button onClick={() => handleSaveToSpotifyClick(playlist.id, playlist.name, playlist.songs)}>
+          <SaveToSpotifyButton onClick={() => handleSaveToSpotifyClick(playlist.id, playlist.name, playlist.songs)}>
             Save to Spotify
-          </button>
+          </SaveToSpotifyButton>
+          </Playlists>
         </>
       ))}
     </PlaylistContainer>
@@ -35,10 +36,18 @@ export default function Playlist({
 const PlaylistContainer = styled.div`
   margin: 30px;
   border-radius: 20px;
-  border: 2px solid black;
-  width: 20%;
+  border: 2px solid #FF00E5;
+  box-shadow: 0px 0px 20px #FF00E580;
+  width: 40%;
   padding: 20px;
 `;
+
+const Playlists = styled.div`
+  border: 1px solid #ffffff30;
+  border-radius: 20px;
+  margin: 20px;
+  padding: 20px;
+`
 
 const Header = styled.h1`
   text-align: center;
@@ -51,15 +60,36 @@ const SongContainer = styled.div`
 
 const Song = styled.p`
   margin: 5px 0;
+  font-size: 1.2rem;
+  font-weight: 600;
 `;
 
 const DeleteButton = styled.button`
   border: none;
   height: 20px;
   border-radius: 5px;
+  color: #FF00E5;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: transparent;
   cursor: pointer;
+  box-shadow: 0 0 2px #FF00E5;
 
   &:hover {
-    box-shadow: rgba(0, 0, 0, 0.2) 0 1px 3px;
+    box-shadow: 0 1px 3px #FF00E5;
   }
 `;
+
+const SaveToSpotifyButton = styled.button`
+ margin-top: 20px;
+ padding: 5px 15px;
+ border-radius: 30px;
+ font-size: 1rem;
+ font-weight: 600;
+ border: none;
+ background-color: #19fd00;
+
+ &:hover{
+  box-shadow: 0 0 15px #19fd00;
+ }
+`

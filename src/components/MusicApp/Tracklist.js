@@ -1,20 +1,20 @@
-import { tracklist } from "./mockdata";
 import styled from "styled-components";
 
 export default function Tracklist({ addToPlaylist, tracks }) {
   const trackList = tracks.tracks;
+  console.log(trackList);
   return (
     Array.isArray(trackList) && (
       <>
-        <h1>Tracklist</h1>
         <TracksWrapper>
           {trackList.map((track) => (
             <TrackWrapper key={track.uri}>
+              <AlbumCover src={track.album.images[0].url} />
               <TrackInfo>
                 <TrackName>{track.name}</TrackName>
-                <AddButton onClick={() => addToPlaylist(track)}>+</AddButton>
+                <TrackArtist>{track.artists[0].name}</TrackArtist>
               </TrackInfo>
-              <TrackArtist>{track.artists[0].name}</TrackArtist>
+              <AddButton onClick={() => addToPlaylist(track)}>+</AddButton>
             </TrackWrapper>
           ))}
         </TracksWrapper>
@@ -25,51 +25,62 @@ export default function Tracklist({ addToPlaylist, tracks }) {
 
 const TracksWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-evenly;
 `;
 
 const TrackWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(40 38 40 / 90%) 80%
+  );
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
   margin: 10px;
   padding: 20px 5px;
-  min-width: 280px;
-  width: 250px;
-  height: 140px;
-  max-height: 140px;
+  width: 450px;
+  height: 100px;
 `;
 
 const TrackInfo = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  width: 70%;
+  flex-direction: column;
+  margin: 10px;
 `;
 
 const TrackName = styled.p`
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 700;
   margin: 5px 0 10px 0;
   width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 const TrackArtist = styled.p`
-  font-size: 1.1rem;
+  font-size: 1rem;
+`;
+
+const AlbumCover = styled.img`
+  height: 80px;
+  width: 80px;
+  border-radius: 10px;
 `;
 
 const AddButton = styled.button`
+  position: absolute;
+  right: 10px;
   margin: 15px 0 0 0;
   width: 34px;
   height: 30px;
   border-radius: 50%;
   border: none;
-  background-color: limegreen;
+  background-color: #FF00E5;
   color: white;
   font-size: 1.5rem;
   display: flex;
@@ -78,6 +89,6 @@ const AddButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    background-color: purple;
+    box-shadow: 0 0 15px #FF00E5;
   }
 `;
