@@ -23,7 +23,7 @@ export default function Playlist({
                 </SongContainer>
               ))}
           </div>
-          <button onClick={() => handleSaveToSpotifyClick(playlist.name, playlist.songs)}>
+          <button onClick={() => handleSaveToSpotifyClick(playlist.id, playlist.name, playlist.songs)}>
             Save to Spotify
           </button>
         </>

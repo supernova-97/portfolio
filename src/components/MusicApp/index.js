@@ -135,7 +135,7 @@ export default function MusicApp() {
     }
   }
 
-  async function saveToSpotify(playlistName, songs) {
+  async function saveToSpotify(playlistId, playlistName, songs) {
     const response = await fetch("https://api.spotify.com/v1/me", {
       method: "GET",
       headers: {
@@ -143,11 +143,7 @@ export default function MusicApp() {
       },
     });
     const data = await response.json();
-    console.log("data", data);
     const userId = data.id;
-    console.log("userId", userId);
-    console.log("playlists", playlists);
-    console.log("spotifyToken", spotifyToken);
 
     const createPlaylistResponse = await fetch(
       `https://api.spotify.com/v1/users/${userId}/playlists`,
@@ -184,7 +180,19 @@ export default function MusicApp() {
   }
 
   function handleSaveToSpotifyClick(playlistId, playlistName, songs) {
-    saveToSpotify(playlistId, playlistName, songs);
+    saveToSpotify(playlistId, playlistName, songs)
+      .then((createdPlaylistId) => {
+        // After saving to Spotify, filter out the playlist from playlists
+        const updatedPlaylists = playlists.filter(
+          (playlist) => playlist.id !== playlistId
+        );
+        // Update the playlists state with the filtered array
+        setPlaylists(updatedPlaylists);
+      })
+      .catch((error) => {
+        console.error("Error saving to Spotify:", error);
+        // Handle error if needed
+      });
   }
 
   async function search() {
