@@ -2,7 +2,6 @@ import { tracklist } from "./mockdata";
 import styled from "styled-components";
 
 export default function Tracklist({ addToPlaylist, tracks }) {
-  console.log("type", typeof tracks);
   const trackList = tracks.tracks;
   return (
     Array.isArray(trackList) && (
@@ -55,6 +54,9 @@ const TrackName = styled.p`
   font-weight: 700;
   margin: 5px 0 10px 0;
   width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const TrackArtist = styled.p`

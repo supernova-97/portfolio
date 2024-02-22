@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function Playlist({
   playlists,
   removeFromPlaylist,
-  saveToSpotify,
+  handleSaveToSpotifyClick,
 }) {
   return (
     <PlaylistContainer>
@@ -23,7 +23,7 @@ export default function Playlist({
                 </SongContainer>
               ))}
           </div>
-          <button onClick={() => saveToSpotify(playlist.id)}>
+          <button onClick={() => handleSaveToSpotifyClick(playlist.name, playlist.songs)}>
             Save to Spotify
           </button>
         </>
