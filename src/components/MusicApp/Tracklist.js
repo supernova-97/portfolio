@@ -27,6 +27,23 @@ const TracksWrapper = styled.div`
   width: 500px;
   height: 90vh;
   overflow: scroll;
+  overflow-x: hidden;
+
+
+  &::-webkit-scrollbar {
+    width: 6px; /* Width of the entire scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: black; /* Color of the track */
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: darkgray; /* Color of the scrollbar handle */
+    border-radius: 10px; /* Rounded corners */
+  }
 `;
 
 const TrackWrapper = styled.div`
