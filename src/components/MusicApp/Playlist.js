@@ -51,7 +51,7 @@ const PlaylistContainer = styled.div`
     rgba(255, 0, 229, 1) 21%,
     rgba(153, 0, 247, 1) 96%
   );
-  width: 40%;
+  width: 50%;
   padding: 20px;
   border-bottom-left-radius: 300px;
 `;
