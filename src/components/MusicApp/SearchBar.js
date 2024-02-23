@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function SearchBar({ searchInput, setSearchInput, search }) {
+export default function SearchBar({ setSearchInput, search, logout }) {
   return (
     <>
       <Searchbar>
@@ -16,6 +16,7 @@ export default function SearchBar({ searchInput, setSearchInput, search }) {
           onChange={(e) => setSearchInput(e.target.value)}
         />
         <SearchButton onClick={search}>Search</SearchButton>
+        <LogOutButton onClick={logout}>Logout</LogOutButton>
       </Searchbar>
     </>
   );
@@ -23,11 +24,13 @@ export default function SearchBar({ searchInput, setSearchInput, search }) {
 
 const Searchbar = styled.div`
   display: flex;
+  position: fixed;
+  width: 100%;
   align-items: center;
   background-color: purple;
   margin-left: 5rem;
-  width: 100vw - 5rem;
   height: 70px;
+  z-index: 1;
 `;
 
 const Header = styled.h1`
@@ -54,8 +57,23 @@ const SearchButton = styled.button`
   border: none;
   border-radius: 30px;
 
-  &:hover{
-    box-shadow: inset 0px 0px 6px 1px rgba(0,0,0,0.3);
+  &:hover {
+    box-shadow: inset 0px 0px 6px 1px rgba(0, 0, 0, 0.3);
     cursor: pointer;
   }
-`
+`;
+const LogOutButton = styled.button`
+  padding: 10px;
+  background-color: purple;
+  font-size: 1.2rem;
+  color: #fff;
+  border-radius: 40px;
+  border: none;
+  margin: 10px;
+  padding: 5px 15px;
+
+  &:hover {
+    background-color: pink;
+    cursor: pointer;
+  }
+`;

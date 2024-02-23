@@ -50,7 +50,7 @@ export default function MusicApp() {
     // Retrieve token from URL hash fragment
     const _spotifyToken = getTokenFromUrl().access_token;
     window.location.hash = "";
-  
+
     if (_spotifyToken) {
       // Save token to localStorage
       localStorage.setItem("spotifyToken", _spotifyToken);
@@ -59,11 +59,14 @@ export default function MusicApp() {
       // Initialize Spotify Web API instance with the token
       spotify.setAccessToken(_spotifyToken);
       // Optionally, fetch user data or perform other actions
-      spotify.getMe().then((user) => {
-        console.log("User data:", user);
-      }).catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
+      spotify
+        .getMe()
+        .then((user) => {
+          console.log("User data:", user);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
     } else {
       // If token is not present in URL, check if it's stored in localStorage
       const storedToken = localStorage.getItem("spotifyToken");
@@ -78,7 +81,7 @@ export default function MusicApp() {
 
   const logout = () => {
     setSpotifyToken("");
-    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("spotifyToken");
   };
 
   //playlist logic
@@ -238,15 +241,16 @@ export default function MusicApp() {
   }
 
   return (
-    <Background>
+    <>
       <SearchBar
         searchInput={searchInput}
         setSearchInput={setSearchInput}
         search={search}
+        logout={logout}
       />
-      <main>
+      <Main>
         {!spotifyToken ? (
-          <Main>
+          <MainWrapper>
             <h1>Welcome to VibeVault!</h1>
             <h2>The place where awesome playlists are born</h2>
             <p>
@@ -254,20 +258,27 @@ export default function MusicApp() {
               of a button you can save your playlist to your Spotify Account.
             </p>
             <LogInButton href={loginUrl}>Login to Spotify</LogInButton>
-          </Main>
+          </MainWrapper>
         ) : (
-          <>
+          <MainWrapper>
             <Test>
-              <Tracklist addToPlaylist={addToPlaylist} tracks={tracks} />
+              <Container>
+                {/* <h1>
+                Hi! Use the seachbar above to find your favorite songs and put
+                them into playlists!
+              </h1> */}
+                <Tracklist addToPlaylist={addToPlaylist} tracks={tracks} />
 
-              {playlists.length > 0 && (
-                <Playlist
-                  playlists={playlists}
-                  removeFromPlaylist={removeFromPlaylist}
-                  playlistName={playlistName}
-                  handleSaveToSpotifyClick={handleSaveToSpotifyClick}
-                />
-              )}
+                {playlists.length > 0 && (
+                  <Playlist
+                    playlists={playlists}
+                    removeFromPlaylist={removeFromPlaylist}
+                    playlistName={playlistName}
+                    handleSaveToSpotifyClick={handleSaveToSpotifyClick}
+                  />
+                )}
+              </Container>
+              
             </Test>
             <PopUp
               setShowPopup={setShowPopup}
@@ -277,31 +288,41 @@ export default function MusicApp() {
               handleInputChange={handleInputChange}
               handleSubmitExisting={handleSubmitExisting}
             />
-
-            <LogOutButton onClick={logout}>Logout</LogOutButton>
-          </>
+          </MainWrapper>
         )}
-      </main>
-    </Background>
+      </Main>
+    </>
   );
 }
 
 const Main = styled.main`
   background-color: #000;
+  height: 100vh;
+  margin-left: -1rem;
+`;
+
+const MainWrapper = styled.div`
+  background-color: #000;
+  color: #fff;
   display: flex;
   align-items: center;
   flex-direction: column;
 `;
 
-const Background = styled.div`
-background-color: #000;
-color: #fff;
-`
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10rem;
+`;
 
 const Test = styled.div`
-display: flex;
-justify-content: space-between;
-`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 70px;
+`;
+
 const LogInButton = styled.a`
   font-size: 1.5rem;
   font-weight: 700;
@@ -318,18 +339,4 @@ const LogInButton = styled.a`
   }
 `;
 
-const LogOutButton = styled.button`
-  padding: 10px;
-  background-color: purple;
-  font-size: 1.2rem;
-  color: #fff;
-  border-radius: 40px;
-  border: none;
-  margin: 10px;
-  padding: 5px 15px;
 
-  &:hover {
-    background-color: pink;
-    cursor: pointer;
-  }
-`;

@@ -24,10 +24,9 @@ export default function Tracklist({ addToPlaylist, tracks }) {
 }
 
 const TracksWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  width: 500px;
+  height: 90vh;
+  overflow: scroll;
 `;
 
 const TrackWrapper = styled.div`

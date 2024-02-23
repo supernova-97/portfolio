@@ -34,12 +34,11 @@ export default function Playlist({
 }
 
 const PlaylistContainer = styled.div`
-  margin: 30px;
-  border-radius: 20px;
-  border: 2px solid #FF00E5;
-  box-shadow: 0px 0px 20px #FF00E580;
+  box-shadow: 0px 0px 60px 15px #FF00E580;
+  background: linear-gradient(180deg, rgba(255,0,229,1) 21%, rgba(153,0,247,1) 96%);
   width: 40%;
   padding: 20px;
+  border-bottom-left-radius: 300px
 `;
 
 const Playlists = styled.div`
