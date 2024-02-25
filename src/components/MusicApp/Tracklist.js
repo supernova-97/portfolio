@@ -4,10 +4,10 @@ export default function Tracklist({ addToPlaylist, tracks }) {
   const trackList = tracks.tracks;
   console.log(trackList);
   return (
-    Array.isArray(trackList) && (
-      <>
-        <TracksWrapper>
-          {trackList.map((track) => (
+    <>
+      <TracksListWrapper>
+        {trackList ? (
+          trackList.map((track) => (
             <TrackWrapper key={track.uri}>
               <AlbumCover src={track.album.images[0].url} />
               <TrackInfo>
@@ -16,19 +16,22 @@ export default function Tracklist({ addToPlaylist, tracks }) {
               </TrackInfo>
               <AddButton onClick={() => addToPlaylist(track)}>+</AddButton>
             </TrackWrapper>
-          ))}
-        </TracksWrapper>
-      </>
-    )
+          ))
+        ) : (
+          <AltTextTracklist>
+            Use the searchbar to find your favorite songs.
+          </AltTextTracklist>
+        )}
+      </TracksListWrapper>
+    </>
   );
 }
 
-const TracksWrapper = styled.div`
+const TracksListWrapper = styled.div`
   width: 500px;
-  height: 90vh;
+  height: 80vh;
   overflow: scroll;
   overflow-x: hidden;
-
 
   &::-webkit-scrollbar {
     width: 6px; /* Width of the entire scrollbar */
@@ -96,7 +99,7 @@ const AddButton = styled.button`
   height: 30px;
   border-radius: 50%;
   border: none;
-  background-color: #FF00E5;
+  background-color: #ff00e5;
   color: white;
   font-size: 1.5rem;
   display: flex;
@@ -105,6 +108,12 @@ const AddButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    box-shadow: 0 0 15px #FF00E5;
+    box-shadow: 0 0 15px #ff00e5;
   }
+`;
+
+const AltTextTracklist = styled.p`
+  margin-top: 40%;
+  font-size: 1.2rem;
+  text-align: center;
 `;

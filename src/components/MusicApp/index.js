@@ -5,12 +5,14 @@ import Tracklist from "./Tracklist";
 import Playlist from "./Playlist";
 import SearchBar from "./SearchBar";
 import PopUp from "./PopUp";
+import SavedPopUp from "./SavedPopUp";
 
 export default function MusicApp() {
   const [searchInput, setSearchInput] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [showSavedPopup, setSavedShowPopup] = useState(false);
   const [clickedTrack, setClickedTrack] = useState(null);
 
   //Spotify
@@ -208,6 +210,7 @@ export default function MusicApp() {
         (playlist) => playlist.id !== playlistId
       );
       setPlaylists(updatedPlaylists);
+      setSavedShowPopup(true);
     });
   }
 
@@ -237,6 +240,7 @@ export default function MusicApp() {
         "?market=US",
       searchParams
     ).then((response) => response.json());
+    setSearchInput("");
     setTracks(returnedTracks);
   }
 
@@ -247,17 +251,21 @@ export default function MusicApp() {
         setSearchInput={setSearchInput}
         search={search}
         logout={logout}
+        spotifyToken={spotifyToken}
       />
       <Main>
         {!spotifyToken ? (
           <MainWrapper>
-            <h1>Welcome to VibeVault!</h1>
-            <h2>The place where awesome playlists are born</h2>
-            <p>
-              Use this app to look up songs and create playlists. With the click
-              of a button you can save your playlist to your Spotify Account.
-            </p>
-            <LogInButton href={loginUrl}>Login to Spotify</LogInButton>
+            <Intro>
+              <h1>Welcome to VibeVault!</h1>
+              <h2>The place where awesome playlists are born</h2>
+              <p>
+                Use this app to look up songs and create playlists. With the
+                click of a button you can save your playlist to your Spotify
+                Account.
+              </p>
+              <LogInButton href={loginUrl}>Login to Spotify</LogInButton>
+            </Intro>
           </MainWrapper>
         ) : (
           <MainWrapper>
@@ -268,17 +276,15 @@ export default function MusicApp() {
                 them into playlists!
               </h1> */}
                 <Tracklist addToPlaylist={addToPlaylist} tracks={tracks} />
-
-                {playlists.length > 0 && (
+                <PlaylistContainer>
                   <Playlist
                     playlists={playlists}
                     removeFromPlaylist={removeFromPlaylist}
                     playlistName={playlistName}
                     handleSaveToSpotifyClick={handleSaveToSpotifyClick}
                   />
-                )}
+                </PlaylistContainer>
               </Container>
-              
             </Test>
             <PopUp
               setShowPopup={setShowPopup}
@@ -288,12 +294,29 @@ export default function MusicApp() {
               handleInputChange={handleInputChange}
               handleSubmitExisting={handleSubmitExisting}
             />
+            <SavedPopUp
+              showSavedPopup={showSavedPopup}
+              setSavedShowPopup={setSavedShowPopup}
+            />
           </MainWrapper>
         )}
       </Main>
     </>
   );
 }
+
+const PlaylistContainer = styled.div`
+  height: 700px;
+  box-shadow: 0px 0px 60px 15px #ff00e580;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 229, 1) 21%,
+    rgba(153, 0, 247, 1) 96%
+  );
+  width: 50%;
+  padding: 20px;
+  border-bottom-left-radius: 300px;
+`;
 
 const Main = styled.main`
   background-color: #000;
@@ -309,6 +332,13 @@ const MainWrapper = styled.div`
   flex-direction: column;
 `;
 
+const Intro = styled.div`
+  margin-top: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -320,7 +350,7 @@ const Test = styled.div`
   justify-content: space-between;
   flex-direction: column;
   width: 100%;
-  padding-top: 70px;
+  padding-top: 90px;
 `;
 
 const LogInButton = styled.a`
@@ -329,7 +359,7 @@ const LogInButton = styled.a`
   color: #fff;
   margin-top: 100px;
   text-decoration: none;
-  background-color: limegreen;
+  background-color: #19fd00;
   border-radius: 40px;
   padding: 10px 35px;
 
@@ -338,5 +368,3 @@ const LogInButton = styled.a`
     box-shadow: 0 0 16px #00000060;
   }
 `;
-
-
