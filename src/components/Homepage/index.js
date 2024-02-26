@@ -12,11 +12,23 @@ export default function Homepage() {
         <Div>
           <Image src={photo} alt="my picture" />
           <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Elementum nibh tellus molestie nunc non blandit massa enim. Arcu
-            cursus euismod quis viverra nibh cras pulvinar mattis. Sit amet
-            consectetur adipiscing elit duis tristique.
+            Hi, I’m Felix and welcome to my portfolio website. I started my
+            coding journey in 2022 when I decided I’ve had enough of the hotel
+            business and finally went after my interest of making visually
+            appealing and functional websites.
+            <br />
+            I started on Codecademy, then completed a 3-month bootcamp. Pretty
+            soon I landed my first job which unfortunately wasn’t a good fit.
+            But I didn’t let that crush my hopes and so I started creating this
+            portfolio project, in which I create various applications to
+            practice and showcase my abilities.
+            <br />
+            Please keep in mind that this is a work in progress, so some thing
+            might not look too good or work as they should. I’m constantly
+            working on and improving it.
+            <br />
+            <br />
+            Have fun exploring!
           </Text>
         </Div>
       </Wrapper>

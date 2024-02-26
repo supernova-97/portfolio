@@ -257,7 +257,7 @@ export default function MusicApp() {
         {!spotifyToken ? (
           <MainWrapper>
             <Intro>
-              <h1>Welcome to VibeVault!</h1>
+              <MainHeader>Welcome to VibeVault!</MainHeader>
               <h2>The place where awesome playlists are born</h2>
               <p>
                 Use this app to look up songs and create playlists. With the
@@ -330,6 +330,11 @@ const MainWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+`;
+
+const MainHeader = styled.h1`
+  margin-bottom: 30px;
+  font-size: 3rem;
 `;
 
 const Intro = styled.div`

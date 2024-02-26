@@ -42,13 +42,14 @@ export default function ToDo() {
   return (
     <Wrapper>
       <Header>To-do list:</Header>
+      <p>Click on a To-Do to mark it as done.</p>
       <form onSubmit={handleSubmit}>
         <Input
           type="text"
           value={todo}
           onChange={(e) => setTodo(e.target.value)}
         />
-        </form>
+      </form>
       {tasks.map((task) => {
         return <Todo key={task.id} todo={task} dispatch={dispatch} />;
       })}
@@ -58,7 +59,7 @@ export default function ToDo() {
 
 const Header = styled.h1`
   margin: 30px;
-`
+`;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,9 +67,14 @@ const Wrapper = styled.div`
 `;
 
 const Input = styled.input`
- height: 20px;
- margin-bottom: 20px;
- padding: 5px;
- border: 2px solid black;
- border-radius: 10px;
-`
+  height: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 15px;
+  border: 2px solid black;
+  box-shadow: -3px 3px black;
+
+  &:focus {
+    outline: none;
+  }
+`;

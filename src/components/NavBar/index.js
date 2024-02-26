@@ -27,7 +27,7 @@ export default function NavBar() {
           <ListItem>
             <Div>
               <Icon src={projects} />
-              <Span>Projects:</Span>
+              <Projects>Projects:</Projects>
             </Div>
           </ListItem>
           <SubMenu>
@@ -152,6 +152,13 @@ const Span = styled.span`
   &:hover {
     color: pink;
   }
+`;
+
+const Projects = styled.span`
+  font-size: 1rem;
+  color: white;
+  margin-left: 10px;
+  display: none;
 `;
 
 const SubMenuItems = styled.ul`
