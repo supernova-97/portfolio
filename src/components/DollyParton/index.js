@@ -52,13 +52,24 @@ export default function DollyParton() {
     localStorage.setItem("imageIndex", imageIndex.toString());
   }, [imageIndex]);
 
-  function prevImage() {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setImageIndex((index) => {
+        if (index === data.length - 1) return 0;
+        return index + 1;
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [data.length]);
+
+  function nextImage() {
     setImageIndex((index) => {
       if (index === data.length - 1) return 0;
       return index + 1;
     });
   }
-  function nextImage() {
+  function prevImage() {
     setImageIndex((index) => {
       if (index === 0) return data.length - 1;
       return index - 1;
@@ -72,10 +83,11 @@ export default function DollyParton() {
           <Heading>{data[imageIndex].title}</Heading>
           <p>{data[imageIndex].desc}</p>
         </TextSection>
-        <div>
-          <Button1 onClick={nextImage}>&lt; Previous</Button1>
-          <Button2 onClick={prevImage}>Next &gt;</Button2>
-        </div>
+        <ButtonContainer>
+          <PrevButton onClick={prevImage}>&lt; Previous</PrevButton>
+          <Divider></Divider>
+          <NextButton onClick={nextImage}>Next &gt;</NextButton>
+        </ButtonContainer>
       </MainSection>
       <ImageSection>
         {data.map((img, index) => (
@@ -119,19 +131,38 @@ const Heading = styled.h1`
   font-family: "Playfair Display";
 `;
 
-const Button1 = styled.button`
-  all: unset;
-  font-size: 1.5rem;
-  cursor: pointer;
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
-const Button2 = styled.button`
+const NextButton = styled.button`
   all: unset;
   font-size: 1.5rem;
-  margin-left: 20px;
-  padding: 20px;
-  border-left: 1px solid black;
   cursor: pointer;
+
+  &:hover {
+    color: #00000070;
+    transform: scale(1.05);
+  }
+`;
+
+const PrevButton = styled.button`
+  all: unset;
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  &:hover {
+    color: #00000070;
+    transform: scale(1.05);
+  }
+`;
+
+const Divider = styled.div`
+  height: 60px;
+  width: 1px;
+  background-color: #000;
+  margin: 0 30px;
 `;
 
 const ImageSection = styled.div`

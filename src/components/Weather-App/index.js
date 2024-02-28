@@ -41,8 +41,8 @@ export default function Weather() {
 
   return (
     <main>
-      <StyledHeading>The weather for Berlin</StyledHeading>
       <Wrapper>
+        <MainHeading>The weather for Berlin</MainHeading>
         <SubWrapper>
           <Styledh2>Berlin</Styledh2>
           <h3>{weather}</h3>
@@ -72,6 +72,13 @@ export default function Weather() {
   );
 }
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const SubWrapper = styled.div`
   margin: 10px;
   border-radius: 10px;
@@ -96,17 +103,11 @@ const Img = styled.img`
   position: relative;
 `;
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StyledHeading = styled.h1`
+const MainHeading = styled.h1`
   text-decoration: underline;
-  margin: 0;
-  font-size: 1.5rem;
+  margin: 20px;
+  font-size: 2rem;
+  font-family: 'Comfortaa', sans-serif;
 `;
 
 const Styledh2 = styled.h2`
