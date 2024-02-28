@@ -27,7 +27,7 @@ export default function NavBar() {
           <ListItem>
             <Div>
               <Icon src={projects} />
-              <Projects>Projects:</Projects>
+              <Projects>Projects</Projects>
             </Div>
           </ListItem>
           <SubMenu>
