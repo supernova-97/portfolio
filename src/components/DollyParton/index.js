@@ -78,7 +78,14 @@ export default function DollyParton() {
         </div>
       </MainSection>
       <ImageSection>
-        <Img src={data[imageIndex].image} alt="Dolly Parton" />
+        {data.map((img, index) => (
+          <Img
+            key={index}
+            src={img.image}
+            alt={img.title}
+            imageIndex={imageIndex}
+          />
+        ))}
       </ImageSection>
     </Main>
   );
@@ -128,11 +135,18 @@ const Button2 = styled.button`
 `;
 
 const ImageSection = styled.div`
-  width: 40%;
+  width: 35%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
 `;
 
 const Img = styled.img`
   height: 100vh;
   width: 100%;
   object-fit: cover;
+  transform: translateX(calc(-100% * ${(props) => props.imageIndex}));
+  flex-shrink: 0;
+  flex-grow: 0;
+  transition: transform 300ms ease-in-out;
 `;
