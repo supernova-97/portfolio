@@ -39,10 +39,12 @@ export default function Weather() {
     snow: snow,
   };
 
+  const images = [sun, cloud, rain, thunder, snow];
+
   return (
     <main>
+      <MainHeading>The weather for Berlin</MainHeading>
       <Wrapper>
-        <MainHeading>The weather for Berlin</MainHeading>
         <SubWrapper>
           <Styledh2>Berlin</Styledh2>
           <h3>{weather}</h3>
@@ -66,15 +68,45 @@ export default function Weather() {
             </DetailsValue>
           </DetailsWrapper>
         </SubWrapper>
+        <Showcase>
+          {images.map((image) => (
+            <ShowcaseImage src={image} />
+          ))}
+          <FunFact>
+            Fun fact: I made all the icons myself using Blender!
+          </FunFact>
+        </Showcase>
       </Wrapper>
       <TemperatureChart weatherData={data} />
     </main>
   );
 }
 
+const Showcase = styled.div`
+  margin: 50px;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px 0px #c6c6c6;
+  width: 20%;
+  height: fit-content;
+`;
+
+const ShowcaseImage = styled.img`
+  height: 100px;
+  width: 100px;
+`;
+
+const FunFact = styled.p`
+  text-align: center;
+  margin-top: 20px;
+`;
+
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 `;
@@ -107,7 +139,8 @@ const MainHeading = styled.h1`
   text-decoration: underline;
   margin: 20px;
   font-size: 2rem;
-  font-family: 'Comfortaa', sans-serif;
+  font-family: "Comfortaa", sans-serif;
+  text-align: center;
 `;
 
 const Styledh2 = styled.h2`
