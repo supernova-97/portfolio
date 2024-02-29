@@ -63,9 +63,7 @@ export default function MusicApp() {
       // Optionally, fetch user data or perform other actions
       spotify
         .getMe()
-        .then((user) => {
-          console.log("User data:", user);
-        })
+        .then((user) => {})
         .catch((error) => {
           console.error("Error fetching user data:", error);
         });
@@ -223,6 +221,7 @@ export default function MusicApp() {
         Authorization: `Bearer ${spotifyToken}`,
       },
     };
+
     let artistId = await fetch(
       "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
       searchParams
@@ -233,11 +232,22 @@ export default function MusicApp() {
       });
 
     //get top tracks based on search input
+    //   let returnedTracks = await fetch(
+    //     "https://api.spotify.com/v1/artists/" +
+    //       artistId +
+    //       "/top-tracks" +
+    //       "?market=US",
+    //     searchParams
+    //   ).then((response) => response.json());
+    //   setSearchInput("");
+    //   setTracks(returnedTracks);
+    // }
+
+    //get search items
     let returnedTracks = await fetch(
-      "https://api.spotify.com/v1/artists/" +
-        artistId +
-        "/top-tracks" +
-        "?market=US",
+      "https://api.spotify.com/v1/search?q=" +
+        searchInput +
+        "&type=track&limit=50",
       searchParams
     ).then((response) => response.json());
     setSearchInput("");

@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
 export default function Tracklist({ addToPlaylist, tracks }) {
-  const trackList = tracks.tracks;
-  console.log(trackList);
+  let trackList = [];
+  if (tracks && tracks.tracks && tracks.tracks.items) {
+    trackList = tracks.tracks.items;
+  }
   return (
     <>
       <TracksListWrapper>
-        {trackList ? (
+        {trackList.length > 0 ? (
           trackList.map((track) => (
             <TrackWrapper key={track.uri}>
               <AlbumCover src={track.album.images[0].url} />
