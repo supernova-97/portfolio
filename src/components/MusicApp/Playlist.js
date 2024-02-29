@@ -5,7 +5,6 @@ export default function Playlist({
   removeFromPlaylist,
   handleSaveToSpotifyClick,
 }) {
-  console.log(playlists);
   return (
     <Container>
       <h1>Your Playlists</h1>
