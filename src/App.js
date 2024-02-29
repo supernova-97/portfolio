@@ -1,11 +1,17 @@
 import React from "react";
 import NavBar from "./components/NavBar";
-import GlobalStyles from "./GlobalStyles"; 
+import { createGlobalStyle } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    
+  }
+`
 
 export default function App() {
   return (
     <>
-      <GlobalStyles />
+      <GlobalStyle />
       <NavBar />
     </>
   );
