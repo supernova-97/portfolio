@@ -34,7 +34,7 @@ export default function NavBar() {
             <SubMenuItems>
               <li>
                 <NavbarLink to="/weather">
-                  <AppLink>Weather Forecast</AppLink>
+                  <AppLink>Weather for Berlin</AppLink>
                 </NavbarLink>
               </li>
               <li>
@@ -114,6 +114,7 @@ const NavbarLink = styled(Link)`
   color: #fff;
   text-decoration: none;
   margin: 0;
+  z-index: 3;
 `;
 
 const Icon = styled.img`

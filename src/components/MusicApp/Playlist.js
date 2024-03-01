@@ -92,7 +92,7 @@ const SongInfo = styled.div`
 const Song = styled.p`
   margin: 5px 0;
   font-size: 1.3rem;
-  font-weight: 600;
+  font-weight: 700;
 `;
 
 const Artist = styled.p`

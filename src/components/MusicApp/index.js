@@ -17,7 +17,6 @@ export default function MusicApp() {
 
   //Spotify
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
-  const CLIENT_SECRET = "a655e9144e01477f876f005421285e20";
   const REDIRECT_URI = "http://localhost:3000/music";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
@@ -49,18 +48,13 @@ export default function MusicApp() {
   };
 
   useEffect(() => {
-    // Retrieve token from URL hash fragment
     const _spotifyToken = getTokenFromUrl().access_token;
     window.location.hash = "";
 
     if (_spotifyToken) {
-      // Save token to localStorage
       localStorage.setItem("spotifyToken", _spotifyToken);
-      // Set token in component state
       setSpotifyToken(_spotifyToken);
-      // Initialize Spotify Web API instance with the token
       spotify.setAccessToken(_spotifyToken);
-      // Optionally, fetch user data or perform other actions
       spotify
         .getMe()
         .then((user) => {})
@@ -68,12 +62,9 @@ export default function MusicApp() {
           console.error("Error fetching user data:", error);
         });
     } else {
-      // If token is not present in URL, check if it's stored in localStorage
       const storedToken = localStorage.getItem("spotifyToken");
       if (storedToken) {
-        // Set token from localStorage to component state
         setSpotifyToken(storedToken);
-        // Initialize Spotify Web API instance with the token
         spotify.setAccessToken(storedToken);
       }
     }
@@ -213,7 +204,6 @@ export default function MusicApp() {
   }
 
   async function search() {
-    //get request using search to get the artist id
     const searchParams = {
       method: "GET",
       headers: {
@@ -221,27 +211,6 @@ export default function MusicApp() {
         Authorization: `Bearer ${spotifyToken}`,
       },
     };
-
-    let artistId = await fetch(
-      "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
-      searchParams
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        return data.artists.items[0].id;
-      });
-
-    //get top tracks based on search input
-    //   let returnedTracks = await fetch(
-    //     "https://api.spotify.com/v1/artists/" +
-    //       artistId +
-    //       "/top-tracks" +
-    //       "?market=US",
-    //     searchParams
-    //   ).then((response) => response.json());
-    //   setSearchInput("");
-    //   setTracks(returnedTracks);
-    // }
 
     //get search items
     let returnedTracks = await fetch(
@@ -281,10 +250,6 @@ export default function MusicApp() {
           <MainWrapper>
             <Test>
               <Container>
-                {/* <h1>
-                Hi! Use the seachbar above to find your favorite songs and put
-                them into playlists!
-              </h1> */}
                 <Tracklist addToPlaylist={addToPlaylist} tracks={tracks} />
                 <PlaylistContainer>
                   <Playlist
