@@ -68,7 +68,7 @@ export default function Weather() {
   return (
     <main>
       <Search onSearchChange={handleOnSearchChange} />
-      {data && (
+      {data ? (
         <>
           <MainHeading>The weather for {data.city}</MainHeading>
           <Wrapper>
@@ -106,6 +106,18 @@ export default function Weather() {
           </Wrapper>
           <TemperatureChart weatherData={data} />
         </>
+      ) : (
+        <LandingWrapper>
+          <MainHeading>Use the searchbar to search for a city!</MainHeading>
+          <Showcase>
+            {images.map((image) => (
+              <ShowcaseImage key={image} src={image} />
+            ))}
+            <FunFact>
+              Fun fact: I made all the icons myself using Blender!
+            </FunFact>
+          </Showcase>
+        </LandingWrapper>
       )}
     </main>
   );
@@ -114,6 +126,13 @@ export default function Weather() {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LandingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
