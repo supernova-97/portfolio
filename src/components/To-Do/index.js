@@ -7,6 +7,7 @@ export const TODO_ACTIONS = {
   ADD_TODO: "add-todo",
   TOGGLE_TODO: "toggle-todo",
   DELETE_TODO: "delete-todo",
+  EDIT_TODO: "edit-todo",
 };
 
 function reducer(tasks, action) {
@@ -22,12 +23,21 @@ function reducer(tasks, action) {
       });
     case TODO_ACTIONS.DELETE_TODO:
       return tasks.filter((task) => task.id !== action.payload.id);
+    case TODO_ACTIONS.EDIT_TODO:
+      return tasks.map((task) => {
+        if (task.id === action.payload.id) {
+          return { ...task, todo: action.payload.todo }; // Update todo text
+        }
+        return task;
+      });
   }
 }
 
 function newTodo(todo) {
   return { id: Date.now(), todo: todo, complete: false };
 }
+
+
 
 export default function ToDo() {
   const [tasks, dispatch] = useReducer(reducer, []);
@@ -37,6 +47,10 @@ export default function ToDo() {
     e.preventDefault();
     dispatch({ type: TODO_ACTIONS.ADD_TODO, payload: { todo: todo } });
     setTodo("");
+  }
+
+  function handleEdit(id, updatedTodo) {
+    dispatch({ type: TODO_ACTIONS.EDIT_TODO, payload: { id: id, todo: updatedTodo } });
   }
 
   return (
@@ -51,7 +65,7 @@ export default function ToDo() {
         />
       </form>
       {tasks.map((task) => {
-        return <Todo key={task.id} todo={task} dispatch={dispatch} />;
+        return <Todo key={task.id} todo={task} dispatch={dispatch} onEdit={handleEdit}/>;
       })}
     </Wrapper>
   );

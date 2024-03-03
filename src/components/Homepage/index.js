@@ -49,7 +49,7 @@ const Wrapper = styled.div`
 
 const Name = styled.h1`
   font-family: "Lato", sans-serif;
-  font-weight: 100;
+  font-weight: 300;
   letter-spacing: 20px;
   font-size: 3rem;
   margin: 50px 0 10px 0;
