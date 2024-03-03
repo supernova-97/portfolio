@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
 import { geoApiOptions, GEO_API_URL } from "./api";
+import styled from "styled-components";
 
 export default function Search({ onSearchChange }) {
   const [search, setSearch] = useState(null);
@@ -20,7 +21,7 @@ export default function Search({ onSearchChange }) {
 
       const options = result.data.map((city) => ({
         value: `${city.latitude} ${city.longitude}`,
-        label: `${city.name} ${city.countryCode}`,
+        label: `${city.name}, ${city.countryCode}`,
       }));
 
       return { options }; // Return an object with the options array
@@ -31,7 +32,7 @@ export default function Search({ onSearchChange }) {
   }
 
   return (
-    <AsyncPaginate
+    <StyledAsyncPaginate
       placeholder="Search for city..."
       debounceTimeout={600}
       value={search}
@@ -40,3 +41,8 @@ export default function Search({ onSearchChange }) {
     />
   );
 }
+
+const StyledAsyncPaginate = styled(AsyncPaginate)`
+  width: 50%;
+  margin: 20px auto;
+`;
