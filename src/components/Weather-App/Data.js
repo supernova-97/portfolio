@@ -6,6 +6,8 @@ export function weatherDesc(weatherCode) {
     case 2:
       return "partially cloudy";
     case 3:
+    case 45:
+    case 48:
       return "cloudy";
     case 51:
     case 53:

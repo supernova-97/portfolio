@@ -1,15 +1,16 @@
 import React from "react";
+import { useState } from "react";
 import useSWR from "swr";
 import TemperatureChart from "./TemperatureChart";
+import Search from "./Search";
 import { weatherDesc } from "./Data";
+import { WEATHER_API_URL, WEATHER_API_KEY } from "./api";
 import styled from "styled-components";
 import sun from "../../icons/sun.png";
 import cloud from "../../icons/cloud.png";
 import rain from "../../icons/rain.png";
 import thunder from "../../icons/thunder.png";
 import snow from "../../icons/snow.png";
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const getBackgroundColor = (weather) => {
   const colorMap = {
@@ -34,22 +35,7 @@ const getBackgroundColor = (weather) => {
 };
 
 export default function Weather() {
-  const { data, error, isLoading } = useSWR(
-    "https://api.open-meteo.com/v1/forecast?latitude=52.5244&longitude=13.4105&current=temperature_2m,apparent_temperature,is_day,rain,weathercode,cloudcover,windspeed_10m,winddirection_10m&hourly=temperature_2m,apparent_temperature,weathercode,cloudcover&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&timezone=Europe%2FBerlin&forecast_days=1",
-    fetcher
-  );
-
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
-  if (error) {
-    return <h2>Oops, we've run into an error: {error.message}</h2>;
-  }
-  if (!data) {
-    return <h2>Could not fetch any data</h2>;
-  }
-
-  const weather = weatherDesc(data.current.weathercode);
+  const [data, setData] = useState("");
 
   const icons = {
     sunny: sun,
@@ -61,45 +47,66 @@ export default function Weather() {
     snow: snow,
   };
 
+  const weather = weatherDesc(data?.current?.weather_code ?? "Unknown");
+
   const images = [sun, cloud, rain, thunder, snow];
 
+  async function handleOnSearchChange(searchData) {
+    console.log("searchData", searchData);
+    const [lat, lon] = searchData.value.split(" ");
+    try {
+      const response = await fetch(
+        `${WEATHER_API_URL}/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,is_day,rain,snowfall,weather_code&hourly=temperature_2m,apparent_temperature,rain,snowfall,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FBerlin`
+      );
+      const weatherResponse = await response.json();
+      setData({ city: searchData.label, ...weatherResponse });
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+    }
+  }
+  console.log("data", data);
   return (
     <main>
-      <MainHeading>The weather for Berlin</MainHeading>
-      <Wrapper>
-        <SubWrapper weatherCode={weather}>
-          <Styledh2>Berlin</Styledh2>
-          <WeatherCode>{weather}</WeatherCode>
-          <Img src={icons[weather]} alt="weather code" />
-          <Temp>
-            {data.current.temperature_2m}
-            {data.current_units.temperature_2m}
-          </Temp>
-          <DetailsWrapper>
-            <DetailsLabel>Feels like:</DetailsLabel>
-            <DetailsValue>
-              {data.current.apparent_temperature}
-              {data.current_units.apparent_temperature}
-            </DetailsValue>
-          </DetailsWrapper>
-          <DetailsWrapper>
-            <DetailsLabel>Rain:</DetailsLabel>
-            <DetailsValue>
-              {data.current.rain}
-              {data.current_units.rain}
-            </DetailsValue>
-          </DetailsWrapper>
-        </SubWrapper>
-        <Showcase>
-          {images.map((image) => (
-            <ShowcaseImage src={image} />
-          ))}
-          <FunFact>
-            Fun fact: I made all the icons myself using Blender!
-          </FunFact>
-        </Showcase>
-      </Wrapper>
-      <TemperatureChart weatherData={data} />
+      <Search onSearchChange={handleOnSearchChange} />
+      {data && (
+        <>
+          <MainHeading>The weather for {data.city}</MainHeading>
+          <Wrapper>
+            <SubWrapper weatherCode={weather}>
+              <Styledh2>{data.city}</Styledh2>
+              <WeatherCode>{weather}</WeatherCode>
+              <Img src={icons[weather]} alt="weather code" />
+              <Temp>
+                {data.current.temperature_2m}
+                {data.current_units.temperature_2m}
+              </Temp>
+              <DetailsWrapper>
+                <DetailsLabel>Feels like:</DetailsLabel>
+                <DetailsValue>
+                  {data.current.apparent_temperature}
+                  {data.current_units.apparent_temperature}
+                </DetailsValue>
+              </DetailsWrapper>
+              <DetailsWrapper>
+                <DetailsLabel>Rain:</DetailsLabel>
+                <DetailsValue>
+                  {data.current.rain}
+                  {data.current_units.rain}
+                </DetailsValue>
+              </DetailsWrapper>
+            </SubWrapper>
+            <Showcase>
+              {images.map((image) => (
+                <ShowcaseImage key={image} src={image} />
+              ))}
+              <FunFact>
+                Fun fact: I made all the icons myself using Blender!
+              </FunFact>
+            </Showcase>
+          </Wrapper>
+          <TemperatureChart weatherData={data} />
+        </>
+      )}
     </main>
   );
 }
