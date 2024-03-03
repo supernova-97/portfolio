@@ -34,7 +34,7 @@ export default function NavBar() {
             <SubMenuItems>
               <li>
                 <NavbarLink to="/weather">
-                  <AppLink>Weather for Berlin</AppLink>
+                  <AppLink>Weather App</AppLink>
                 </NavbarLink>
               </li>
               <li>
