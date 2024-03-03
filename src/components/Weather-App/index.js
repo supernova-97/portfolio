@@ -67,10 +67,10 @@ export default function Weather() {
   console.log("data", data);
   return (
     <main>
-      <Search onSearchChange={handleOnSearchChange} />
-      {data && (
+      {data ? (
         <>
-          <MainHeading>The weather for {data.city}</MainHeading>
+          <Search onSearchChange={handleOnSearchChange} />
+          <MainHeader>The weather for {data.city}</MainHeader>
           <Wrapper>
             <SubWrapper weatherCode={weather}>
               <Styledh2>{data.city}</Styledh2>
@@ -106,6 +106,20 @@ export default function Weather() {
           </Wrapper>
           <TemperatureChart weatherData={data} />
         </>
+      ) : (
+        <LandingWrapper>
+          <MainHeader>Welcome to my weather app!</MainHeader>
+          <SubHeader>Use the searchbar to search for a city!</SubHeader>
+          <Search onSearchChange={handleOnSearchChange} />
+          <Showcase>
+            {images.map((image) => (
+              <ShowcaseImage key={image} src={image} />
+            ))}
+            <FunFact>
+              Fun fact: I made all the icons myself using Blender!
+            </FunFact>
+          </Showcase>
+        </LandingWrapper>
       )}
     </main>
   );
@@ -114,6 +128,13 @@ export default function Weather() {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LandingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
@@ -143,11 +164,18 @@ const Img = styled.img`
   position: relative;
 `;
 
-const MainHeading = styled.h1`
+const MainHeader = styled.h1`
   margin: 20px;
   font-size: 3rem;
   font-family: "Bebas Neue", sans-serif;
   text-align: center;
+`;
+
+const SubHeader = styled.h2`
+  font-family: "Lato", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 50px;
 `;
 
 const Styledh2 = styled.h2`
