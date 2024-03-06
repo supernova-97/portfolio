@@ -1,46 +1,84 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 export default function Playlist({
   playlists,
   removeFromPlaylist,
   handleSaveToSpotifyClick,
+  getPlaylists,
+  userPlaylists,
 }) {
+  const [togglePlaylists, setTogglePlaylists] = useState(true);
+
+  const allUserPlaylists = userPlaylists.items;
+  console.log("userPlaylists", userPlaylists);
+
+  function showNewPlaylists() {
+    setTogglePlaylists(true);
+  }
+
+  function showAllPlaylists() {
+    setTogglePlaylists(false);
+  }
+
   return (
     <Container>
-      <h1>Your Playlists</h1>
-      {playlists && playlists.length > 0 ? (
-        playlists.map((playlist) => (
-          <Playlists key={playlist.name}>
-            <Header>{playlist.name}</Header>
-            {playlist.songs &&
-              playlist.songs.map((song) => (
-                <SongContainer key={song.name}>
-                  <SongInfo>
-                    <Song>{song.name}</Song>
-                    <Artist>{song.artists[0].name}</Artist>
-                  </SongInfo>
-                  <DeleteButton
-                    onClick={() => removeFromPlaylist(playlist.id, song.id)}
-                  >
-                    x
-                  </DeleteButton>
-                </SongContainer>
-              ))}
-            <SaveToSpotifyButton
-              onClick={() =>
-                handleSaveToSpotifyClick(
-                  playlist.id,
-                  playlist.name,
-                  playlist.songs
-                )
-              }
-            >
-              Save to Spotify
-            </SaveToSpotifyButton>
-          </Playlists>
-        ))
+      <PlaylistsButton onClick={() => showNewPlaylists()}>
+        new Playlists
+      </PlaylistsButton>
+      <PlaylistsButton
+        onClick={() => {
+          showAllPlaylists();
+          getPlaylists();
+        }}
+      >
+        all Playlists
+      </PlaylistsButton>
+      {togglePlaylists ? (
+        playlists && playlists.length > 0 ? (
+          playlists.map((playlist) => (
+            <Playlists key={playlist.name}>
+              <Header>{playlist.name}</Header>
+              {playlist.songs &&
+                playlist.songs.map((song) => (
+                  <SongContainer key={song.name}>
+                    <SongInfo>
+                      <Song>{song.name}</Song>
+                      <Artist>{song.artists[0].name}</Artist>
+                    </SongInfo>
+                    <DeleteButton
+                      onClick={() => removeFromPlaylist(playlist.id, song.id)}
+                    >
+                      x
+                    </DeleteButton>
+                  </SongContainer>
+                ))}
+              <SaveToSpotifyButton
+                onClick={() =>
+                  handleSaveToSpotifyClick(
+                    playlist.id,
+                    playlist.name,
+                    playlist.songs
+                  )
+                }
+              >
+                Save to Spotify
+              </SaveToSpotifyButton>
+            </Playlists>
+          ))
+        ) : (
+          <AltTextPlaylist>
+            Create some playlists and save them to Spotify!
+          </AltTextPlaylist>
+        )
       ) : (
-        <AltTextPlaylist>Create some playlists and save them to Spotify!</AltTextPlaylist>
+        allUserPlaylists &&
+        allUserPlaylists.map((playlist) => (
+          <PlaylistContainer key={playlist.id}>
+            <Img src={playlist.images[0].url} />
+            <PlaylistName>{playlist.name}</PlaylistName>
+          </PlaylistContainer>
+        ))
       )}
     </Container>
   );
@@ -96,9 +134,9 @@ const Song = styled.p`
 `;
 
 const Artist = styled.p`
- font-size: 1rem;
- font-weight: 400;
-`
+  font-size: 1rem;
+  font-weight: 400;
+`;
 
 const DeleteButton = styled.button`
   border: none;
@@ -135,4 +173,47 @@ const AltTextPlaylist = styled.p`
   margin-top: 20%;
   text-align: center;
   font-size: 1.2rem;
+`;
+
+//playlists
+
+const PlaylistsButton = styled.button`
+  font-size: 1.2rem;
+  color: #fff;
+  padding: 5px 15px;
+  margin-left: 15px;
+  border: 2px solid #FF61EF;
+  border-radius: 40px;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:focus {
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.5) 23%,
+      rgba(140, 217, 255, 0) 100%
+    );
+  }
+`;
+
+const PlaylistContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 15px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 6px #00000030;
+  height: 80px;
+  width: 40%;
+`;
+
+const Img = styled.img`
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+  margin: 10px;
+`;
+
+const PlaylistName = styled.p`
+  font-weight: 600;
 `;

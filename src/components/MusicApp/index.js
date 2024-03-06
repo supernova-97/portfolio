@@ -10,6 +10,7 @@ import SavedPopUp from "./SavedPopUp";
 export default function MusicApp() {
   const [searchInput, setSearchInput] = useState("");
   const [playlists, setPlaylists] = useState([]);
+  const [userPlaylists, setUserPlaylists] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [showSavedPopup, setSavedShowPopup] = useState(false);
@@ -25,6 +26,8 @@ export default function MusicApp() {
     "user-read-email",
     "playlist-modify-public",
     "playlist-modify-private",
+    "playlist-read-private",
+    "playlist-read-collaborative",
   ];
 
   //authorization code
@@ -148,6 +151,14 @@ export default function MusicApp() {
     }
   }
 
+  const searchParams = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${spotifyToken}`,
+    },
+  };
+
   async function saveToSpotify(playlistId, playlistName, songs) {
     const response = await fetch("https://api.spotify.com/v1/me", {
       method: "GET",
@@ -193,8 +204,7 @@ export default function MusicApp() {
   }
 
   function handleSaveToSpotifyClick(playlistId, playlistName, songs) {
-    saveToSpotify(playlistId, playlistName, songs).then((createdPlaylistId) => {
-      // After saving to Spotify, filter out the playlist from playlists
+    saveToSpotify(playlistId, playlistName, songs).then(() => {
       const updatedPlaylists = playlists.filter(
         (playlist) => playlist.id !== playlistId
       );
@@ -204,14 +214,6 @@ export default function MusicApp() {
   }
 
   async function search() {
-    const searchParams = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${spotifyToken}`,
-      },
-    };
-
     //get search items
     let returnedTracks = await fetch(
       "https://api.spotify.com/v1/search?q=" +
@@ -221,6 +223,25 @@ export default function MusicApp() {
     ).then((response) => response.json());
     setSearchInput("");
     setTracks(returnedTracks);
+  }
+
+  let allPlaylists = [];
+
+  async function getPlaylists() {
+    const response = await fetch("https://api.spotify.com/v1/me", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${spotifyToken}`,
+      },
+    });
+    const data = await response.json();
+    const userId = data.id;
+
+    let returnedPlaylists = await fetch(
+      `https://api.spotify.com/v1/users/${userId}/playlists?limit=50`,
+      searchParams
+    ).then((response) => response.json());
+    setUserPlaylists(returnedPlaylists);
   }
 
   return (
@@ -248,7 +269,7 @@ export default function MusicApp() {
           </MainWrapper>
         ) : (
           <MainWrapper>
-            <Test>
+            <ContentContainer>
               <Container>
                 <Tracklist addToPlaylist={addToPlaylist} tracks={tracks} />
                 <PlaylistContainer>
@@ -257,10 +278,12 @@ export default function MusicApp() {
                     removeFromPlaylist={removeFromPlaylist}
                     playlistName={playlistName}
                     handleSaveToSpotifyClick={handleSaveToSpotifyClick}
+                    getPlaylists={getPlaylists}
+                    userPlaylists={userPlaylists}
                   />
                 </PlaylistContainer>
               </Container>
-            </Test>
+            </ContentContainer>
             <PopUp
               setShowPopup={setShowPopup}
               handleSubmit={handleSubmit}
@@ -279,19 +302,6 @@ export default function MusicApp() {
     </>
   );
 }
-
-const PlaylistContainer = styled.div`
-  height: 700px;
-  box-shadow: 0px 0px 60px 15px #ff00e580;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 0, 229, 1) 21%,
-    rgba(153, 0, 247, 1) 96%
-  );
-  width: 50%;
-  padding: 20px;
-  border-bottom-left-radius: 300px;
-`;
 
 const Main = styled.main`
   background-color: #000;
@@ -325,12 +335,25 @@ const Container = styled.div`
   padding-left: 10rem;
 `;
 
-const Test = styled.div`
+const ContentContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   width: 100%;
   padding-top: 90px;
+`;
+
+const PlaylistContainer = styled.div`
+  height: 700px;
+  box-shadow: 0px 0px 60px 15px #ff00e580;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 229, 1) 21%,
+    rgba(153, 0, 247, 1) 96%
+  );
+  width: 50%;
+  padding: 20px;
+  border-bottom-left-radius: 300px;
 `;
 
 const LogInButton = styled.a`
