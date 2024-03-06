@@ -27,14 +27,14 @@ export default function NavBar() {
           <ListItem>
             <Div>
               <Icon src={projects} />
-              <Span>Projects:</Span>
+              <Projects>Projects</Projects>
             </Div>
           </ListItem>
           <SubMenu>
             <SubMenuItems>
               <li>
                 <NavbarLink to="/weather">
-                  <AppLink>Weather Forecast</AppLink>
+                  <AppLink>Weather App</AppLink>
                 </NavbarLink>
               </li>
               <li>
@@ -114,6 +114,7 @@ const NavbarLink = styled(Link)`
   color: #fff;
   text-decoration: none;
   margin: 0;
+  z-index: 3;
 `;
 
 const Icon = styled.img`
@@ -152,6 +153,13 @@ const Span = styled.span`
   &:hover {
     color: pink;
   }
+`;
+
+const Projects = styled.span`
+  font-size: 1rem;
+  color: white;
+  margin-left: 10px;
+  display: none;
 `;
 
 const SubMenuItems = styled.ul`

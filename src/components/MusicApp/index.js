@@ -51,18 +51,13 @@ export default function MusicApp() {
   };
 
   useEffect(() => {
-    // Retrieve token from URL hash fragment
     const _spotifyToken = getTokenFromUrl().access_token;
     window.location.hash = "";
 
     if (_spotifyToken) {
-      // Save token to localStorage
       localStorage.setItem("spotifyToken", _spotifyToken);
-      // Set token in component state
       setSpotifyToken(_spotifyToken);
-      // Initialize Spotify Web API instance with the token
       spotify.setAccessToken(_spotifyToken);
-      // Optionally, fetch user data or perform other actions
       spotify
         .getMe()
         .then((user) => {})
@@ -70,12 +65,9 @@ export default function MusicApp() {
           console.error("Error fetching user data:", error);
         });
     } else {
-      // If token is not present in URL, check if it's stored in localStorage
       const storedToken = localStorage.getItem("spotifyToken");
       if (storedToken) {
-        // Set token from localStorage to component state
         setSpotifyToken(storedToken);
-        // Initialize Spotify Web API instance with the token
         spotify.setAccessToken(storedToken);
       }
     }
@@ -265,7 +257,7 @@ export default function MusicApp() {
         {!spotifyToken ? (
           <MainWrapper>
             <Intro>
-              <h1>Welcome to VibeVault!</h1>
+              <MainHeader>Welcome to VibeVault!</MainHeader>
               <h2>The place where awesome playlists are born</h2>
               <p>
                 Use this app to look up songs and create playlists. With the
@@ -323,6 +315,11 @@ const MainWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+`;
+
+const MainHeader = styled.h1`
+  margin-bottom: 30px;
+  font-size: 3rem;
 `;
 
 const Intro = styled.div`

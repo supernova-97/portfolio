@@ -60,9 +60,15 @@
 /* calculator */
 
 .calculator-body {
-  /* background: linear-gradient(to right, #e393db, #dbcd93); */
+  background: linear-gradient(
+    58.2deg,
+    rgba(40, 91, 212, 0.73) -3%,
+    rgba(171, 53, 163, 0.45) 49.3%,
+    rgba(255, 204, 112, 0.37) 97.7%
+  );
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  padding: 150px;
   display: flex;
   justify-content: center;
 }
@@ -82,7 +88,7 @@
   grid-column: 1 / -1;
   margin-bottom: 10px;
   display: flex;
-  background-color: #97daff8a;
+  background-color: #ffffff8a;
   border-radius: 5px;
   word-wrap: break-word;
   word-break: break-all;
@@ -105,7 +111,7 @@
   margin: 1px;
   border: 2px solid #00000073;
   border-radius: 5px;
-  background-color: #00f8ff4a;
+  background-color: #ffffff4a;
   cursor: pointer;
   font-size: 1.3rem;
   outline: none;
