@@ -43,6 +43,6 @@ export default function Search({ onSearchChange }) {
 }
 
 const StyledAsyncPaginate = styled(AsyncPaginate)`
-  width: 50%;
+  width: 30%;
   margin: 20px auto;
 `;

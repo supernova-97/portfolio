@@ -14,6 +14,7 @@ function reducer(tasks, action) {
   switch (action.type) {
     case TODO_ACTIONS.ADD_TODO:
       return [...tasks, newTodo(action.payload.todo)];
+
     case TODO_ACTIONS.TOGGLE_TODO:
       return tasks.map((task) => {
         if (task.id === action.payload.id) {
@@ -21,12 +22,14 @@ function reducer(tasks, action) {
         }
         return task;
       });
+
     case TODO_ACTIONS.DELETE_TODO:
       return tasks.filter((task) => task.id !== action.payload.id);
+
     case TODO_ACTIONS.EDIT_TODO:
       return tasks.map((task) => {
         if (task.id === action.payload.id) {
-          return { ...task, todo: action.payload.todo }; // Update todo text
+          return { ...task, todo: action.payload.todo };
         }
         return task;
       });
@@ -36,8 +39,6 @@ function reducer(tasks, action) {
 function newTodo(todo) {
   return { id: Date.now(), todo: todo, complete: false };
 }
-
-
 
 export default function ToDo() {
   const [tasks, dispatch] = useReducer(reducer, []);
@@ -50,7 +51,10 @@ export default function ToDo() {
   }
 
   function handleEdit(id, updatedTodo) {
-    dispatch({ type: TODO_ACTIONS.EDIT_TODO, payload: { id: id, todo: updatedTodo } });
+    dispatch({
+      type: TODO_ACTIONS.EDIT_TODO,
+      payload: { id: id, todo: updatedTodo },
+    });
   }
 
   return (
@@ -65,7 +69,14 @@ export default function ToDo() {
         />
       </form>
       {tasks.map((task) => {
-        return <Todo key={task.id} todo={task} dispatch={dispatch} onEdit={handleEdit}/>;
+        return (
+          <Todo
+            key={task.id}
+            todo={task}
+            dispatch={dispatch}
+            onEdit={handleEdit}
+          />
+        );
       })}
     </Wrapper>
   );

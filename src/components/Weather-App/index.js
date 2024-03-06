@@ -1,10 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import useSWR from "swr";
 import TemperatureChart from "./TemperatureChart";
 import Search from "./Search";
 import { weatherDesc } from "./Data";
-import { WEATHER_API_URL, WEATHER_API_KEY } from "./api";
+import { WEATHER_API_URL } from "./api";
 import styled from "styled-components";
 import sun from "../../icons/sun.png";
 import cloud from "../../icons/cloud.png";
