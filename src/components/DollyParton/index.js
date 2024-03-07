@@ -51,6 +51,10 @@ export default function DollyParton() {
           <Divider></Divider>
           <NextButton onClick={nextImage}>Next &gt;</NextButton>
         </ButtonContainer>
+        <MobileButtonContainer>
+          <MobilePrevButton onClick={prevImage}>Previous</MobilePrevButton>
+          <MobileNextButton onClick={nextImage}>Next</MobileNextButton>
+        </MobileButtonContainer>
       </MainSection>
       <ImageSection>
         {data.map((img, index) => (
@@ -156,13 +160,40 @@ const Main = styled.main`
 
     ${ImageSection} {
       width: 100%;
+      position: absolute;
     }
 
     ${Img} {
-      position: absolute;
-      top: 0;
-      left: 0;
       z-index: -1;
+    }
+
+    ${MainSection} {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    ${TextSection} {
+      padding: 20px;
+      height: fit-content;
+    }
+
+    ${Heading} {
+      font-size: 2.5rem;
+      margin: 0;
+      line-height: 40px;
+      margin-bottom: 20px;
+    }
+
+    ${Text} {
+      font-size: 1rem;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+
+    ${ButtonContainer} {
+      display: none;
     }
 
     &::before {
@@ -177,6 +208,49 @@ const Main = styled.main`
         rgba(255, 255, 255, 1) 25%,
         rgba(255, 255, 255, 0) 70%
       );
+    }
+  }
+`;
+
+const MobilePrevButton = styled.button`
+  display: none;
+`;
+
+const MobileNextButton = styled.button`
+  display: none;
+`;
+
+const MobileButtonContainer = styled.div`
+  display: none;
+
+  @media screen and (max-width: 590px) {
+    display: block;
+    z-index: 2;
+    padding: 20px;
+
+    ${MobilePrevButton} {
+      display: inline;
+      padding: 5px 25px;
+      width: 110px;
+      border-radius: 40px;
+      border: none;
+      background-color: #e7e1c0;
+      font-size: 0.9rem;
+      font-weight: 500;
+      font-family: "Roboto Slab", serif;
+      margin-right: 20px;
+    }
+
+    ${MobileNextButton} {
+      display: inline;
+      padding: 5px 25px;
+      width: 110px;
+      border-radius: 40px;
+      border: none;
+      background-color: #e7e1c0;
+      font-size: 0.9rem;
+      font-weight: 500;
+      font-family: "Roboto Slab", serif;
     }
   }
 `;
