@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 
 import { data } from "./data";
 
-
 export default function DollyParton() {
   const storedImageIndex = localStorage.getItem("imageIndex");
   const initialImageIndex = storedImageIndex
@@ -45,7 +44,7 @@ export default function DollyParton() {
       <MainSection>
         <TextSection>
           <Heading>{data[imageIndex].title}</Heading>
-          <p>{data[imageIndex].desc}</p>
+          <Text>{data[imageIndex].desc}</Text>
         </TextSection>
         <ButtonContainer>
           <PrevButton onClick={prevImage}>&lt; Previous</PrevButton>
@@ -67,14 +66,6 @@ export default function DollyParton() {
   );
 }
 
-const Main = styled.main`
-  margin-left: 8rem;
-  display: flex;
-  justify-content: space-between;
-  height: 100vh;
-  width: auto;
-`;
-
 const MainSection = styled.div`
   display: flex;
   justify-content: center;
@@ -86,6 +77,7 @@ const TextSection = styled.div`
   display: flex;
   flex-direction: column;
   height: 300px;
+  z-index: 1;
 `;
 
 const Heading = styled.h1`
@@ -95,9 +87,15 @@ const Heading = styled.h1`
   font-family: "Playfair Display";
 `;
 
+const Text = styled.p`
+  font-family: "Roboto Slab", serif;
+  font-weight: 300;
+`;
+
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
+  z-index: 1;
 `;
 
 const NextButton = styled.button`
@@ -144,4 +142,41 @@ const Img = styled.img`
   flex-shrink: 0;
   flex-grow: 0;
   transition: transform 300ms ease-in-out;
+`;
+
+const Main = styled.main`
+  margin-left: 8rem;
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  width: auto;
+
+  @media screen and (max-width: 590px) {
+    margin: 0;
+
+    ${ImageSection} {
+      width: 100%;
+    }
+
+    ${Img} {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 1) 25%,
+        rgba(255, 255, 255, 0) 70%
+      );
+    }
+  }
 `;

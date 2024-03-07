@@ -1,4 +1,5 @@
 import { Route, Routes, Link } from "react-router-dom";
+import { BurgerMenu } from "./BurgerMenu.";
 import Homepage from "../Homepage";
 import Calculator from "../Calculator";
 import Weather from "../Weather-App";
@@ -13,54 +14,53 @@ import arrow from "../../icons/arrow.png";
 export default function NavBar() {
   return (
     <>
-      <Nav>
-        <NavList>
-          <Arrow src={arrow} height="40px" width="40px" />
-          <ListItem>
-            <NavbarLink to="/">
-              <Div>
-                <Icon src={home} />
-                <Span>Home</Span>
-              </Div>
-            </NavbarLink>
-          </ListItem>
-          <ListItem>
+      <BurgerMenu />
+      <NavList>
+        <Arrow src={arrow} height="40px" width="40px" />
+        <ListItem>
+          <NavbarLink to="/">
             <Div>
-              <Icon src={projects} />
-              <Projects>Projects</Projects>
+              <Icon src={home} />
+              <Span>Home</Span>
             </Div>
-          </ListItem>
-          <SubMenu>
-            <SubMenuItems>
-              <li>
-                <NavbarLink to="/weather">
-                  <AppLink>Weather App</AppLink>
-                </NavbarLink>
-              </li>
-              <li>
-                <NavbarLink to="/dolly-parton-wiki">
-                  <AppLink>Dolly Parton Wiki</AppLink>
-                </NavbarLink>
-              </li>
-              <li>
-                <NavbarLink to="/music">
-                  <AppLink>VibeVault</AppLink>
-                </NavbarLink>
-              </li>
-              <li>
-                <NavbarLink to="/todo">
-                  <AppLink>ToDo List</AppLink>
-                </NavbarLink>
-              </li>
-              <li>
-                <NavbarLink to="/calculator">
-                  <AppLink>Calculator</AppLink>
-                </NavbarLink>
-              </li>
-            </SubMenuItems>
-          </SubMenu>
-        </NavList>
-      </Nav>
+          </NavbarLink>
+        </ListItem>
+        <ListItem>
+          <Div>
+            <Icon src={projects} />
+            <Projects>Projects</Projects>
+          </Div>
+        </ListItem>
+        <SubMenu>
+          <SubMenuItems>
+            <li>
+              <NavbarLink to="/weather">
+                <AppLink>Weather App</AppLink>
+              </NavbarLink>
+            </li>
+            <li>
+              <NavbarLink to="/dolly-parton-wiki">
+                <AppLink>Dolly Parton Wiki</AppLink>
+              </NavbarLink>
+            </li>
+            <li>
+              <NavbarLink to="/music">
+                <AppLink>VibeVault</AppLink>
+              </NavbarLink>
+            </li>
+            <li>
+              <NavbarLink to="/todo">
+                <AppLink>ToDo List</AppLink>
+              </NavbarLink>
+            </li>
+            <li>
+              <NavbarLink to="/calculator">
+                <AppLink>Calculator</AppLink>
+              </NavbarLink>
+            </li>
+          </SubMenuItems>
+        </SubMenu>
+      </NavList>
 
       <Routes>
         <Route path="/" element={<Homepage />} />
@@ -73,14 +73,6 @@ export default function NavBar() {
     </>
   );
 }
-
-const Nav = styled.nav`
-  width: 100%;
-  display: flex;
-  border-bottom: 1px solid black;
-  background-color: #dbe2ef;
-  border-radius: 0 0 10px 10px;
-`;
 
 const SubMenu = styled.div`
   display: none;
@@ -107,6 +99,10 @@ const NavList = styled.ul`
     ${SubMenu} {
       display: inline;
     }
+  }
+
+  @media screen and (max-width: 590px) {
+    display: none;
   }
 `;
 

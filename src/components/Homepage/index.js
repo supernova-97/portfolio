@@ -39,14 +39,6 @@ export default function Homepage() {
   );
 }
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
-  height: 100vh;
-`;
-
 const Name = styled.h1`
   font-family: "Lato", sans-serif;
   font-weight: 300;
@@ -82,7 +74,43 @@ const Text = styled.p`
 
 const ContentContainer = styled.div`
   padding: 30px;
+  margin-left: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  height: 100vh;
+
+  @media screen and (max-width: 590px) {
+    & ${ContentContainer} {
+      margin: 0;
+    }
+
+    & ${Name} {
+      font-weight: 300;
+      letter-spacing: 15px;
+      font-size: 2rem;
+      margin: 50px 0 10px 0;
+    }
+
+    & ${Title} {
+      font-size: 1.2rem;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+    }
+
+    & ${Image}, & ${Divider} {
+      display: none;
+    }
+
+    & ${Text} {
+      width: 100%;
+    }
+  }
 `;
