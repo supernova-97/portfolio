@@ -29,28 +29,6 @@ export default function Tracklist({ addToPlaylist, tracks }) {
   );
 }
 
-const TracksListWrapper = styled.div`
-  width: 500px;
-  height: 80vh;
-  overflow: scroll;
-  overflow-x: hidden;
-
-  &::-webkit-scrollbar {
-    width: 6px; /* Width of the entire scrollbar */
-  }
-
-  &::-webkit-scrollbar-track {
-    background: black; /* Color of the track */
-    border-radius: 10px; /* Rounded corners */
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background: darkgray; /* Color of the scrollbar handle */
-    border-radius: 10px; /* Rounded corners */
-  }
-`;
-
 const TrackWrapper = styled.div`
   display: flex;
   position: relative;
@@ -118,4 +96,59 @@ const AltTextTracklist = styled.p`
   margin-top: 40%;
   font-size: 1.2rem;
   text-align: center;
+`;
+
+const TracksListWrapper = styled.div`
+  width: 500px;
+  height: 80vh;
+  overflow: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 6px; /* Width of the entire scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: black; /* Color of the track */
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: darkgray; /* Color of the scrollbar handle */
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  @media screen and (max-width: 590px) {
+    margin-top: 40px;
+
+    ${TrackWrapper} {
+      width: 330px;
+      height: 80px;
+    }
+
+    ${AlbumCover} {
+      height: 70px;
+      width: 70px;
+    }
+
+    ${AddButton} {
+      width: 29px;
+      height: 29px;
+      margin-left: 10px;
+    }
+
+    ${TrackInfo} {
+      padding: 5px;
+    }
+
+    ${TrackName} {
+      font-size: 1rem;
+      margin: 5px 0 5px 0;
+    }
+
+    ${TrackArtist} {
+      font-size: 0.8rem;
+    }
+  }
 `;

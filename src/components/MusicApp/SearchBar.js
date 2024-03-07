@@ -33,18 +33,6 @@ export default function SearchBar({
   );
 }
 
-const Searchbar = styled.div`
-  display: flex;
-  justify-content: space-between;
-  position: fixed;
-  width: 95%;
-  align-items: center;
-  background-color: transparent;
-  margin-left: 5rem;
-  height: 90px;
-  z-index: 1;
-`;
-
 const SearchContainer = styled.div`
   width: fit-content;
 `;
@@ -101,5 +89,61 @@ const LogOutButton = styled.button`
   &:hover {
     cursor: pointer;
     box-shadow: 0px 0px 12px 1px #ffffff50;
+  }
+`;
+
+const Searchbar = styled.div`
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  width: 95%;
+  align-items: center;
+  background-color: transparent;
+  margin-left: 5rem;
+  height: 90px;
+  z-index: 1;
+
+  @media screen and (max-width: 590px) {
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(150, 27, 224, 1) 0%,
+      rgba(255, 0, 229, 1) 100%
+    );
+    border-bottom-right-radius: 80px;
+    height: 60px;
+    box-shadow: 0 0 20px #ff00e5;
+
+    ${SearchContainer} {
+      position: absolute;
+      top: 120px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+    }
+
+    ${SearchButton} {
+      margin-left: auto;
+      margin-right: 10px;
+      padding: 5px 15px;
+      margin: 0;
+    }
+
+    ${SearchInput} {
+      width: 240px;
+      height: 30px;
+      margin-right: 10px; /* Add margin between input and button */
+    }
+
+    ${LogOutButton} {
+      position: absolute;
+      left: 5px;
+      padding: 5px 15px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
   }
 `;

@@ -258,12 +258,12 @@ export default function MusicApp() {
           <MainWrapper>
             <Intro>
               <MainHeader>Welcome to VibeVault!</MainHeader>
-              <h2>The place where awesome playlists are born</h2>
-              <p>
+              <SubHeader>The place where awesome playlists are born.</SubHeader>
+              <IntroText>
                 Use this app to look up songs and create playlists. With the
                 click of a button you can save your playlist to your Spotify
                 Account.
-              </p>
+              </IntroText>
               <LogInButton href={loginUrl}>Login to Spotify</LogInButton>
             </Intro>
           </MainWrapper>
@@ -303,12 +303,6 @@ export default function MusicApp() {
   );
 }
 
-const Main = styled.main`
-  background-color: #000;
-  height: 100vh;
-  margin-left: -1rem;
-`;
-
 const MainWrapper = styled.div`
   background-color: #000;
   color: #fff;
@@ -321,6 +315,10 @@ const MainHeader = styled.h1`
   margin-bottom: 30px;
   font-size: 3rem;
 `;
+
+const SubHeader = styled.h2``;
+
+const IntroText = styled.p``;
 
 const Intro = styled.div`
   margin-top: 30vh;
@@ -369,5 +367,50 @@ const LogInButton = styled.a`
   &:hover {
     color: #fff;
     box-shadow: 0 0 16px #00000060;
+  }
+`;
+
+const Main = styled.main`
+  background-color: #000;
+  height: 100vh;
+  margin-left: -1rem;
+
+  @media screen and (max-width: 590px) {
+    margin: 0;
+
+    ${MainHeader} {
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    ${SubHeader} {
+      font-size: 1rem;
+      margin: 0;
+      font-weight: 500;
+      color: #ff00e5;
+    }
+
+    ${Intro} {
+      display: flex;
+      text-align: center;
+    }
+
+    ${IntroText} {
+      padding: 20px;
+      margin-top: 15px;
+    }
+
+    ${LogInButton} {
+      font-size: 1.3rem;
+      box-shadow: 0 0 10px #19fd00;
+    }
+
+    ${PlaylistContainer} {
+      display: none;
+    }
+
+    ${Container} {
+      padding: 10px;
+    }
   }
 `;
