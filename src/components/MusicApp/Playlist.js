@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { PlaylistMenuButton } from "./PlaylistMenuButtons";
+import Tracklist from "./Tracklist";
 
 export default function Playlist({
   playlists,
@@ -8,33 +10,22 @@ export default function Playlist({
   getPlaylists,
   userPlaylists,
 }) {
-  const [togglePlaylists, setTogglePlaylists] = useState(true);
+  const [showTracklist, setShowTracklist] = useState(false);
+  const [showNewPlaylists, setShowNewPlaylists] = useState(false);
+  const [showAllPlaylists, setShowAllPlaylists] = useState(false);
 
   const allUserPlaylists = userPlaylists.items;
-  console.log("userPlaylists", userPlaylists);
-
-  function showNewPlaylists() {
-    setTogglePlaylists(true);
-  }
-
-  function showAllPlaylists() {
-    setTogglePlaylists(false);
-  }
 
   return (
     <Container>
-      <PlaylistsButton onClick={() => showNewPlaylists()}>
-        new Playlists
-      </PlaylistsButton>
-      <PlaylistsButton
-        onClick={() => {
-          showAllPlaylists();
-          getPlaylists();
-        }}
-      >
-        all Playlists
-      </PlaylistsButton>
-      {togglePlaylists ? (
+      <PlaylistMenuButton
+        getPlaylists={getPlaylists}
+        setShowTracklist={setShowTracklist}
+        setShowNewPlaylists={setShowNewPlaylists}
+        setShowAllPlaylists={setShowAllPlaylists}
+      />
+      {showTracklist && <Tracklist />}
+      {showNewPlaylists ? (
         playlists && playlists.length > 0 ? (
           playlists.map((playlist) => (
             <Playlists key={playlist.name}>
@@ -71,7 +62,7 @@ export default function Playlist({
             Create some playlists and save them to Spotify!
           </AltTextPlaylist>
         )
-      ) : (
+      ) : showAllPlaylists ? (
         allUserPlaylists &&
         allUserPlaylists.map((playlist) => (
           <PlaylistContainer key={playlist.id}>
@@ -79,31 +70,10 @@ export default function Playlist({
             <PlaylistName>{playlist.name}</PlaylistName>
           </PlaylistContainer>
         ))
-      )}
+      ) : null}
     </Container>
   );
 }
-
-const Container = styled.div`
-  height: 70%;
-  overflow: scroll;
-  overflow-x: hidden;
-
-  &::-webkit-scrollbar {
-    width: 6px; /* Width of the entire scrollbar */
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent; /* Color of the track */
-    border-radius: 10px; /* Rounded corners */
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background: white; /* Color of the scrollbar handle */
-    border-radius: 10px; /* Rounded corners */
-  }
-`;
 
 const Playlists = styled.div`
   border: 1px solid #ffffff70;
@@ -177,25 +147,6 @@ const AltTextPlaylist = styled.p`
 
 //playlists
 
-const PlaylistsButton = styled.button`
-  font-size: 1.2rem;
-  color: #fff;
-  padding: 5px 15px;
-  margin-left: 15px;
-  border: 2px solid #FF61EF;
-  border-radius: 40px;
-  background-color: transparent;
-  cursor: pointer;
-
-  &:focus {
-    background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.5) 23%,
-      rgba(140, 217, 255, 0) 100%
-    );
-  }
-`;
-
 const PlaylistContainer = styled.div`
   display: flex;
   align-items: center;
@@ -216,4 +167,29 @@ const Img = styled.img`
 
 const PlaylistName = styled.p`
   font-weight: 600;
+`;
+
+const Container = styled.div`
+  height: 70%;
+  overflow: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 6px; /* Width of the entire scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent; /* Color of the track */
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: white; /* Color of the scrollbar handle */
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  @media screen and (max-width: 590px) {
+    display: none;
+  }
 `;
