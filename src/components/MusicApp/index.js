@@ -18,7 +18,7 @@ export default function MusicApp() {
 
   //Spotify
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
-  const REDIRECT_URI = "http://localhost:3000/music";
+  const REDIRECT_URI = "https://portfolio-project-nu-bice.vercel.app/music";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const SCOPES = [
