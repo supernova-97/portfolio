@@ -45,7 +45,7 @@ export default function Search({ onSearchChange }) {
 const StyledAsyncPaginate = styled(AsyncPaginate)`
   width: 30%;
   margin: 0 auto;
-  padding: 30px 0;
+  padding-top: 30px;
 
   @media screen and (max-width: 590px) {
     width: 80%;
