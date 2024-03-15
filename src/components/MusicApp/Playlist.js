@@ -9,11 +9,13 @@ export default function Playlist({
   handleSaveToSpotifyClick,
   getPlaylists,
   userPlaylists,
+  setShowTracklist,
+  setShowNewPlaylists,
+  setShowAllPlaylists,
+  showTracklist,
+  showNewPlaylists,
+  showAllPlaylists,
 }) {
-  const [showTracklist, setShowTracklist] = useState(false);
-  const [showNewPlaylists, setShowNewPlaylists] = useState(false);
-  const [showAllPlaylists, setShowAllPlaylists] = useState(false);
-
   const allUserPlaylists = userPlaylists.items;
 
   return (
@@ -190,6 +192,5 @@ const Container = styled.div`
   }
 
   @media screen and (max-width: 590px) {
-    display: none;
   }
 `;

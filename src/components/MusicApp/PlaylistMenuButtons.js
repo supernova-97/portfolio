@@ -5,9 +5,10 @@ export function PlaylistMenuButton({
   setShowTracklist,
   setShowNewPlaylists,
   setShowAllPlaylists,
+  className,
 }) {
   return (
-    <>
+    <Container className={className}>
       <TracklistButton
         onClick={() => {
           setShowTracklist(true);
@@ -38,7 +39,7 @@ export function PlaylistMenuButton({
       >
         All Playlists
       </PlaylistsButton>
-    </>
+    </Container>
   );
 }
 
@@ -81,5 +82,14 @@ const TracklistButton = styled.button`
 
   @media screen and (min-width: 590px) {
     display: none;
+  }
+`;
+
+const Container = styled.div`
+  @media screen and (max-width: 590px) {
+    ${TracklistButton}, ${PlaylistsButton} {
+      font-size: 0.8rem;
+      border: 2px solid #ffffff60;
+    }
   }
 `;

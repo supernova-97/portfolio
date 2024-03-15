@@ -3,9 +3,10 @@ import SpotifyWebApi from "spotify-web-api-js";
 import styled from "styled-components";
 import Tracklist from "./Tracklist";
 import Playlist from "./Playlist";
-import SearchBar from "./SearchBar";
+import SearchBar from "./NavBar";
 import PopUp from "./PopUp";
 import SavedPopUp from "./SavedPopUp";
+import { PlaylistMenuButton } from "./PlaylistMenuButtons";
 
 export default function MusicApp() {
   const [searchInput, setSearchInput] = useState("");
@@ -15,6 +16,9 @@ export default function MusicApp() {
   const [showPopup, setShowPopup] = useState(false);
   const [showSavedPopup, setSavedShowPopup] = useState(false);
   const [clickedTrack, setClickedTrack] = useState(null);
+  const [showTracklist, setShowTracklist] = useState(false);
+  const [showNewPlaylists, setShowNewPlaylists] = useState(false);
+  const [showAllPlaylists, setShowAllPlaylists] = useState(false);
 
   //Spotify
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
@@ -271,7 +275,19 @@ export default function MusicApp() {
           <MainWrapper>
             <ContentContainer>
               <Container>
-                <Tracklist addToPlaylist={addToPlaylist} tracks={tracks} />
+                <MobilePlaylistMenuButton
+                  getPlaylists={getPlaylists}
+                  setShowTracklist={setShowTracklist}
+                  setShowNewPlaylists={setShowNewPlaylists}
+                  setShowAllPlaylists={setShowAllPlaylists}
+                />
+                <Tracklist
+                  addToPlaylist={addToPlaylist}
+                  tracks={tracks}
+                  setSearchInput={setSearchInput}
+                  searchInput={searchInput}
+                  search={search}
+                />
                 <PlaylistContainer>
                   <Playlist
                     playlists={playlists}
@@ -280,6 +296,12 @@ export default function MusicApp() {
                     handleSaveToSpotifyClick={handleSaveToSpotifyClick}
                     getPlaylists={getPlaylists}
                     userPlaylists={userPlaylists}
+                    setShowTracklist={setShowTracklist}
+                    setShowNewPlaylists={setShowNewPlaylists}
+                    setShowAllPlaylists={setShowAllPlaylists}
+                    showTracklist={showTracklist}
+                    showNewPlaylists={showNewPlaylists}
+                    showAllPlaylists={showAllPlaylists}
                   />
                 </PlaylistContainer>
               </Container>
@@ -302,6 +324,13 @@ export default function MusicApp() {
     </>
   );
 }
+
+const MobilePlaylistMenuButton = styled(PlaylistMenuButton)`
+  font-size: 0.5rem;
+  @media screen and (min-width: 590px) {
+    display: none;
+  }
+`;
 
 const MainWrapper = styled.div`
   background-color: #000;
@@ -411,6 +440,11 @@ const Main = styled.main`
 
     ${Container} {
       padding: 10px;
+      flex-direction: column;
+    }
+
+    ${ContentContainer} {
+      padding-top: 70px;
     }
   }
 `;

@@ -8,10 +8,9 @@ export default function PopUp({
   handleInputChange,
   handleSubmitExisting,
 }) {
-
-  function handlePopupClose(){
+  function handlePopupClose() {
     setShowPopup(false);
-  };
+  }
 
   return (
     <>
@@ -47,22 +46,6 @@ export default function PopUp({
   );
 }
 
-const PopUpWrapper = styled.div`
-  width: 45%;
-  padding: 30px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #00000060;
-  backdrop-filter: blur(5px);
-  box-shadow: 0px 5px 20px 4px #ffffff2b;
-`;
-
 const Header = styled.h1`
   margin-bottom: 25px;
 `;
@@ -88,29 +71,29 @@ const Button = styled.button`
   padding: 5px 20px;
   border-radius: 20px;
   border: none;
-  background-color: #FF00E5;
+  background-color: #ff00e5;
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0 0 15px #FF00E5;
+    box-shadow: 0 0 15px #ff00e5;
   }
 `;
 
 const CancelButton = styled.button`
- margin: 5px;
-  font-size: .8rem;
+  margin: 5px;
+  font-size: 0.8rem;
   font-weight: 600;
   padding: 5px 20px;
   border-radius: 20px;
-  border: 1.5px solid #FF00E5;
+  border: 1.5px solid #ff00e5;
   background-color: transparent;
-  color: #FF00E5;
+  color: #ff00e5;
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0 0 15px #FF00E5;
+    box-shadow: 0 0 15px #ff00e5;
   }
-`
+`;
 
 const Divider = styled.div`
   width: 40%;
@@ -118,7 +101,7 @@ const Divider = styled.div`
   background-color: #ffffff40;
   border-radius: 30px;
   margin-top: 15px;
-`
+`;
 
 const ListItem = styled.li`
   list-style-type: none;
@@ -137,5 +120,29 @@ const PlaylistButton = styled.button`
 
   &:hover {
     box-shadow: 0 0 15px #ffffff40;
+  }
+`;
+
+const PopUpWrapper = styled.div`
+  width: 45%;
+  padding: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #00000060;
+  backdrop-filter: blur(5px);
+  box-shadow: 0px 5px 20px 4px #ffffff2b;
+
+  @media screen and (max-width: 590px) {
+    width: 90%;
+
+    ${Header} {
+      font-size: 1.5rem;
+    }
   }
 `;
