@@ -52,6 +52,7 @@ const PlaylistsButton = styled.button`
   border-radius: 40px;
   background-color: transparent;
   cursor: pointer;
+  outline: none;
 
   &:focus {
     background: linear-gradient(
@@ -59,6 +60,12 @@ const PlaylistsButton = styled.button`
       rgba(255, 255, 255, 0.5) 23%,
       rgba(140, 217, 255, 0) 100%
     );
+  }
+
+  @media screen and (max-width: 590px) {
+    font-size: 0.8rem;
+    margin: 0;
+    border: 2px solid #ffffff80;
   }
 `;
 
