@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-export default function UserPlaylists({ allUserPlaylists }) {
-  
+export default function UserPlaylists({ userPlaylists }) {
+  if (!userPlaylists) {
+    return null; // Render nothing if userPlaylists is not available yet
+  }
+  const allUserPlaylists = userPlaylists.items || [];
+
   return (
     <>
       {allUserPlaylists.map((playlist) => (

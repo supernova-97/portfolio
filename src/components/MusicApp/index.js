@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import styled from "styled-components";
 import Tracklist from "./playlists/Tracklist";
-import Playlist from "./playlists/Playlist";
 import UserPlaylists from "./playlists/UserPlaylists";
 import NewPlaylists from "./playlists/NewPlaylists";
 import SearchBar from "./navbar/NavBar";
@@ -18,11 +17,10 @@ export default function MusicApp() {
   const [showPopup, setShowPopup] = useState(false);
   const [showSavedPopup, setSavedShowPopup] = useState(false);
   const [clickedTrack, setClickedTrack] = useState(null);
-  const [showTracklist, setShowTracklist] = useState(false);
+  const [showTracklist, setShowTracklist] = useState(true);
   const [showNewPlaylists, setShowNewPlaylists] = useState(false);
   const [showAllPlaylists, setShowAllPlaylists] = useState(false);
 
-  const allUserPlaylists = userPlaylists ? userPlaylists.items : [];
 
   //Spotify
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
@@ -283,30 +281,32 @@ export default function MusicApp() {
                   setShowNewPlaylists={setShowNewPlaylists}
                   setShowAllPlaylists={setShowAllPlaylists}
                 />
-
-                <Tracklist
-                  addToPlaylist={addToPlaylist}
-                  tracks={tracks}
-                  setSearchInput={setSearchInput}
-                  searchInput={searchInput}
-                  search={search}
-                />
-
+                {showTracklist && (
+                  <Tracklist
+                    addToPlaylist={addToPlaylist}
+                    tracks={tracks}
+                    setSearchInput={setSearchInput}
+                    searchInput={searchInput}
+                    search={search}
+                  />
+                )}
                 <PlaylistContainer>
-                  <Playlist
-                    playlists={playlists}
-                    removeFromPlaylist={removeFromPlaylist}
-                    playlistName={playlistName}
-                    handleSaveToSpotifyClick={handleSaveToSpotifyClick}
+                  <DesktopPlaylistMenuButton
                     getPlaylists={getPlaylists}
-                    userPlaylists={userPlaylists}
                     setShowTracklist={setShowTracklist}
                     setShowNewPlaylists={setShowNewPlaylists}
                     setShowAllPlaylists={setShowAllPlaylists}
-                    showTracklist={showTracklist}
-                    showNewPlaylists={showNewPlaylists}
-                    showAllPlaylists={showAllPlaylists}
                   />
+                  {showNewPlaylists && (
+                    <NewPlaylists
+                      playlists={playlists}
+                      removeFromPlaylist={removeFromPlaylist}
+                      handleSaveToSpotifyClick={handleSaveToSpotifyClick}
+                    />
+                  )}
+                  {showAllPlaylists && userPlaylists && (
+                    <UserPlaylists userPlaylists={userPlaylists} />
+                  )}
                 </PlaylistContainer>
               </Container>
             </ContentContainer>
@@ -332,6 +332,12 @@ export default function MusicApp() {
 const MobilePlaylistMenuButton = styled(PlaylistMenuButton)`
   font-size: 0.5rem;
   @media screen and (min-width: 590px) {
+    display: none;
+  }
+`;
+
+const DesktopPlaylistMenuButton = styled(PlaylistMenuButton)`
+  @media screen and (max-width: 590px) {
     display: none;
   }
 `;
