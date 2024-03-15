@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export function PlaylistMenuButton({
+export function DesktopPlaylistMenuButton({
   getPlaylists,
   setShowTracklist,
   setShowNewPlaylists,
@@ -9,19 +9,8 @@ export function PlaylistMenuButton({
 }) {
   return (
     <Container className={className}>
-      <TracklistButton
-        onClick={() => {
-          setShowTracklist(true);
-          setShowNewPlaylists(false);
-          setShowAllPlaylists(false);
-        }}
-      >
-        Tracklist
-      </TracklistButton>
-
       <PlaylistsButton
         onClick={() => {
-          setShowTracklist(false);
           setShowNewPlaylists(true);
           setShowAllPlaylists(false);
         }}
@@ -31,7 +20,6 @@ export function PlaylistMenuButton({
 
       <PlaylistsButton
         onClick={() => {
-          setShowTracklist(false);
           setShowNewPlaylists(false);
           setShowAllPlaylists(true);
           getPlaylists();
@@ -94,9 +82,13 @@ const TracklistButton = styled.button`
 
 const Container = styled.div`
   @media screen and (max-width: 590px) {
+    display: none;
     ${TracklistButton}, ${PlaylistsButton} {
       font-size: 0.8rem;
       border: 2px solid #ffffff60;
     }
+  }
+
+  @media screen and (min-width: 590px) {
   }
 `;

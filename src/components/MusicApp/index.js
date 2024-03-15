@@ -7,7 +7,8 @@ import NewPlaylists from "./playlists/NewPlaylists";
 import SearchBar from "./navbar/NavBar";
 import PopUp from "./PopUp";
 import SavedPopUp from "./SavedPopUp";
-import { PlaylistMenuButton } from "./PlaylistMenuButtons";
+import { MobilePlaylistMenuButton } from "./MobilePlaylistMenuButtons";
+import { DesktopPlaylistMenuButton } from "./DesktopPlaylistMenuButton";
 
 export default function MusicApp() {
   const [searchInput, setSearchInput] = useState("");
@@ -20,7 +21,6 @@ export default function MusicApp() {
   const [showTracklist, setShowTracklist] = useState(true);
   const [showNewPlaylists, setShowNewPlaylists] = useState(false);
   const [showAllPlaylists, setShowAllPlaylists] = useState(false);
-
 
   //Spotify
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
@@ -329,18 +329,11 @@ export default function MusicApp() {
   );
 }
 
-const MobilePlaylistMenuButton = styled(PlaylistMenuButton)`
-  font-size: 0.5rem;
-  @media screen and (min-width: 590px) {
-    display: none;
-  }
-`;
-
-const DesktopPlaylistMenuButton = styled(PlaylistMenuButton)`
-  @media screen and (max-width: 590px) {
-    display: none;
-  }
-`;
+// const DesktopPlaylistMenuButton = styled(PlaylistMenuButton)`
+//   @media screen and (max-width: 590px) {
+//     display: none;
+//   }
+// `;
 
 const MainWrapper = styled.div`
   background-color: #000;
