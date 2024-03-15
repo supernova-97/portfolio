@@ -229,8 +229,6 @@ export default function MusicApp() {
     setTracks(returnedTracks);
   }
 
-  let allPlaylists = [];
-
   async function getPlaylists() {
     const response = await fetch("https://api.spotify.com/v1/me", {
       method: "GET",
