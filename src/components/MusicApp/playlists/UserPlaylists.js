@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export default function UserPlaylists({ allUserPlaylists }) {
+  
   return (
     <>
       {allUserPlaylists.map((playlist) => (

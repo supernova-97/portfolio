@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import SearchBar from "./SearchBar";
-import { SearchInput, SearchButton } from "./SearchBar";
+import SearchBar from "../navbar/SearchBar";
+import { SearchInput, SearchButton } from "../navbar/SearchBar";
 
 export default function Tracklist({
   addToPlaylist,
@@ -52,7 +52,7 @@ const MobileSearchBar = styled(SearchBar)`
 
     ${SearchInput} {
       height: 30px;
-      margin: 10px;
+      margin: 20px;
       width: 100%;
     }
 
@@ -157,7 +157,6 @@ const TracksListWrapper = styled.div`
   }
 
   @media screen and (max-width: 590px) {
-    margin-top: 10px;
     width: 100%;
 
     ${TrackWrapper} {

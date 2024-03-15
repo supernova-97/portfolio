@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import styled from "styled-components";
-import Tracklist from "./Tracklist";
-import Playlist from "./Playlist";
-import SearchBar from "./NavBar";
+import Tracklist from "./playlists/Tracklist";
+import Playlist from "./playlists/Playlist";
+import UserPlaylists from "./playlists/UserPlaylists";
+import NewPlaylists from "./playlists/NewPlaylists";
+import SearchBar from "./navbar/NavBar";
 import PopUp from "./PopUp";
 import SavedPopUp from "./SavedPopUp";
 import { PlaylistMenuButton } from "./PlaylistMenuButtons";
@@ -19,6 +21,8 @@ export default function MusicApp() {
   const [showTracklist, setShowTracklist] = useState(false);
   const [showNewPlaylists, setShowNewPlaylists] = useState(false);
   const [showAllPlaylists, setShowAllPlaylists] = useState(false);
+
+  const allUserPlaylists = userPlaylists ? userPlaylists.items : [];
 
   //Spotify
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
@@ -279,6 +283,7 @@ export default function MusicApp() {
                   setShowNewPlaylists={setShowNewPlaylists}
                   setShowAllPlaylists={setShowAllPlaylists}
                 />
+
                 <Tracklist
                   addToPlaylist={addToPlaylist}
                   tracks={tracks}
@@ -286,6 +291,7 @@ export default function MusicApp() {
                   searchInput={searchInput}
                   search={search}
                 />
+
                 <PlaylistContainer>
                   <Playlist
                     playlists={playlists}
@@ -433,7 +439,6 @@ const Main = styled.main`
     }
 
     ${PlaylistContainer} {
-      display: none;
     }
 
     ${Container} {
