@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import styled from "styled-components";
-import Tracklist from "./Tracklist";
-import Playlist from "./Playlist";
-import SearchBar from "./SearchBar";
-import PopUp from "./PopUp";
-import SavedPopUp from "./SavedPopUp";
+import SearchBar from "./navbar/NavBar";
+import DesktopPlaylistView from "./playlists/DesktopPlaylistView";
+import MobilePlaylistView from "./playlists/MobilePlaylistView";
 
 export default function MusicApp() {
   const [searchInput, setSearchInput] = useState("");
@@ -15,6 +13,9 @@ export default function MusicApp() {
   const [showPopup, setShowPopup] = useState(false);
   const [showSavedPopup, setSavedShowPopup] = useState(false);
   const [clickedTrack, setClickedTrack] = useState(null);
+  const [showTracklist, setShowTracklist] = useState(true);
+  const [showNewPlaylists, setShowNewPlaylists] = useState(false);
+  const [showAllPlaylists, setShowAllPlaylists] = useState(false);
 
   //Spotify
   const CLIENT_ID = "e0987519cb3145189af43a7c08efab24";
@@ -225,8 +226,6 @@ export default function MusicApp() {
     setTracks(returnedTracks);
   }
 
-  let allPlaylists = [];
-
   async function getPlaylists() {
     const response = await fetch("https://api.spotify.com/v1/me", {
       method: "GET",
@@ -268,35 +267,57 @@ export default function MusicApp() {
             </Intro>
           </MainWrapper>
         ) : (
-          <MainWrapper>
-            <ContentContainer>
-              <Container>
-                <Tracklist addToPlaylist={addToPlaylist} tracks={tracks} />
-                <PlaylistContainer>
-                  <Playlist
-                    playlists={playlists}
-                    removeFromPlaylist={removeFromPlaylist}
-                    playlistName={playlistName}
-                    handleSaveToSpotifyClick={handleSaveToSpotifyClick}
-                    getPlaylists={getPlaylists}
-                    userPlaylists={userPlaylists}
-                  />
-                </PlaylistContainer>
-              </Container>
-            </ContentContainer>
-            <PopUp
+          <>
+            <DesktopPlaylistView
+              getPlaylists={getPlaylists}
+              setShowTracklist={setShowTracklist}
+              setShowNewPlaylists={setShowNewPlaylists}
+              setShowAllPlaylists={setShowAllPlaylists}
+              addToPlaylist={addToPlaylist}
+              tracks={tracks}
+              setSearchInput={setSearchInput}
+              showNewPlaylists={showNewPlaylists}
+              searchInput={searchInput}
+              playlists={playlists}
+              search={search}
+              removeFromPlaylist={removeFromPlaylist}
+              handleSaveToSpotifyClick={handleSaveToSpotifyClick}
+              showAllPlaylists={showAllPlaylists}
+              userPlaylists={userPlaylists}
               setShowPopup={setShowPopup}
               handleSubmit={handleSubmit}
               showPopup={showPopup}
-              playlists={playlists}
               handleInputChange={handleInputChange}
               handleSubmitExisting={handleSubmitExisting}
-            />
-            <SavedPopUp
               showSavedPopup={showSavedPopup}
               setSavedShowPopup={setSavedShowPopup}
             />
-          </MainWrapper>
+            <MobilePlaylistView
+              getPlaylists={getPlaylists}
+              setShowTracklist={setShowTracklist}
+              setShowNewPlaylists={setShowNewPlaylists}
+              setShowAllPlaylists={setShowAllPlaylists}
+              addToPlaylist={addToPlaylist}
+              tracks={tracks}
+              setSearchInput={setSearchInput}
+              showNewPlaylists={showNewPlaylists}
+              searchInput={searchInput}
+              playlists={playlists}
+              search={search}
+              removeFromPlaylist={removeFromPlaylist}
+              handleSaveToSpotifyClick={handleSaveToSpotifyClick}
+              showAllPlaylists={showAllPlaylists}
+              userPlaylists={userPlaylists}
+              setShowPopup={setShowPopup}
+              handleSubmit={handleSubmit}
+              showPopup={showPopup}
+              handleInputChange={handleInputChange}
+              handleSubmitExisting={handleSubmitExisting}
+              showSavedPopup={showSavedPopup}
+              setSavedShowPopup={setSavedShowPopup}
+              showTracklist={showTracklist}
+            />
+          </>
         )}
       </Main>
     </>
@@ -325,33 +346,6 @@ const Intro = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-left: 10rem;
-`;
-
-const ContentContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  width: 100%;
-  padding-top: 90px;
-`;
-
-const PlaylistContainer = styled.div`
-  height: 700px;
-  box-shadow: 0px 0px 60px 15px #ff00e580;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 0, 229, 1) 21%,
-    rgba(153, 0, 247, 1) 96%
-  );
-  width: 50%;
-  padding: 20px;
-  border-bottom-left-radius: 300px;
 `;
 
 const LogInButton = styled.a`
@@ -405,12 +399,6 @@ const Main = styled.main`
       box-shadow: 0 0 10px #19fd00;
     }
 
-    ${PlaylistContainer} {
-      display: none;
-    }
-
-    ${Container} {
-      padding: 10px;
-    }
+    
   }
 `;

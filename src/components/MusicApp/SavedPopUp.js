@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
-export default function SavedPopUp({
-  showSavedPopup,
-  setSavedShowPopup,
-  handleOkayButtonClick,
-}) {
+export default function SavedPopUp({ showSavedPopup, setSavedShowPopup }) {
   function handleOkayButtonClick() {
     setSavedShowPopup(false);
   }
@@ -12,7 +8,7 @@ export default function SavedPopUp({
   return (
     showSavedPopup && (
       <Container>
-        <h2>Playlist successfully saved to Spotify!</h2>
+        <PopUpText>Playlist successfully saved to Spotify!</PopUpText>
         <OkayButton
           onClick={() => {
             handleOkayButtonClick();
@@ -38,6 +34,20 @@ const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media screen and (max-width: 590px) {
+    padding: 15px;
+    width: 90%;
+    box-shadow: 0px 0px 20px 2px #ffffff30;
+    text-align: center;
+  }
+`;
+
+const PopUpText = styled.h2`
+  @media screen and (max-width: 590px) {
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
 `;
 
 const OkayButton = styled.button`
@@ -52,5 +62,9 @@ const OkayButton = styled.button`
   &:hover {
     cursor: pointer;
     box-shadow: 0 0 15px #ff00e5;
+  }
+
+  @media screen and (max-width: 590px) {
+    font-size: 1rem;
   }
 `;

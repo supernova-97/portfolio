@@ -17,8 +17,8 @@ export default function SearchBar({
               type="text"
               placeholder="Search..."
               value={searchInput}
-              onKeyPress={(e) => {
-                if (e.key == "Enter") {
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
                   search();
                 }
               }}
@@ -94,7 +94,7 @@ const LogOutButton = styled.button`
 
 const Searchbar = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   position: fixed;
   width: 95%;
   align-items: center;
@@ -118,7 +118,7 @@ const Searchbar = styled.div`
 
     ${SearchContainer} {
       position: absolute;
-      top: 120px;
+      top: 135px;
       left: 50%;
       transform: translate(-50%, -50%);
       display: flex;

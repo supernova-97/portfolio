@@ -1,12 +1,25 @@
 import styled from "styled-components";
+import SearchBar from "../navbar/SearchBar";
+import { SearchInput, SearchButton } from "../navbar/SearchBar";
 
-export default function Tracklist({ addToPlaylist, tracks }) {
+export default function Tracklist({
+  addToPlaylist,
+  tracks,
+  setSearchInput,
+  searchInput,
+  search,
+}) {
   let trackList = [];
   if (tracks && tracks.tracks && tracks.tracks.items) {
     trackList = tracks.tracks.items;
   }
   return (
     <>
+      <MobileSearchBar
+        setSearchInput={setSearchInput}
+        searchInput={searchInput}
+        search={search}
+      />
       <TracksListWrapper>
         {trackList.length > 0 ? (
           trackList.map((track) => (
@@ -28,6 +41,30 @@ export default function Tracklist({ addToPlaylist, tracks }) {
     </>
   );
 }
+
+const MobileSearchBar = styled(SearchBar)`
+  @media screen and (max-width: 590px) {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+
+    ${SearchInput} {
+      height: 30px;
+      margin: 20px;
+      width: 100%;
+    }
+
+    ${SearchButton} {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 590px) {
+    display: none;
+  }
+`;
 
 const TrackWrapper = styled.div`
   display: flex;
@@ -120,7 +157,7 @@ const TracksListWrapper = styled.div`
   }
 
   @media screen and (max-width: 590px) {
-    margin-top: 40px;
+    width: 100%;
 
     ${TrackWrapper} {
       width: 330px;

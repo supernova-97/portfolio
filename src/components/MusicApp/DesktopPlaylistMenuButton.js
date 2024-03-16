@@ -1,26 +1,16 @@
 import styled from "styled-components";
 
-export function PlaylistMenuButton({
+export function DesktopPlaylistMenuButton({
   getPlaylists,
   setShowTracklist,
   setShowNewPlaylists,
   setShowAllPlaylists,
+  className,
 }) {
   return (
-    <>
-      <TracklistButton
-        onClick={() => {
-          setShowTracklist(true);
-          setShowNewPlaylists(false);
-          setShowAllPlaylists(false);
-        }}
-      >
-        Tracklist
-      </TracklistButton>
-
+    <Container className={className}>
       <PlaylistsButton
         onClick={() => {
-          setShowTracklist(false);
           setShowNewPlaylists(true);
           setShowAllPlaylists(false);
         }}
@@ -30,7 +20,6 @@ export function PlaylistMenuButton({
 
       <PlaylistsButton
         onClick={() => {
-          setShowTracklist(false);
           setShowNewPlaylists(false);
           setShowAllPlaylists(true);
           getPlaylists();
@@ -38,7 +27,7 @@ export function PlaylistMenuButton({
       >
         All Playlists
       </PlaylistsButton>
-    </>
+    </Container>
   );
 }
 
@@ -51,6 +40,7 @@ const PlaylistsButton = styled.button`
   border-radius: 40px;
   background-color: transparent;
   cursor: pointer;
+  outline: none;
 
   &:focus {
     background: linear-gradient(
@@ -58,6 +48,12 @@ const PlaylistsButton = styled.button`
       rgba(255, 255, 255, 0.5) 23%,
       rgba(140, 217, 255, 0) 100%
     );
+  }
+
+  @media screen and (max-width: 590px) {
+    font-size: 0.8rem;
+    margin: 0;
+    border: 2px solid #ffffff80;
   }
 `;
 
@@ -81,5 +77,18 @@ const TracklistButton = styled.button`
 
   @media screen and (min-width: 590px) {
     display: none;
+  }
+`;
+
+const Container = styled.div`
+  @media screen and (max-width: 590px) {
+    display: none;
+    ${TracklistButton}, ${PlaylistsButton} {
+      font-size: 0.8rem;
+      border: 2px solid #ffffff60;
+    }
+  }
+
+  @media screen and (min-width: 590px) {
   }
 `;
