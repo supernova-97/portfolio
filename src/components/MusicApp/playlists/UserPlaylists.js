@@ -7,16 +7,43 @@ export default function UserPlaylists({ userPlaylists }) {
   const allUserPlaylists = userPlaylists.items || [];
 
   return (
-    <>
+    <Container>
       {allUserPlaylists.map((playlist) => (
         <PlaylistContainer key={playlist.id}>
           <Img src={playlist.images[0].url} />
           <PlaylistName>{playlist.name}</PlaylistName>
         </PlaylistContainer>
       ))}
-    </>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  height: 450px;
+  overflow: scroll;
+  padding: 10px;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 6px; /* Width of the entire scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent; /* Color of the track */
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: darkgray; /* Color of the scrollbar handle */
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  @media screen and (max-width: 590px) {
+    height: 100%;
+    padding: 0;
+  }
+`;
 
 const PlaylistContainer = styled.div`
   display: flex;

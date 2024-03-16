@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import styled from "styled-components";
-import Tracklist from "./playlists/Tracklist";
-import UserPlaylists from "./playlists/UserPlaylists";
-import NewPlaylists from "./playlists/NewPlaylists";
 import SearchBar from "./navbar/NavBar";
-import PopUp from "./PopUp";
-import SavedPopUp from "./SavedPopUp";
-import { MobilePlaylistMenuButton } from "./MobilePlaylistMenuButtons";
-import { DesktopPlaylistMenuButton } from "./DesktopPlaylistMenuButton";
+import DesktopPlaylistView from "./playlists/DesktopPlaylistView";
+import MobilePlaylistView from "./playlists/MobilePlaylistView";
 
 export default function MusicApp() {
   const [searchInput, setSearchInput] = useState("");
@@ -272,59 +267,57 @@ export default function MusicApp() {
             </Intro>
           </MainWrapper>
         ) : (
-          <MainWrapper>
-            <ContentContainer>
-              <Container>
-                <MobilePlaylistMenuButton
-                  getPlaylists={getPlaylists}
-                  setShowTracklist={setShowTracklist}
-                  setShowNewPlaylists={setShowNewPlaylists}
-                  setShowAllPlaylists={setShowAllPlaylists}
-                />
-                {showTracklist && (
-                  <Tracklist
-                    addToPlaylist={addToPlaylist}
-                    tracks={tracks}
-                    setSearchInput={setSearchInput}
-                    searchInput={searchInput}
-                    search={search}
-                  />
-                )}
-                {!showTracklist && (
-                  <PlaylistContainer>
-                    <DesktopPlaylistMenuButton
-                      getPlaylists={getPlaylists}
-                      setShowTracklist={setShowTracklist}
-                      setShowNewPlaylists={setShowNewPlaylists}
-                      setShowAllPlaylists={setShowAllPlaylists}
-                    />
-                    {showNewPlaylists && (
-                      <NewPlaylists
-                        playlists={playlists}
-                        removeFromPlaylist={removeFromPlaylist}
-                        handleSaveToSpotifyClick={handleSaveToSpotifyClick}
-                      />
-                    )}
-                    {showAllPlaylists && userPlaylists && (
-                      <UserPlaylists userPlaylists={userPlaylists} />
-                    )}
-                  </PlaylistContainer>
-                )}
-              </Container>
-            </ContentContainer>
-            <PopUp
+          <>
+            <DesktopPlaylistView
+              getPlaylists={getPlaylists}
+              setShowTracklist={setShowTracklist}
+              setShowNewPlaylists={setShowNewPlaylists}
+              setShowAllPlaylists={setShowAllPlaylists}
+              addToPlaylist={addToPlaylist}
+              tracks={tracks}
+              setSearchInput={setSearchInput}
+              showNewPlaylists={showNewPlaylists}
+              searchInput={searchInput}
+              playlists={playlists}
+              search={search}
+              removeFromPlaylist={removeFromPlaylist}
+              handleSaveToSpotifyClick={handleSaveToSpotifyClick}
+              showAllPlaylists={showAllPlaylists}
+              userPlaylists={userPlaylists}
               setShowPopup={setShowPopup}
               handleSubmit={handleSubmit}
               showPopup={showPopup}
-              playlists={playlists}
               handleInputChange={handleInputChange}
               handleSubmitExisting={handleSubmitExisting}
-            />
-            <SavedPopUp
               showSavedPopup={showSavedPopup}
               setSavedShowPopup={setSavedShowPopup}
             />
-          </MainWrapper>
+            <MobilePlaylistView
+              getPlaylists={getPlaylists}
+              setShowTracklist={setShowTracklist}
+              setShowNewPlaylists={setShowNewPlaylists}
+              setShowAllPlaylists={setShowAllPlaylists}
+              addToPlaylist={addToPlaylist}
+              tracks={tracks}
+              setSearchInput={setSearchInput}
+              showNewPlaylists={showNewPlaylists}
+              searchInput={searchInput}
+              playlists={playlists}
+              search={search}
+              removeFromPlaylist={removeFromPlaylist}
+              handleSaveToSpotifyClick={handleSaveToSpotifyClick}
+              showAllPlaylists={showAllPlaylists}
+              userPlaylists={userPlaylists}
+              setShowPopup={setShowPopup}
+              handleSubmit={handleSubmit}
+              showPopup={showPopup}
+              handleInputChange={handleInputChange}
+              handleSubmitExisting={handleSubmitExisting}
+              showSavedPopup={showSavedPopup}
+              setSavedShowPopup={setSavedShowPopup}
+              showTracklist={showTracklist}
+            />
+          </>
         )}
       </Main>
     </>
@@ -353,33 +346,6 @@ const Intro = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-left: 10rem;
-`;
-
-const ContentContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  width: 100%;
-  padding-top: 90px;
-`;
-
-const PlaylistContainer = styled.div`
-  height: 700px;
-  box-shadow: 0px 0px 60px 15px #ff00e580;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 0, 229, 1) 21%,
-    rgba(153, 0, 247, 1) 96%
-  );
-  width: 50%;
-  padding: 20px;
-  border-bottom-left-radius: 300px;
 `;
 
 const LogInButton = styled.a`
@@ -433,20 +399,6 @@ const Main = styled.main`
       box-shadow: 0 0 10px #19fd00;
     }
 
-    ${PlaylistContainer} {
-      background-color: #000;
-      background: none;
-      box-shadow: none;
-      width: 100%;
-    }
-
-    ${Container} {
-      padding: 10px;
-      flex-direction: column;
-    }
-
-    ${ContentContainer} {
-      padding-top: 70px;
-    }
+    
   }
 `;
