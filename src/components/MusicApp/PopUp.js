@@ -140,6 +140,7 @@ const PopUpWrapper = styled.div`
 
   @media screen and (max-width: 590px) {
     width: 90%;
+    box-shadow: 0px 0px 20px 2px #ffffff30;
 
     ${Header} {
       font-size: 1.5rem;

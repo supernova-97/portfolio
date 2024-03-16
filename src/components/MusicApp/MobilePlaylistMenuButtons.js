@@ -26,7 +26,7 @@ export function MobilePlaylistMenuButton({
           setShowAllPlaylists(false);
         }}
       >
-        New Playlists
+        new Playlists
       </PlaylistsButton>
 
       <PlaylistsButton
@@ -37,7 +37,7 @@ export function MobilePlaylistMenuButton({
           getPlaylists();
         }}
       >
-        All Playlists
+        all Playlists
       </PlaylistsButton>
     </Container>
   );
@@ -70,10 +70,8 @@ const PlaylistsButton = styled.button`
 `;
 
 const TracklistButton = styled.button`
-  font-size: 1.2rem;
   color: #fff;
   padding: 5px 15px;
-  margin-left: 15px;
   border: 2px solid #ff61ef;
   border-radius: 40px;
   background-color: transparent;
@@ -94,11 +92,17 @@ const TracklistButton = styled.button`
 
 const Container = styled.div`
   @media screen and (max-width: 590px) {
+    display: flex;
+    justify-content: space-around;
+
     ${TracklistButton}, ${PlaylistsButton} {
       font-size: 0.8rem;
       border: 2px solid #ffffff60;
+      padding: 5px 15px;
+      width: 110px;
     }
   }
+
   @media screen and (min-width: 590px) {
     display: none;
   }

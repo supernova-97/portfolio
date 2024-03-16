@@ -41,13 +41,6 @@ export default function NewPlaylists({
   );
 }
 
-const Playlists = styled.div`
-  border: 1px solid #ffffff70;
-  border-radius: 10px;
-  margin: 20px;
-  padding: 20px;
-`;
-
 const Header = styled.h2`
   text-align: center;
 `;
@@ -102,5 +95,41 @@ const SaveToSpotifyButton = styled.button`
 
   &:hover {
     box-shadow: 0 0 15px #ffffff;
+  }
+`;
+
+const Playlists = styled.div`
+  border: 1px solid #ffffff70;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+
+  @media screen and (max-width: 590px) {
+    border: 2px solid #ff00e560;
+    box-shadow: 0 0 15px #ff00e550;
+    margin: 20px 0;
+
+    ${SongContainer} {
+      padding-top: 10px;
+    }
+
+    ${SongInfo} {
+      width: 90%;
+    }
+
+    ${Song} {
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    ${Artist} {
+      font-size: 0.8rem;
+    }
+
+    ${SaveToSpotifyButton} {
+      font-size: 0.8rem;
+      font-weight: 600;
+      align-self: center;
+    }
   }
 `;

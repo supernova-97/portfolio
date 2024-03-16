@@ -24,8 +24,6 @@ export default function SearchBar({
   );
 }
 
-export { SearchInput, SearchButton };
-
 const SearchInput = styled.input`
   height: 45px;
   font-size: 1.2rem;
@@ -68,3 +66,5 @@ export const SearchContainer = styled.div`
     display: none;
   }
 `;
+
+export { SearchInput, SearchButton };

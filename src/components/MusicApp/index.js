@@ -290,24 +290,26 @@ export default function MusicApp() {
                     search={search}
                   />
                 )}
-                <PlaylistContainer>
-                  <DesktopPlaylistMenuButton
-                    getPlaylists={getPlaylists}
-                    setShowTracklist={setShowTracklist}
-                    setShowNewPlaylists={setShowNewPlaylists}
-                    setShowAllPlaylists={setShowAllPlaylists}
-                  />
-                  {showNewPlaylists && (
-                    <NewPlaylists
-                      playlists={playlists}
-                      removeFromPlaylist={removeFromPlaylist}
-                      handleSaveToSpotifyClick={handleSaveToSpotifyClick}
+                {!showTracklist && (
+                  <PlaylistContainer>
+                    <DesktopPlaylistMenuButton
+                      getPlaylists={getPlaylists}
+                      setShowTracklist={setShowTracklist}
+                      setShowNewPlaylists={setShowNewPlaylists}
+                      setShowAllPlaylists={setShowAllPlaylists}
                     />
-                  )}
-                  {showAllPlaylists && userPlaylists && (
-                    <UserPlaylists userPlaylists={userPlaylists} />
-                  )}
-                </PlaylistContainer>
+                    {showNewPlaylists && (
+                      <NewPlaylists
+                        playlists={playlists}
+                        removeFromPlaylist={removeFromPlaylist}
+                        handleSaveToSpotifyClick={handleSaveToSpotifyClick}
+                      />
+                    )}
+                    {showAllPlaylists && userPlaylists && (
+                      <UserPlaylists userPlaylists={userPlaylists} />
+                    )}
+                  </PlaylistContainer>
+                )}
               </Container>
             </ContentContainer>
             <PopUp
@@ -328,12 +330,6 @@ export default function MusicApp() {
     </>
   );
 }
-
-// const DesktopPlaylistMenuButton = styled(PlaylistMenuButton)`
-//   @media screen and (max-width: 590px) {
-//     display: none;
-//   }
-// `;
 
 const MainWrapper = styled.div`
   background-color: #000;
@@ -438,6 +434,10 @@ const Main = styled.main`
     }
 
     ${PlaylistContainer} {
+      background-color: #000;
+      background: none;
+      box-shadow: none;
+      width: 100%;
     }
 
     ${Container} {

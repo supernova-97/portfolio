@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default function UserPlaylists({ userPlaylists }) {
   if (!userPlaylists) {
-    return null; // Render nothing if userPlaylists is not available yet
+    return null;
   }
   const allUserPlaylists = userPlaylists.items || [];
 
@@ -27,6 +27,15 @@ const PlaylistContainer = styled.div`
   box-shadow: 0 0 6px #00000030;
   height: 80px;
   width: 40%;
+
+  @media screen and (max-width: 590px) {
+    width: 90%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 0, 229, 1) 0%,
+      rgba(150, 27, 224, 0) 100%
+    );
+  }
 `;
 
 const Img = styled.img`
