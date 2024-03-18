@@ -81,7 +81,7 @@ const Span = styled.span`
   color: ${(props) => (props.complete ? "#CBD1CE" : "#000")};
   text-decoration: ${(props) => (props.complete ? "line-through" : "none")};
   word-wrap: break-word;
-  max-width: 100%; 
+  max-width: 100%;
 
   &:hover {
     cursor: pointer;
@@ -131,8 +131,12 @@ const ToDoContainer = styled.div`
   align-items: center;
   box-shadow: -3px 3px black;
   width: 30%;
-  height: auto; /* Adjust height to auto for text wrapping */
+  height: auto;
   border: 1px solid black;
   margin: 5px;
   padding: 5px;
+
+  @media screen and (max-width: 590px) {
+    width: 80%;
+  }
 `;
