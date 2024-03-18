@@ -11,6 +11,8 @@ import rain from "../../icons/rain.png";
 import thunder from "../../icons/thunder.png";
 import snow from "../../icons/snow.png";
 
+const mobileMediaQuery = "@media screen and (max-width: 590px)";
+
 const getBackgroundColor = (weather) => {
   const colorMap = {
     sunny:
@@ -63,9 +65,9 @@ export default function Weather() {
       console.error("Error fetching weather data:", error);
     }
   }
-  console.log("data", data);
+
   return (
-    <main>
+    <Main>
       {data ? (
         <>
           <Search onSearchChange={handleOnSearchChange} />
@@ -94,7 +96,7 @@ export default function Weather() {
                 </DetailsValue>
               </DetailsWrapper>
             </SubWrapper>
-            <Showcase>
+            <Showcase show={false}>
               {images.map((image) => (
                 <ShowcaseImage key={image} src={image} />
               ))}
@@ -110,7 +112,7 @@ export default function Weather() {
           <MainHeader>Welcome to my weather app!</MainHeader>
           <SubHeader>Use the searchbar to search for a city!</SubHeader>
           <Search onSearchChange={handleOnSearchChange} />
-          <Showcase>
+          <Showcase show={true}>
             {images.map((image) => (
               <ShowcaseImage key={image} src={image} />
             ))}
@@ -120,22 +122,14 @@ export default function Weather() {
           </Showcase>
         </LandingWrapper>
       )}
-    </main>
+    </Main>
   );
 }
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`;
-
-const LandingWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+const Main = styled.main`
+  @media screen and (max-width: 590px) {
+    margin: 0;
+  }
 `;
 
 const SubWrapper = styled.div`
@@ -168,6 +162,10 @@ const MainHeader = styled.h1`
   font-size: 3rem;
   font-family: "Bebas Neue", sans-serif;
   text-align: center;
+
+  @media screen and (max-width: 590px) {
+    font-size: 2rem;
+  }
 `;
 
 const SubHeader = styled.h2`
@@ -210,6 +208,10 @@ const Showcase = styled.div`
   box-shadow: 0px 10px 20px 0px #c6c6c6;
   width: 20%;
   height: fit-content;
+
+  @media screen and (max-width: 590px) {
+    display: ${({ show }) => (show ? "flex" : "none")};
+  }
 `;
 
 const ShowcaseImage = styled.img`
@@ -220,4 +222,48 @@ const ShowcaseImage = styled.img`
 const FunFact = styled.p`
   text-align: center;
   margin-top: 20px;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 590px) {
+    ${MainHeader} {
+      font-size: 2rem;
+    }
+
+    ${Styledh2} {
+      font-size: 2.2rem;
+    }
+
+    ${Img} {
+      height: 250px;
+      width: 250px;
+    }
+  }
+`;
+
+const LandingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 590px) {
+    ${MainHeader} {
+      font-size: 2rem;
+      margin-top: 50px;
+    }
+
+    ${SubHeader} {
+      font-size: 1.2rem;
+    }
+
+    ${Showcase} {
+      width: 80%;
+    }
+  }
 `;
