@@ -6,7 +6,7 @@ export default function NewPlaylists({
   handleSaveToSpotifyClick,
 }) {
   return (
-    <>
+    <Container>
       {playlists.map((playlist) => (
         <Playlists key={playlist.name}>
           <Header>{playlist.name}</Header>
@@ -37,9 +37,33 @@ export default function NewPlaylists({
           </SaveToSpotifyButton>
         </Playlists>
       ))}
-    </>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  height: 450px;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    width: 6px; /* Width of the entire scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent; /* Color of the track */
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: darkgray; /* Color of the scrollbar handle */
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  &::-webkit-scrollbar-corner {
+    display: none;
+  }
+`;
 
 const Header = styled.h2`
   text-align: center;
@@ -108,6 +132,7 @@ const Playlists = styled.div`
     border: 2px solid #ff00e560;
     box-shadow: 0 0 15px #ff00e550;
     margin: 20px 0;
+    overflow: scroll;
 
     ${SongContainer} {
       padding-top: 10px;

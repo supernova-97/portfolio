@@ -99,7 +99,6 @@ const ContentContainer = styled.div`
 `;
 
 const PlaylistContainer = styled.div`
-  height: 700px;
   box-shadow: 0px 0px 60px 15px #ff00e580;
   background: linear-gradient(
     180deg,
