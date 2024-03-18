@@ -84,6 +84,10 @@ export default function ToDo() {
 
 const Header = styled.h1`
   margin: 30px;
+
+  @media screen and (max-width: 590px) {
+
+  }
 `;
 const Wrapper = styled.div`
   display: flex;

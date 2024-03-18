@@ -125,3 +125,14 @@
 .calculator-grid > button:active {
   box-shadow: inset 0px 0px 10px -3px rgba(95, 94, 94, 0.52);
 }
+
+@media screen and (max-width: 590px) {
+  .wrapper {
+    margin-left: 0;
+    display: flex;
+  }
+
+  .calculator-grid {
+    margin: 0;
+  }
+}

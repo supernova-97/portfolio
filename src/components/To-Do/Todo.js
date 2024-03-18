@@ -83,6 +83,7 @@ const Span = styled.span`
   word-wrap: break-word;
   max-width: calc(100% - 150px);
 
+
   &:hover {
     cursor: pointer;
   }
