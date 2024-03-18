@@ -46,7 +46,7 @@ const BurgerMenuWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 3;
 
   @media screen and (min-width: 590px) {
     display: none;

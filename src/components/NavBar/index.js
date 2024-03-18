@@ -88,6 +88,7 @@ const NavList = styled.ul`
   padding: 0px;
   list-style-type: none;
   transition: 150ms ease-out;
+  z-index: 2;
 
   &:hover {
     width: 8.5rem;
