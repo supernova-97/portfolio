@@ -84,6 +84,7 @@ const MainWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  height: 500px;
 
   @media screen and (max-width: 590px) {
     display: none;
@@ -105,7 +106,7 @@ const ContentContainer = styled.div`
 `;
 
 const PlaylistContainer = styled.div`
-  height: 700px;
+  height: calc(100vh - 6rem);
   box-shadow: 0px 0px 60px 15px #ff00e580;
   background: linear-gradient(
     180deg,

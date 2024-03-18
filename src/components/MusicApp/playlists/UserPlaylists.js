@@ -39,6 +39,11 @@ const Container = styled.div`
     border-radius: 10px; /* Rounded corners */
   }
 
+  /* Hide the scrollbar corners */
+  &::-webkit-scrollbar-corner {
+    display: none;
+  }
+
   @media screen and (max-width: 590px) {
     height: 100%;
     padding: 0;

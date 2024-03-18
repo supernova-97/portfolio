@@ -110,13 +110,19 @@ const TempChart = styled.div`
   border-radius: 5px;
 `;
 
+const Canvas = styled.canvas`
+  color: white;
+  background-color: #ffffff20;
+`;
+
 const ChartWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 25px;
-`;
 
-const Canvas = styled.canvas`
-  color: white;
-  background-color: #ffffff20;
+  @media screen and (max-width: 590px) {
+    ${TempChart} {
+      width: 100%;
+    }
+  }
 `;

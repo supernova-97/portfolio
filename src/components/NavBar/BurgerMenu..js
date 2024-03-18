@@ -19,6 +19,9 @@ export function BurgerMenu() {
           <NavbarLink to="/">
             <AppName>Home</AppName>
           </NavbarLink>
+          <NavbarLink to="/weather">
+            <AppName>Weather App</AppName>
+          </NavbarLink>
           <NavbarLink to="/dolly-parton-wiki">
             <AppName>Dolly Parton Wiki</AppName>
           </NavbarLink>
