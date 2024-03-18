@@ -21,7 +21,7 @@ export default function Homepage() {
             <br />
             I started on Codecademy, then completed a 3-month bootcamp. Pretty
             soon I landed my first job which unfortunately wasn’t a good fit.
-            But I didn’t let that crush my hopes and so I started creating this
+            But I didn’t let that bring me down and so I started creating this
             portfolio project, in which I create various applications to
             practice and showcase my abilities.
             <br />

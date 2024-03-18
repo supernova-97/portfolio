@@ -60,8 +60,7 @@ const Navbar = styled.div`
   @media screen and (max-width: 590px) {
     margin: 0;
     text-align: center;
-    justify-content: flex-end;
-    flex-direction: row-reverse;
+    justify-content: space-evenly;
     width: 100%;
     background: linear-gradient(
       90deg,
